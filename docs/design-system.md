@@ -107,7 +107,8 @@ Nuxt UI is used sparingly: `UApp`, `UButton`, `UIcon`. Reach for a Nuxt UI compo
 
 ### Download resolution
 
-- `app/utils/release.ts` holds the pure `pickInstaller(release)`: matches `^Ferry-Setup-(.+)\.exe$`, never the `.blockmap`, reads the SHA-256 from the asset `digest` (`sha256:` prefix), returns `null` when there is no installer.
+- `app/utils/release.ts` holds the pure `pickInstaller(release)`: matches `^Ferry-Setup-(.+)\.exe$`, never the `.blockmap`, reads the SHA-256 from the asset `digest` (`sha256:` prefix), returns `null` when there is no installer. It also requires a `github.com/.../releases/download/` URL and a fully uploaded asset, keeps the SHA-256 only when it is 64 hex characters, and drops an unusable size, date or notes link. `keepInstaller` never replaces a newer baked release with an older one.
+- The SHA-256 comes from the same GitHub release, so the copy says it proves the file is intact, not who built it, and that GitHub's "Verified" badge is not code signing.
 - `useLatestRelease()` fetches `api.github.com/repos/<repo>/releases/latest` at prerender (baked into the HTML), refreshes once on mount, and on any failure falls back to the releases page with the label "Download from GitHub Releases".
 - The repo is `runtimeConfig.public.releaseRepo` (default `ThienNg65/ferry-release`). The build must never fail because of the API.
 - `app/utils/release.test.ts` covers the exe pick, the blockmap being ignored, a missing asset and a missing digest. Keep it passing.

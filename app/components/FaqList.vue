@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const faq = [
-  ['Why does Windows SmartScreen warn me?', 'The installer is not code-signed yet, so Windows does not recognise the publisher. Choose More info, then Run anyway. You can compare the file’s SHA-256 with the one on this page before you run it.'],
+  ['Why does Windows SmartScreen warn me?', 'The installer is not code-signed yet, so Windows does not recognise the publisher. Choose More info, then Run anyway. To check the download first, compare the file’s SHA-256 with the one on this page; a match shows the file is intact, not who built it.'],
   ['Which Windows versions does it run on?', 'Windows 10 and 11, 64-bit.'],
   ['Which servers can I connect to?', 'Any server that speaks SSH. Ferry uses SSH and SFTP only, so there is no FTP, FTPS or SCP.'],
   ['Where are my passwords kept?', 'Saved passwords are encrypted with Windows secure storage and only decrypted in memory when you connect.'],
