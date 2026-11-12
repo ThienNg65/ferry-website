@@ -26,6 +26,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 - The page makes one request to GitHub instead of four.
 - A failed refresh no longer replaces the direct installer link with the releases page.
+- The download button only uses an installer hosted on the Ferry GitHub releases, and an older or malformed release response can no longer replace a newer valid link.
+- The size no longer says "About 90 MB" in fixed text, and a missing size, date or checksum is left out instead of showing a broken value.
+- The unsigned-installer notice now explains how to check the SHA-256 in PowerShell, says a match proves the file is intact rather than who built it, and says GitHub's "Verified" badge is not code signing.
 
 ### Removed
 

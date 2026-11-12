@@ -16,7 +16,7 @@ npx serve .output/public
 
 ## How the Download button works
 
-`useLatestRelease()` asks the GitHub API for `ThienNg65/ferry-release/releases/latest` and `pickInstaller()` (in `app/utils/release.ts`) picks the `Ferry-Setup-*.exe` asset, never the `.blockmap`. The version, date, size and SHA-256 (from the asset digest) are baked into the HTML at build time. The page asks again once in the browser, so a release published after the last deploy still gets the newest link.
+`useLatestRelease()` asks the GitHub API for `ThienNg65/ferry-release/releases/latest` and `pickInstaller()` (in `app/utils/release.ts`) picks the `Ferry-Setup-*.exe` asset, never the `.blockmap`. The version, date, size and SHA-256 (from the asset digest) are baked into the HTML at build time. The page asks again once in the browser, so a release published after the last deploy still gets the newest link (GitHub caches the API for about 60 seconds; without JavaScript the baked link stays until the next deploy). The picked asset must be hosted on `github.com/.../releases/download/`, fully uploaded, and the refresh never replaces a newer release with an older one. A malformed response counts as "no installer".
 
 If the API fails, is rate limited, or the release has no installer, the button reads "Download from GitHub Releases" and links to `/releases/latest`. The build never fails because of the API.
 
