@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
+@import "./background.css";
 
 @theme static {
   --color-brand-50: #eff8ff;
@@ -14,42 +15,125 @@
   --color-brand-900: #123c73;
   --color-brand-950: #0d264d;
 
-  --color-sky: #eff8ff;
-  --color-haze: #bfe2fe;
-  --color-ink: #0e2240;
-  --color-slate-ink: #4a5b72;
-  --color-ferry: #0a84ff;
-  --color-ferry-text: #0968d6;
-  --color-deep: #0d264d;
+  --font-sans: 'Geist', 'Segoe UI Variable', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'Cascadia Code', Consolas, ui-monospace, monospace;
 
-  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
-  --font-sans: 'Instrument Sans', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
-
-  --text-step-0: 1.0625rem;
-  --text-step-1: 1.3125rem;
-  --text-step-2: 1.6875rem;
-  --text-step-3: 2.0625rem;
-  --text-step-4: 2.625rem;
-  --text-step-5: 3.25rem;
+  --text-lead: 1.25rem;
+  --text-lead--line-height: 1.6;
+  --text-body: 1.125rem;
+  --text-body--line-height: 1.65;
+  --text-small: 0.9375rem;
+  --text-small--line-height: 1.5;
 }
 
+/* Day crossing (light) and night crossing (dark). Nuxt UI reads the --ui-* variables, so its components follow the theme. */
 :root {
-  --ui-bg: var(--color-sky);
-  --ui-text: var(--color-ink);
-  --ui-text-muted: var(--color-slate-ink);
-  --ui-primary: var(--color-ferry-text);
+  --ui-bg: #eff8ff;
+  --ui-bg-muted: #e3f1fe;
+  --ui-bg-elevated: #ffffff;
+  --ui-border: #cfe3f7;
+  --ui-text: #0e2240;
+  --ui-text-highlighted: #0e2240;
+  --ui-text-muted: #4a5b72;
+  --ui-primary: #0968d6;
   --ui-radius: 0.5rem;
+  --beacon: #a35400;
+  --water: #0d264d;
+  --on-water: #ffffff;
+  --on-water-muted: #bfe2fe;
+  --glow: rgb(13 38 77 / .45);
+}
+.dark {
+  --ui-bg: #07111f;
+  --ui-bg-muted: #0a1728;
+  --ui-bg-elevated: #0d1b30;
+  --ui-border: #1c2e4a;
+  --ui-text: #c9d6ea;
+  --ui-text-highlighted: #f2f6fd;
+  --ui-text-muted: #93a4bd;
+  --ui-primary: #3d9bff;
+  --beacon: #ffb454;
+  --water: #0b2247;
+  --glow: rgb(61 155 255 / .35);
 }
 
-html { scroll-behavior: smooth; font-size: 17px; }
-body { background: var(--color-sky); color: var(--color-ink); font-family: var(--font-sans); line-height: 1.6; }
-h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.02em; line-height: 1.1; }
+@theme inline {
+  --color-beacon: var(--beacon);
+  --color-water: var(--water);
+  --color-on-water: var(--on-water);
+  --color-on-water-muted: var(--on-water-muted);
+}
 
-:focus-visible { outline: 3px solid var(--color-ferry); outline-offset: 3px; border-radius: 4px; }
+html { scroll-behavior: smooth; scroll-padding-top: 6rem; font-size: 16px; }
+/* In a layer so utility classes (text-on-water, tracking-*) can override them. */
+@layer base {
+  body { color: var(--ui-text); font-family: var(--font-sans); font-size: 1.125rem; line-height: 1.65; }
+  h1, h2, h3 { color: var(--ui-text-highlighted); text-wrap: balance; }
+  h1 { font-size: clamp(2.75rem, 5.6vw, 4.5rem); font-weight: 700; letter-spacing: -0.035em; line-height: 1.05; }
+  h2 { font-size: clamp(2rem, 3.4vw, 2.75rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.12; }
+  h3 { font-size: clamp(1.625rem, 2.4vw, 2.125rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
+}
 
-.skip-link { position: absolute; left: 1rem; top: -4rem; z-index: 100; background: var(--color-deep); color: #fff; padding: .75rem 1rem; border-radius: .5rem; }
+:focus-visible { outline: 3px solid var(--ui-primary); outline-offset: 3px; border-radius: 4px; }
+
+.skip-link { position: absolute; left: 1rem; top: -4rem; z-index: 100; background: var(--water); color: var(--on-water); padding: .75rem 1rem; border-radius: .5rem; }
 .skip-link:focus { top: 1rem; }
+
+/* One rhythm for every section; change it here, not per component. */
+@utility section-y { padding-block: 7rem; @media (min-width: 64rem) { padding-block: 10rem; } }
+@utility page-x { margin-inline: auto; max-width: 80rem; padding-inline: 1.5rem; @media (min-width: 64rem) { padding-inline: 2rem; } }
+@utility stack-head { margin-bottom: 3.5rem; & > * + * { margin-top: 1.25rem; } @media (min-width: 64rem) { margin-bottom: 4.5rem; } }
+
+/* Product windows: the coded demos. */
+.window { border: 1px solid var(--ui-border); border-radius: 14px; overflow: hidden; box-shadow: 0 40px 120px -30px var(--glow); }
+
+/* The real app is dark in both site themes, so the demos keep a fixed app palette sampled from the app. Raw hex lives only in this block. */
+.demo {
+  --bg: #1b1c1f; --line: #2c2e33; --chip: #2a2c31; --fg: #e5e7eb; --muted: #8b9099;
+  --accent: #3b82f6; --accent-text: #6aa5ff; --sel: #1e3a66; --ok: #22c55e;
+  --beacon: #ffb454; --beacon-line: #d9a23f; --warn: #f5c451; --err: #ff7b72; --info: #7dd3fc;
+  --term-bg: #1e1e1e; --term-fg: #d4d4d4; --shadow: #000;
+  background: var(--bg); color: var(--fg); border-color: #34373d;
+  font: 400 12px/1.4 'Segoe UI Variable', 'Segoe UI', system-ui, sans-serif;
+}
+@media (min-width: 640px) { .demo { font-size: 13px; } }
+.demo .mono { font-family: 'Cascadia Code', Consolas, ui-monospace, monospace; }
+.demo .crumb { display: flex; align-items: center; gap: .25rem; height: 2rem; padding: 0 .75rem; color: var(--muted); white-space: nowrap; overflow: hidden; }
+.demo .crumb b { color: var(--fg); font-weight: 600; }
+.demo .row { display: grid; grid-template-columns: 1fr; align-items: center; height: 1.75rem; padding: 0 .75rem; color: var(--fg); }
+.demo .row.head { color: var(--muted); font-weight: 600; }
+.demo .pane { container-type: inline-size; }
+.demo .row .meta, .demo .row .mod, .demo .row .perm { display: none; color: var(--muted); text-align: right; white-space: nowrap; }
+.demo .row .perm { text-align: left; }
+@container (min-width: 14rem) { .demo .row { grid-template-columns: 1fr 4rem; } .demo .row .meta { display: block; } }
+@container (min-width: 24rem) { .demo .row { grid-template-columns: 1fr 4rem 8.5rem; } .demo .row .mod { display: block; } }
+@container (min-width: 36rem) { .demo .row.r { grid-template-columns: 1fr 4rem 8.5rem 10.5rem; } .demo .row .perm { display: block; padding-left: 1rem; } }
+.demo .perm i { font-style: normal; padding: 1px 8px; border-radius: 9999px; background: var(--chip); color: var(--fg); font-size: 11px; font-weight: 600; }
+.demo .name { display: flex; align-items: center; gap: .5rem; min-width: 0; white-space: nowrap; }
+.demo .icon { width: 1rem; height: 1rem; flex: none; color: var(--accent); }
+.demo .icon.json { color: #2dd4bf; }
+.demo .row.sel { background: var(--sel); }
+.demo .row.sel .meta, .demo .row.sel .mod { color: var(--fg); }
+.demo .hit { position: relative; }
+.demo .hit::after { content: ''; position: absolute; inset: -8px -4px; }
+.demo .btn { display: inline-flex; align-items: center; justify-content: center; gap: .375rem; min-height: 2.75rem; padding: 0 .75rem; border-radius: 10px; color: var(--muted); }
+.demo .btn:hover:not(:disabled) { color: var(--fg); }
+.demo .btn[aria-pressed='true'] { color: var(--accent-text); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+.demo .bar { width: 100%; animation: bar 2.6s linear backwards; }
+.demo .type { display: inline-block; overflow: hidden; white-space: nowrap; vertical-align: bottom; animation: type 1.4s steps(30) backwards; }
+.demo .line { animation: line 250ms ease-out backwards; }
+.demo .cursor { display: inline-block; width: .6em; height: 1.1em; vertical-align: text-bottom; background: var(--beacon); animation: cursor 1s steps(1) infinite; }
+.demo .live-dot { animation: ping 1.6s ease-out infinite; }
+/* Every animated element's resting style is its finished state, so reduced motion simply drops the animation. */
+@keyframes type { from { width: 0; } }
+@keyframes cursor { 50% { opacity: 0; } }
+@keyframes bar { from { width: 0; } }
+@keyframes line { from { opacity: 0; transform: translateY(4px); } }
+@keyframes ping { 0% { box-shadow: 0 0 0 0 rgb(34 197 94 / .6); } 100% { box-shadow: 0 0 0 6px rgb(34 197 94 / 0); } }
+.demo.frozen, .demo.frozen * { animation-play-state: paused !important; }
+@media (prefers-reduced-motion: reduce) {
+  .demo, .demo * { animation: none !important; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

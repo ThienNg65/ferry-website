@@ -4,6 +4,10 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## Unreleased
 
+### Changed
+
+- Redesigned the page with dark and light themes. Six working demos in code replace the videos and screenshots, the type is now Geist, and sections have more room. The page also has a calmer background, content that fades in as you scroll, and a scrollbar in the site colours.
+
 ### Fixed
 
 - The download button only uses the Ferry installer from the Ferry GitHub releases, and an older, undated or malformed release response can no longer replace a newer valid link.
