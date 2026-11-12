@@ -1,0 +1,25 @@
+{
+  "name": "ferry-website",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "generate": "nuxt generate",
+    "preview": "npx serve .output/public",
+    "test": "vitest run",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@nuxt/ui": "^4.12.0",
+    "nuxt": "^4.4.8",
+    "tailwindcss": "^4.3.5",
+    "typescript": "^6.0.3",
+    "vue-tsc": "^3.3.14"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.5",
+    "vitest": "^5.1.0"
+  },
+  "version": "0.1.0"
+}
