@@ -12,15 +12,15 @@ const faq = [
 </script>
 
 <template>
-  <section id="faq" class="mx-auto max-w-3xl px-4 py-24 sm:px-6" aria-labelledby="faq-title">
-    <h2 id="faq-title" class="text-step-4 font-bold">Questions</h2>
-    <div class="mt-8 divide-y divide-ink/15 border-y border-ink/15">
+  <section id="faq" class="section-y mx-auto max-w-3xl px-6" aria-labelledby="faq-title">
+    <h2 id="faq-title">Questions</h2>
+    <div class="reveal mt-12 divide-y divide-default border-y border-default">
       <details v-for="[q, a] in faq" :key="q" class="group py-1">
-        <summary class="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 py-3 font-medium">
+        <summary class="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 py-5 font-medium text-highlighted">
           {{ q }}
           <UIcon name="i-lucide-chevron-down" class="size-5 shrink-0 transition-transform group-open:rotate-180" />
         </summary>
-        <p class="pb-4 text-slate-ink">{{ a }}</p>
+        <p class="pb-6 text-muted">{{ a }}</p>
       </details>
     </div>
   </section>

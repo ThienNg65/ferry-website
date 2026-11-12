@@ -1,0 +1,78 @@
+/* Page background, motion and scrollbar. The background is deliberately quiet: a flat page, a faint grid
+   and one bloom of light in the hero, a pool of light behind each demo, and toned bands.
+   Hooks: .grid-fade, .aura (hero), .pool / .pool-flip (feature rows), .band (toned section), .rise, .reveal* (motion). */
+
+:root {
+  --grid-line: rgb(13 38 77 / .07);
+  --aura: rgb(10 132 255 / .20);
+  --pool: rgb(10 132 255 / .10);
+  --scroll-thumb: #a9c8ea;
+}
+.dark {
+  --grid-line: rgb(147 197 253 / .07);
+  --aura: rgb(61 155 255 / .26);
+  --pool: rgb(61 155 255 / .13);
+  --scroll-thumb: #24406b;
+}
+
+body { background: var(--ui-bg); }
+
+/* Fine grid that fades out towards the edges. First child of a `relative isolate` section. */
+.grid-fade {
+  position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 64px 64px; background-position: center top;
+  -webkit-mask-image: radial-gradient(62% 58% at 50% 32%, #000 15%, transparent 100%); mask-image: radial-gradient(62% 58% at 50% 32%, #000 15%, transparent 100%);
+}
+
+/* One bloom of light that the hero window sits on. Child of the window's `relative` wrapper. */
+.aura {
+  position: absolute; z-index: 0; inset: -14% -12% -6%; pointer-events: none;
+  background: radial-gradient(50% 50% at 50% 52%, var(--aura), transparent 72%);
+}
+
+/* Pool of light behind a demo: .pool when the demo is on the right, plus .pool-flip when it is on the left.
+   The section around the rows needs overflow-x: clip. */
+.pool { position: relative; isolation: isolate; }
+.pool::before {
+  content: ''; position: absolute; z-index: -1; inset: -9rem -8vw; pointer-events: none;
+  background: radial-gradient(34rem 24rem at var(--pool-x, 76%) 50%, var(--pool), transparent 72%);
+}
+.pool-flip { --pool-x: 24%; }
+.pool-center { --pool-x: 50%; }
+.pool-center::before { background: radial-gradient(46rem 26rem at 50% 45%, var(--pool), transparent 72%); }
+@media (width < 64rem) { .pool { --pool-x: 50%; } .pool::before { inset: -4rem -1.5rem; } }
+
+/* Toned band, to separate sections by tone as well as by space. */
+.band { background: var(--ui-bg-muted); border-block: 1px solid var(--ui-border); }
+
+/* Motion. Page-load sequence for the hero, and reveals tied to scroll position (no JavaScript).
+   Browsers without scroll-driven animations simply show the content. Reduced motion gets none of it. */
+@keyframes rise { from { opacity: 0; transform: translateY(24px); } }
+@keyframes reveal { from { opacity: 0; transform: translate(var(--from-x, 0), var(--from-y, 28px)); } }
+@media (prefers-reduced-motion: no-preference) {
+  .rise { animation: rise 700ms cubic-bezier(.2, .7, .2, 1) both; animation-delay: var(--d, 0ms); }
+  @supports (animation-timeline: view()) {
+    .reveal, .reveal-l, .reveal-r { animation: reveal linear both; animation-timeline: view(); animation-range: entry 5% entry 45%; }
+    .reveal-l { --from-x: -36px; --from-y: 0; }
+    .reveal-r { --from-x: 36px; --from-y: 0; }
+  }
+  /* Swapping one demo for another (the deploy story). */
+  .swap-enter-active, .swap-leave-active { transition: opacity .18s ease, transform .18s ease; }
+  .swap-enter-from, .swap-leave-to { opacity: 0; transform: translateY(8px); }
+  a, button, summary { transition: color .2s ease, background-color .2s ease, border-color .2s ease, box-shadow .2s ease; }
+  /* FAQ answers open and close smoothly where the browser can animate to `auto`. */
+  :root { interpolate-size: allow-keywords; }
+  details::details-content { block-size: 0; overflow: clip; transition: block-size .3s ease, content-visibility .3s allow-discrete; }
+  details[open]::details-content { block-size: auto; }
+}
+
+/* Scrollbar in the site's colours. */
+html { scrollbar-gutter: stable; }
+@supports selector(::-webkit-scrollbar) {
+  ::-webkit-scrollbar { width: 12px; height: 12px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--scroll-thumb); background-clip: padding-box; border: 3px solid transparent; border-radius: 9999px; }
+  ::-webkit-scrollbar-thumb:hover { background-color: var(--ui-primary); }
+}
+@supports not selector(::-webkit-scrollbar) { html { scrollbar-color: var(--scroll-thumb) transparent; scrollbar-width: thin; } }

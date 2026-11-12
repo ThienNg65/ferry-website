@@ -2,25 +2,31 @@
 defineProps<{ href: string, label: string, releasesUrl: string }>()
 const links = [
   { label: 'Features', to: '#features' },
+  { label: 'Compare', to: '#compare' },
   { label: 'Download', to: '#download' },
-  { label: 'FAQ', to: '#faq' }
+  { label: 'FAQ', to: '#faq' },
+  { label: 'GitHub', to: 'https://github.com/ThienNg65/ferry-release' }
 ]
 </script>
 
 <template>
-  <header class="sticky top-0 z-50 border-b border-transparent bg-sky/90 backdrop-blur">
-    <div class="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
-      <a href="#" class="flex min-h-11 items-center gap-2.5 font-display text-xl font-bold tracking-tight text-ink">
-        <img src="/icon.webp" alt="" width="32" height="32" class="size-8 rounded-lg">
+  <header class="sticky top-4 z-50 px-3">
+    <div class="mx-auto flex h-16 max-w-5xl items-center justify-between gap-2 rounded-full border border-default bg-elevated/75 pl-3 pr-1.5 backdrop-blur-md">
+      <a href="#" class="flex min-h-11 items-center gap-2 rounded-full pr-2 text-lg font-bold tracking-tight text-highlighted">
+        <img src="/icon.webp" alt="" width="28" height="28" class="size-7 rounded-lg">
         Ferry
       </a>
-      <nav aria-label="Main" class="hidden items-center gap-1 md:flex">
-        <a v-for="l in links" :key="l.to" :href="l.to" class="flex min-h-11 items-center rounded-md px-3 text-sm font-medium text-slate-ink hover:text-ink">{{ l.label }}</a>
-        <a :href="releasesUrl.replace(/\/latest$/, '')" class="flex min-h-11 items-center rounded-md px-3 text-sm font-medium text-slate-ink hover:text-ink">Changelog</a>
-        <a href="https://github.com/ThienNg65/ferry-release" class="flex min-h-11 items-center rounded-md px-3 text-sm font-medium text-slate-ink hover:text-ink">GitHub</a>
+      <nav aria-label="Main" class="hidden items-center lg:flex">
+        <a v-for="l in links" :key="l.to" :href="l.to" class="flex min-h-11 items-center rounded-full px-3 text-small font-medium text-muted hover:text-highlighted">{{ l.label }}</a>
       </nav>
-      <UButton to="#download" label="Download" size="lg" class="min-h-11 md:hidden" />
-      <UButton :to="href" :label="label" size="lg" class="hidden min-h-11 md:inline-flex" />
+      <div class="flex items-center gap-1">
+        <ClientOnly>
+          <UColorModeButton class="size-11 justify-center rounded-full" />
+          <template #fallback><span class="block size-11" aria-hidden="true" /></template>
+        </ClientOnly>
+        <UButton to="#download" label="Download" size="lg" class="min-h-11 rounded-full px-4 md:hidden" />
+        <UButton :to="href" :label="label" size="lg" class="hidden min-h-11 rounded-full px-4 md:inline-flex" />
+      </div>
     </div>
   </header>
 </template>
