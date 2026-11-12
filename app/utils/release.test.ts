@@ -45,9 +45,14 @@ describe('pickInstaller with bad data', () => {
     expect(pickInstaller({ assets: [blockmap, { ...exe, name: 'latest.yml' }] })).toBeNull()
   })
   it('only trusts installers hosted on GitHub release downloads', () => {
-    expect(pick({ ...exe, browser_download_url: 'http://github.com/o/r/releases/download/v1/Ferry-Setup-1.exe' })).toBeNull()
-    expect(pick({ ...exe, browser_download_url: 'https://evil.test/github.com/o/r/releases/download/x' })).toBeNull()
-    expect(pick({ ...exe, browser_download_url: 'https://github.com/o/r/releases/download/v1/Ferry-Setup-1.exe' })).not.toBeNull()
+    expect(pick({ ...exe, browser_download_url: base.replace('https', 'http') + '/' + exe.name })).toBeNull()
+    expect(pick({ ...exe, browser_download_url: 'https://evil.test/github.com/ThienNg65/ferry-release/releases/download/x/' + exe.name })).toBeNull()
+  })
+  it('only trusts the configured repo and the asset’s own file name', () => {
+    const other = { ...exe, browser_download_url: `https://github.com/other/repo/releases/download/v1/${exe.name}` }
+    expect(pick(other)).toBeNull()
+    expect(pickInstaller({ assets: [other] }, 'other/repo')).not.toBeNull()
+    expect(pick({ ...exe, browser_download_url: `${base}/something-else.exe` })).toBeNull()
   })
   it('skips assets that are not fully uploaded', () => {
     expect(pick({ ...exe, state: 'starter' })).toBeNull()
@@ -69,6 +74,20 @@ describe('keepInstaller (client refresh)', () => {
   it('never rolls back to an older release', () => {
     expect(keepInstaller({ published_at: '2026-11-12T04:56:41Z', assets: [exe] }, older)).toMatchObject({ assets: [exe] })
   })
+  it('keeps a dated baked release when the refresh has no usable date', () => {
+    const baked: GithubRelease = { published_at: '2026-11-12T04:56:41Z', assets: [exe] }
+    expect(keepInstaller(baked, { assets: [{ ...exe, name: 'Ferry-Setup-0.19.0.exe', browser_download_url: `${base}/Ferry-Setup-0.19.0.exe` }] })).toBe(baked)
+    expect(keepInstaller(baked, { published_at: 'junk', assets: [exe] })).toBe(baked)
+  })
+  it('takes the refresh when the baked release has no date, or when dates are equal', () => {
+    const next: GithubRelease = { published_at: '2026-11-12T04:56:41Z', assets: [exe] }
+    expect(keepInstaller({ assets: [exe] }, next)).toBe(next)
+    expect(keepInstaller({ ...next }, next)).toBe(next)
+  })
+  it('takes the refresh over a malformed baked release', () => {
+    const next: GithubRelease = { published_at: '2026-11-12T04:56:41Z', assets: [exe] }
+    expect(keepInstaller({ assets: {} } as never, next)).toBe(next)
+  })
   it('ignores garbage', () => {
     const good = { assets: [exe] }
     expect(keepInstaller(good, 'x' as never)).toBe(good)
@@ -82,7 +101,7 @@ describe('keepInstaller (client refresh)', () => {
     expect(keepInstaller(good, { assets: [blockmap] })).toBe(good)
   })
   it('takes the refreshed release when it has an installer', () => {
-    const newer = { assets: [{ ...exe, name: 'Ferry-Setup-0.21.0.exe' }] }
+    const newer = { published_at: '2026-11-20T00:00:00Z', assets: [{ ...exe, name: 'Ferry-Setup-0.21.0.exe', browser_download_url: `${base}/Ferry-Setup-0.21.0.exe` }] }
     expect(keepInstaller(good, newer)).toBe(newer)
   })
   it('takes the refresh when nothing was baked', () => {

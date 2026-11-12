@@ -37,7 +37,7 @@ const meta = computed(() => [size.value, date.value && `released ${date.value}`]
           Windows SmartScreen may ask you to confirm before it runs. Choose <strong class="text-ink">More info</strong>, then <strong class="text-ink">Run anyway</strong>.
         </p>
         <p v-if="installer?.sha256" class="mt-2 text-slate-ink">
-          To check the file first, run <code class="font-mono text-xs text-ink">Get-FileHash .\Ferry-Setup-{{ installer.version }}.exe</code> in PowerShell and compare it with the SHA-256 above. A match means the download is intact and is the file GitHub lists. It does not show who built it.
+          To check the file first, run <code class="font-mono text-xs text-ink">Get-FileHash .\Ferry-Setup-{{ installer.version }}.exe</code> in PowerShell and compare it with the SHA-256 above (letter case does not matter). A match means the download is intact and is the file GitHub lists. It does not show who built it.
         </p>
         <p class="mt-2 text-slate-ink">
           The “Verified” badge GitHub puts on commits and tags is not a code-signing certificate, so it does not remove this warning.

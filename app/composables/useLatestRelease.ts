@@ -9,10 +9,10 @@ export function useLatestRelease() {
   const { data } = useAsyncData('latest-release', () => $fetch<GithubRelease>(api).catch(() => null), { default: () => null })
   onMounted(async () => {
     const next = await $fetch<GithubRelease>(api).catch(() => null)
-    data.value = keepInstaller(data.value, next)
+    data.value = keepInstaller(data.value, next, repo)
   })
 
-  const installer = computed(() => pickInstaller(data.value))
+  const installer = computed(() => pickInstaller(data.value, repo))
   return {
     installer,
     href: computed(() => installer.value?.url ?? page),
