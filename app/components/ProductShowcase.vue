@@ -1,12 +1,20 @@
 <script setup lang="ts">
 const tabs = [
-  { id: 'files', name: 'Files', line: 'Two panes, local and remote. Queue transfers, cap the bandwidth and keep working.', img: 'files', alt: 'Ferry file browser with a local folder on the left, a remote server folder on the right and a transfer queue below.' },
-  { id: 'terminal', name: 'Terminal', line: 'A real SSH terminal for each server, in the same window, in the colours you pick.', img: 'terminal', alt: 'Ferry terminal showing a directory listing, the last lines of a log and a process list on a remote server.' },
-  { id: 'logs', name: 'Logs', line: 'Follow a log as it is written. Filter to errors or warnings without leaving the view.', img: 'logs', alt: 'Ferry log viewer streaming live lines, with info, warning and error lines highlighted and filter buttons above.' },
-  { id: 'monitor', name: 'Monitor', line: 'See CPU, memory, disk and the busiest processes on the server, live.', img: 'monitor', alt: 'Ferry resource monitor with storage and memory bars, a CPU graph and a table of running processes.' }
+  { id: 'files', name: 'Files', line: 'Two panes, local and remote. Queue transfers, cap the bandwidth and keep working.', img: 'showcase-files', w: 2000, alt: 'Ferry file browser with a local folder on the left, a remote server folder on the right and a transfer queue below.' },
+  { id: 'terminal', name: 'Terminal', line: 'A real SSH terminal for each server, in the same window, in the colours you pick.', img: 'terminal', w: 1600, alt: 'Ferry terminal showing a directory listing, the last lines of a log and a process list on a remote server.' },
+  { id: 'logs', name: 'Logs', line: 'Follow a log as it is written. Filter to errors or warnings without leaving the view.', img: 'logs', loop: true, w: 1000, alt: 'Ferry log viewer streaming live lines, with info, warning and error lines highlighted and filter buttons above.' },
+  { id: 'monitor', name: 'Monitor', line: 'See CPU, memory, disk and the busiest processes on the server, live.', img: 'monitor', loop: true, w: 1000, alt: 'Ferry resource monitor with storage and memory bars, a CPU graph and a table of running processes.' }
 ]
 const active = ref(0)
 const tabEls = ref<HTMLElement[]>([])
+
+// Links such as #tab-logs (from the example section) select that tab; the browser scrolls to the tab button itself.
+function fromHash() {
+  const i = tabs.findIndex((t) => `#tab-${t.id}` === location.hash)
+  if (i >= 0) active.value = i
+}
+onMounted(() => { fromHash(); window.addEventListener('hashchange', fromHash) })
+onBeforeUnmount(() => window.removeEventListener('hashchange', fromHash))
 
 function onKey(e: KeyboardEvent) {
   const last = tabs.length - 1
@@ -26,11 +34,11 @@ function onKey(e: KeyboardEvent) {
     <div class="mx-auto max-w-6xl px-4 pt-4 sm:px-6">
       <h2 id="showcase-title" class="max-w-xl text-step-4 font-bold">One connection. Four ways to work.</h2>
       <div class="mt-10 grid gap-8 lg:grid-cols-[18rem_1fr]">
-        <div role="tablist" aria-label="Ferry features" aria-orientation="vertical" class="flex gap-2 overflow-x-auto lg:flex-col lg:overflow-visible" @keydown="onKey">
+        <div role="tablist" aria-label="Ferry features" aria-orientation="vertical" class="grid grid-cols-2 gap-2 lg:flex lg:flex-col" @keydown="onKey">
           <button
             v-for="(t, i) in tabs" :id="`tab-${t.id}`" :key="t.id" :ref="(el) => { if (el) tabEls[i] = el as HTMLElement }"
             type="button" role="tab" :aria-selected="active === i" :aria-controls="`panel-${t.id}`" :tabindex="active === i ? 0 : -1"
-            class="min-h-11 shrink-0 rounded-lg border-l-4 px-4 py-3 text-left transition-colors lg:shrink"
+            class="min-h-11 rounded-lg border-l-4 px-4 py-3 text-left transition-colors"
             :class="active === i ? 'border-ferry bg-white/10' : 'border-transparent hover:bg-white/5'"
             @click="active = i"
           >
@@ -45,9 +53,11 @@ function onKey(e: KeyboardEvent) {
             :class="active === i ? 'opacity-100' : 'pointer-events-none opacity-0'"
           >
             <p class="mb-4 text-haze lg:hidden">{{ t.line }}</p>
-            <picture>
+            <LoopVideo v-if="t.loop && active === i" :name="t.img" :width="1000" :height="625" :alt="t.alt" class="border border-white/15 shadow-2xl shadow-black/40 rounded-xl overflow-hidden" />
+            <img v-else-if="t.loop" :src="`/loops/${t.img}.jpg`" :width="t.w" :height="t.w / 1.6" :alt="t.alt" loading="lazy" class="h-auto w-full rounded-xl border border-white/15 shadow-2xl shadow-black/40">
+            <picture v-else>
               <source :srcset="`/screens/${t.img}.webp`" type="image/webp">
-              <img :src="`/screens/${t.img}.jpg`" width="1600" height="1000" :alt="t.alt" :loading="i === 0 ? 'eager' : 'lazy'" class="h-auto w-full rounded-xl border border-white/15 shadow-2xl shadow-black/40">
+              <img :src="`/screens/${t.img}.jpg`" :width="t.w" :height="t.w / 1.6" :alt="t.alt" :loading="i === 0 ? 'eager' : 'lazy'" class="h-auto w-full rounded-xl border border-white/15 shadow-2xl shadow-black/40">
             </picture>
           </div>
         </div>

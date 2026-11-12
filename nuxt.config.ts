@@ -20,7 +20,6 @@ export default defineNuxtConfig({
         { property: 'og:title', content: 'Ferry: a better way to work with remote servers' },
         { property: 'og:description', content: 'Transfer files, run commands, follow logs and watch your servers from one Windows app.' },
         { property: 'og:type', content: 'website' },
-        { property: 'og:image', content: '/og.jpg' },
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'theme-color', content: '#EFF8FF' }
       ],

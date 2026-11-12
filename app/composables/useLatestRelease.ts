@@ -1,16 +1,16 @@
 import type { GithubRelease } from '~/utils/release'
 
-/** Resolves the newest installer: baked in at prerender, re-fetched once on mount, falls back to the releases page. */
+/** Call once, in app.vue. Baked in at prerender, refreshed once on mount; a failed refresh keeps the baked installer. */
 export function useLatestRelease() {
   const repo = useRuntimeConfig().public.releaseRepo
   const page = releasesPage(repo)
+  const api = `https://api.github.com/repos/${repo}/releases/latest`
 
-  const { data, refresh } = useAsyncData(
-    'latest-release',
-    () => $fetch<GithubRelease>(`https://api.github.com/repos/${repo}/releases/latest`).catch(() => null),
-    { default: () => null }
-  )
-  onMounted(() => refresh())
+  const { data } = useAsyncData('latest-release', () => $fetch<GithubRelease>(api).catch(() => null), { default: () => null })
+  onMounted(async () => {
+    const next = await $fetch<GithubRelease>(api).catch(() => null)
+    data.value = keepInstaller(data.value, next)
+  })
 
   const installer = computed(() => pickInstaller(data.value))
   return {

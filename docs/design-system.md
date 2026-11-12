@@ -2,7 +2,7 @@
 
 This is the reference for anyone reviewing or extending the site. It records what exists and why. If something is not covered here, ask before inventing it, and update this file when a decision is made.
 
-Version 0.1.0. Source of truth for tokens is `app/assets/css/main.css`; for components it is `app/components/`.
+Version 0.2.0. Source of truth for tokens is `app/assets/css/main.css`; for components it is `app/components/`.
 
 ## 1. What the site is
 
@@ -11,7 +11,7 @@ A single static page (Nuxt 4, `@nuxt/ui` v4, Tailwind CSS 4, generated with `nux
 Positioning rules:
 
 - Say what Ferry does for the user ("Transfer files, run commands, follow logs and watch your servers"). Never call it a replacement or alternative for another product.
-- The installer is unsigned. Say so plainly and explain SmartScreen. Never claim it is signed, free or open source.
+- The installer is unsigned. Say so plainly and explain SmartScreen. Never claim it is signed. Ferry is MIT licensed, so "free" and the licence may be stated (FAQ, comparison table) as the v0.2 plan allows; make no telemetry or "no data collected" claim until the owner confirms it.
 - Only claim behaviour the app really has. Check `ferry/CLAUDE.md` before adding a feature line.
 
 ## 2. Colour
@@ -79,19 +79,19 @@ If you change the hero padding, change the `bottom: -6rem` offset to match.
 
 ## 6. Components
 
-Seven components, in page order. Each stays presentational and under about 150 lines. Do not add sections the plan cut (a numbered workflow, a value-prop strip, a card grid).
+Ten components, in page order. Each stays presentational and under about 150 lines. Only `app.vue` calls `useLatestRelease()` and passes what each component needs as props.
 
 | Component | Job | Notes |
 |---|---|---|
-| `SiteHeader` | Sticky header: wordmark, anchor links, Download button | Calls `useLatestRelease()`. Nav links hide below `md`. Background `bg-sky/90` with blur |
+| `SiteHeader` | Sticky header: wordmark, anchor links incl. Changelog, Download button | Below `md` the button links to `#download` |
 | `HeroWaterline` | Headline, lead, CTA, version line, the waterline window | `h1` is the only `h1`. `fetchpriority="high"`, no lazy load |
-| `ProductShowcase` | Dark band with a vertical tablist and four screenshots | See section 7 |
-| `MoreFeatures` | Four alternating image rows, then a plain two-column list | Data driven (`rows`, `list`). No cards |
-| `DownloadPanel` | Download button, size, date, SHA-256, links, unsigned notice | Calls `useLatestRelease()` |
+| `ProductShowcase` | Dark band with a tablist and four screenshots | See section 7. `#tab-<id>` links select a tab |
+| `RealWorldExample` | "A deploy broke at 6 pm": five numbered steps, each linking to a showcase tab | A real sequence, so a native `<ol>` is allowed here only |
+| `FeatureExplorer` | Six modules as alternating image/text rows with a `<dl>` of named sub-features | No card grid |
+| `CompareTable` | Honest comparison with WinSCP and MobaXterm | See section 7 |
+| `DownloadPanel` | Download button, size, date, requirements, "What's new", SHA-256, unsigned notice | Notes render as text, never `v-html` |
 | `FaqList` | Native `<details>` list | No JavaScript. Chevron rotates via `group-open` |
-| `SiteFooter` | Three link columns | Footer headings are `h2` styled small |
-
-Only `SiteHeader`, `HeroWaterline`, `DownloadPanel` and `SiteFooter` read `useLatestRelease()`; they share one cached `useAsyncData` key (`latest-release`).
+| `SiteFooter` | Link columns incl. Changelog and Licence | Footer headings are `h2` styled small |
 
 Nuxt UI is used sparingly: `UApp`, `UButton`, `UIcon`. Reach for a Nuxt UI component before writing a new control, but keep the page light.
 
@@ -112,14 +112,25 @@ Nuxt UI is used sparingly: `UApp`, `UButton`, `UIcon`. Reach for a Nuxt UI compo
 - The repo is `runtimeConfig.public.releaseRepo` (default `ThienNg65/ferry-release`). The build must never fail because of the API.
 - `app/utils/release.test.ts` covers the exe pick, the blockmap being ignored, a missing asset and a missing digest. Keep it passing.
 
+### Comparison table
+
+- Cells are copied from `.claude/plan/landing-page-v2-plan.md`. Do not add, upgrade or soften a cell; re-check the source first and update the "Checked" date.
+- A real `<table>` with a `<caption>` (screen-reader only), `scope` headers and text in every cell. Icons are decoration (`aria-hidden`); a cell starting "Yes" gets a check, "No" a dash, anything else text only.
+- The Ferry column is tinted `haze`. The first column is sticky. The table scrolls sideways inside its own wrapper (`role="region"`, `tabindex="0"`, labelled), never the page.
+- Under it: "When another tool fits better" and a sources footnote saying "Checked November 2026".
+
+### Video
+
+Not in v0.2 (deferred). If loops return: `autoplay muted loop playsinline preload="metadata"`, a poster, a keyboard-operable pause button, and the poster only under `prefers-reduced-motion`.
+
 ### Images
 
 - Real app screenshots only. No illustrations, mock terminals or fake UI.
-- Every screenshot is 1600x1000, saved as `public/screens/<name>.jpg` with a `<name>.webp` twin, used through `<picture>` with explicit `width="1600" height="1000"`.
+- v0.2 crops are exported at 2x their displayed width (`showcase-*` 2000x1250, `feature-*` as cropped). Older shots are 1600x1000 and are used only for the hero and the terminal until recaptured. Every screenshot is saved as `public/screens/<name>.jpg` with a `<name>.webp` twin, used through `<picture>` with explicit `width="1600" height="1000"`.
 - Above the fold: eager, hero `fetchpriority="high"`. Everything else `loading="lazy"`.
 - Alt text describes what the picture shows in a full sentence. The wordmark icon is decorative (`alt=""`).
 - Content rules for new shots: capture from the Docker test server, use made-up files and `example.com` hosts, local folder under a neutral path (the current set uses `C:\ferry-demo`). No real hostnames, usernames, emails, secrets or home-directory paths. Open every image and check it before keeping it.
-- Current set: `files`, `terminal`, `logs`, `monitor`, `sync`, `connection`, `palette`, `settings-appearance`, `settings-terminal`, `settings-network`, `history`, `customized`. `palette`, `settings-appearance`, `settings-network` and `customized` are captured but not used on the page yet. `og.jpg` (1200x630) is cropped from `files.jpg`.
+- Set before v0.2: `files`, `terminal`, `logs`, `monitor`, `sync`, `connection`, `palette`, `settings-appearance`, `settings-terminal`, `settings-network`, `history`, `customized`. `palette`, `settings-appearance`, `settings-network` and `customized` are captured but not used on the page yet. `og.jpg` (1200x630) is cropped from `files.jpg`.
 
 ## 8. Copy
 
@@ -165,10 +176,10 @@ Before approving a change, confirm:
 7. No console errors, no horizontal scroll.
 8. The page still never says "alternative", "signed" or "free".
 
-## 14. Known gaps (v0.1.0)
+## 14. Known gaps (v0.2.0)
 
-- Widths below 450px not exercised in a browser.
-- Reduced-motion verified from the CSS only.
-- No `og.jpg` visual check, no favicon variants beyond `favicon.ico` and `icon.png`.
-- `sync.jpg` shows stale 41 B sizes behind its dialog.
+- The Terminal showcase and explorer image is still the v0.1 `terminal.jpg`; a fresh crop could not be captured (the dev app's terminal pane drew off-screen after a viewport resize).
+- No video this round (deferred by the owner).
+- Sources for the Mobatek 10.6 blog post and the KIT HPC docs are named in the footnote without links (no URL in the plan).
 - `NUXT_PUBLIC_SITE_URL` default (`https://ferry-website.vercel.app`) is a placeholder.
+- Telemetry: the page makes no claim; the owner has not confirmed that Ferry sends no usage data.

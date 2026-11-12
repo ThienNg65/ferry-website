@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { pickInstaller } from './release'
+import { keepInstaller, parseNotes, pickInstaller } from './release'
 
 const exe = {
   name: 'Ferry-Setup-0.20.0.exe',
@@ -24,5 +24,38 @@ describe('pickInstaller', () => {
   })
   it('keeps the installer when the digest is missing', () => {
     expect(pickInstaller({ assets: [{ ...exe, digest: null }] })?.sha256).toBeNull()
+  })
+})
+
+describe('keepInstaller (client refresh)', () => {
+  const good = { published_at: '2026-11-12T04:56:41Z', assets: [exe] }
+  it('keeps the installer baked at build time when the refresh fails', () => {
+    expect(keepInstaller(good, null)).toBe(good)
+  })
+  it('keeps it when the refresh returns a release with no installer', () => {
+    expect(keepInstaller(good, { assets: [blockmap] })).toBe(good)
+  })
+  it('takes the refreshed release when it has an installer', () => {
+    const newer = { assets: [{ ...exe, name: 'Ferry-Setup-0.21.0.exe' }] }
+    expect(keepInstaller(good, newer)).toBe(newer)
+  })
+  it('takes the refresh when nothing was baked', () => {
+    expect(keepInstaller(null, good)).toBe(good)
+  })
+})
+
+describe('release notes', () => {
+  const body = '## What changed\n\n- **Sync**: preview before [copying](https://x.test)\n* Fixed `tail -F` restart\n+ Faster list\n- Fourth line\n\nPlain paragraph'
+  it('keeps the first 3 bullet lines as plain text', () => {
+    expect(parseNotes(body)).toEqual(['Sync: preview before copying', 'Fixed tail -F restart', 'Faster list'])
+  })
+  it('never keeps markup', () => {
+    expect(parseNotes('- <img src=x onerror=alert(1)> hi')).toEqual(['hi'])
+  })
+  it('returns an empty list without a body', () => {
+    expect(parseNotes(undefined)).toEqual([])
+  })
+  it('puts the notes on the installer', () => {
+    expect(pickInstaller({ body: '- One', assets: [exe] })?.notes).toEqual(['One'])
   })
 })
