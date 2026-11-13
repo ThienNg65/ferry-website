@@ -28,7 +28,7 @@ const year = new Date().getFullYear()
     </div>
     <div class="border-t border-default">
       <div class="page-x flex flex-col items-start justify-between gap-2 py-6 text-small text-muted sm:flex-row sm:items-center">
-        <p>© {{ year }} Ferry. Released under the <a :href="`${repo}/blob/main/LICENSE`" class="underline underline-offset-2 hover:text-highlighted">MIT licence</a>.</p>
+        <p>© {{ year }} Ferry. Released under the <a :href="`${repo}/blob/main/LICENSE`" class="-my-3 inline-block py-3 underline underline-offset-2 hover:text-highlighted">MIT licence</a>.</p>
         <a href="#main" class="flex min-h-11 items-center gap-1.5 hover:text-highlighted"><UIcon name="i-lucide-arrow-up" class="size-4" aria-hidden="true" />Back to top</a>
       </div>
     </div>

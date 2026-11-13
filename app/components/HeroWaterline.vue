@@ -19,7 +19,7 @@ const facts = [
       </p>
       <p class="rise mx-auto mt-10 max-w-[60ch] text-small text-muted" style="--d: 120ms">
         The installer is currently unsigned, so Windows may show a SmartScreen warning.
-        <a href="#download" class="font-medium text-primary underline underline-offset-4">Details</a>
+        <a href="#download" class="-my-3 inline-block py-3 font-medium text-primary underline underline-offset-4">Details</a>
       </p>
       <div class="rise mt-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-3" style="--d: 160ms">
         <UButton :to="href" :label="label" size="xl" icon="i-lucide-download" class="min-h-11 rounded-[10px]" />

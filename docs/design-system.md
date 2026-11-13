@@ -35,6 +35,9 @@ Two themes. Dark (the night crossing) is the default; light (the day crossing) i
 | `--grid-line` | `rgb(147 197 253 / .07)` | `rgb(13 38 77 / .07)` | `.grid-fade` | Hairline grid in the hero |
 | `--aura` | `rgb(61 155 255 / .26)` | `rgb(10 132 255 / .20)` | `.aura` | Bloom of light behind the hero window |
 | `--pool` | `rgb(61 155 255 / .13)` | `rgb(10 132 255 / .10)` | `.pool` | Pool of light behind a feature demo |
+| `--ambient-line` | `rgb(147 197 253 / .12)` | `rgb(10 132 255 / .14)` | `.ambient-path` | Fine connection lines in the ambient layer |
+| `--ambient-node` | `rgb(147 197 253 / .30)` | `rgb(10 132 255 / .30)` | `.ambient-node` | Small nodes on the lines |
+| `--ambient-pulse` | `rgb(96 175 255 / .60)` | `rgb(10 132 255 / .55)` | `.ambient-pulse` | Soft signal travelling along a line |
 | `--scroll-thumb` | `#24406b` | `#a9c8ea` | scrollbar | Scrollbar thumb |
 
 The `brand-50` to `brand-950` scale stays as Nuxt UI's `primary` scale (`app/app.config.ts`: `primary: 'brand'`, `neutral: 'slate'`); the `--ui-primary` overrides above pick the exact text-safe shade per theme.
@@ -91,7 +94,20 @@ Background layers (all static):
 1. Grid: `.grid-fade`, an `aria-hidden` div as the first child of the hero (`relative isolate overflow-x-clip`). A 64px hairline grid in `--grid-line`, masked so it fades out towards the edges.
 2. Aura: `.aura`, an `aria-hidden` div behind the hero window, one bloom of light in `--aura`.
 3. Pools: `.pool` on each feature block, with `.pool-flip` when the demo is on the left and `.pool-center` for the wide blocks. The features section needs `overflow-x-clip`.
-4. Bands: `.band` on `#example` and `#download` (muted background plus hairline borders).
+4. Bands: `.band` on `#example` and `#download` (muted background at 65% so the ambient layer reads through, plus hairline borders).
+5. Ambient connection layer ("Hybrid Current"): `AmbientConnectionBackground`, mounted once in `app.vue`. A fixed, `aria-hidden`, `pointer-events: none` layer (`z-index: -1`) that reads left to right as source, connection, destination: two source nodes on the left, two destination nodes on the right, a relay node on each of two arcs, and a faint crossing path. Blue only, never amber, and it never implies a connection state. A mask keeps the lines quiet behind the headline and CTA. The server renders the finished static picture; the component sets `data-section` from the section in view and `data-side` (where the feature demo is: `l`, `r` or `c`), and CSS sets the emphasis (opacity only, so themes never flash):
+
+   | Section | Layer opacity | Notes |
+   | --- | --- | --- |
+   | hero | 1 | Pointer light (.6) and shift; both arcs pulse |
+   | `#features` | .6 | A rail on the side of the demo in view (both at .6 for wide rows); both arcs pulse |
+   | `#example` | .5 | One quiet pulse, on the lower arc |
+   | `#compare` | .12 | No pulse |
+   | `#download` | .8 | Four paths converge on one hub; both arcs pulse |
+   | `#faq` | .16 | No pulse |
+   | footer | .06 | No pulse |
+
+   Pointer: only in the hero, on a fine pointer at 64rem and up. A light (translated, not a cursor spotlight) and a shift of at most 8px ease towards the pointer through `useRafFn`, which stops itself once settled. Leaving the hero eases back to centre. Pulses: entering a section replays one left-to-right pass of the pulses (4s plus a .5s stagger; neighbouring sections use different keyframe names so it restarts), then the layer is still. Motion therefore ends within 5 seconds and needs no pause control (section 10). A hidden tab pauses a pass in flight (`data-paused`). Below 64rem (phones and tablets) a separate static vertical SVG is shown instead (two sources at the top, a relay, two destinations at the bottom): no pulse, no pointer, and no light below 40rem or on coarse pointers. Under `prefers-reduced-motion` the lines and nodes stay static, with no transition, pulse or pointer tracking.
 
 Motion (none of it runs under `prefers-reduced-motion`):
 
@@ -161,7 +177,7 @@ Nuxt UI is used sparingly: `UApp`, `UButton`, `UIcon`, `UColorModeButton`. VueUs
 
 ## 9. Banned list
 
-Do not add: all-caps eyebrows, a single highlighted word in a headline, `→` appended to buttons, numbered step markers, hover-lift cards, gradient blobs, beacon used as decoration, animated background layers, reveals that need JavaScript, analytics, pricing claims, Inter, a display typeface or system-default type.
+Do not add: all-caps eyebrows, a single highlighted word in a headline, `→` appended to buttons, numbered step markers, hover-lift cards, gradient blobs, beacon used as decoration, any animated background layer other than the ambient connection layer (section 5), reveals that need JavaScript, analytics, pricing claims, Inter, a display typeface or system-default type.
 
 ## 10. Accessibility floor
 
@@ -170,7 +186,8 @@ Do not add: all-caps eyebrows, a single highlighted word in a headline, `→` ap
 - Touch targets at least 44px (`min-h-11`), including the buttons. The exception is the dense rows and pills inside the demos, which keep the app's compact size and get an extended hit area (section 7).
 - Contrast at least 4.5:1 (see section 2).
 - `prefers-reduced-motion: reduce` turns off the rise animation, the chevron rotation and smooth scrolling (global rule in `main.css`) and shows every demo's finished state without movement.
-- Anything that moves for more than 5 seconds has a pause control (the hero, Logs and Monitor).
+- Anything that moves for more than 5 seconds has a pause control (the hero, Logs and Monitor). The ambient pulse stops within 5 seconds of each section change, so it needs none.
+- Inline links in a sentence may be text height (WCAG 2.5.8 inline exception) only when the sentence is the content; link lists such as sources get `min-h-11`, and lone links in a short line get an extended hit area (`-my-3 inline-block py-3`).
 - FAQ uses native `<details>`; keep it that way.
 
 ## 11. Responsive
