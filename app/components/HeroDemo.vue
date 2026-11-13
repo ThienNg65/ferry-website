@@ -5,7 +5,7 @@ const { scene, frozen, running, reduced, root, pick, toggle } = useDemoLoop({ co
 </script>
 
 <template>
-  <DemoWindow ref="root" label="Ferry window, working illustration" :frozen>
+  <DemoWindow ref="root" label="Ferry window, interactive preview" :frozen>
     <DemoFiles compact :send="scene === 0 ? 'releases' : ''" />
     <div class="border-t border-[var(--line)]">
       <div class="flex items-center gap-1 px-1.5">
@@ -24,6 +24,6 @@ const { scene, frozen, running, reduced, root, pick, toggle } = useDemoLoop({ co
         <DemoLogs v-else compact />
       </div>
     </div>
-    <template #caption>An illustration of the Ferry window. It is built in code, not recorded.</template>
+    <template #caption>Interactive preview · Sample data</template>
   </DemoWindow>
 </template>

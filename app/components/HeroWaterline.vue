@@ -17,14 +17,18 @@ const facts = [
       <p class="rise mx-auto mt-7 max-w-[60ch] text-lead text-muted" style="--d: 80ms">
         Ferry is a Windows app for your Linux servers. Move files between two panes, run commands, follow logs as they are written and watch CPU, memory and disk, all over one SSH connection.
       </p>
-      <div class="rise mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3" style="--d: 160ms">
+      <p class="rise mx-auto mt-10 max-w-[60ch] text-small text-muted" style="--d: 120ms">
+        The installer is currently unsigned, so Windows may show a SmartScreen warning.
+        <a href="#download" class="font-medium text-primary underline underline-offset-4">Details</a>
+      </p>
+      <div class="rise mt-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-3" style="--d: 160ms">
         <UButton :to="href" :label="label" size="xl" icon="i-lucide-download" class="min-h-11 rounded-[10px]" />
         <a href="#features" class="flex min-h-11 items-center font-medium text-primary underline underline-offset-4">See the features</a>
       </div>
       <p class="rise mt-5 text-small text-muted" style="--d: 220ms">
         <template v-if="installer">Version {{ installer.version }} for Windows 10 and 11, 64-bit.</template>
         <template v-else>For Windows 10 and 11, 64-bit.</template>
-        Released under the MIT licence. No account needed.
+        Free · MIT licensed · No account required
       </p>
     </div>
 

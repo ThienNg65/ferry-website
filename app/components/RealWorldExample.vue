@@ -40,6 +40,7 @@ const active = ref(0)
           </Transition>
         </div>
       </div>
+      <p class="reveal mt-6 text-center text-small text-muted">Interactive preview with sample data.</p>
       <p class="reveal mt-16 text-center text-2xl font-semibold text-highlighted">One window, no tool switching.</p>
     </div>
   </section>
