@@ -6,6 +6,7 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ### Changed
 
+- The page now has one continuous, quiet background of fine blue lines and soft signal pulses that follows the section you are reading and, in the hero on desktop, reacts gently to the mouse. It is still and static for visitors who prefer reduced motion and on phones.
 - Demos are now labelled as interactive previews with sample data. The unsigned-installer notice now shows before the download button in the hero and download section, the header Download button goes to that section, and file verification is optional in an expandable section. The protocol FAQ is merged into one question and the comparison closing heading is neutral. The FAQ is reordered around compatibility, protocols, security, licensing, installation and updates.
 - Redesigned the page with dark and light themes. Six working demos in code replace the videos and screenshots, the type is now Geist, and sections have more room. The page also has a calmer background, content that fades in as you scroll, and a scrollbar in the site colours.
 

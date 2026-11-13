@@ -69,11 +69,11 @@ const sources = [
       <div class="reveal mx-auto mt-16 max-w-[68ch] text-center">
         <h3 class="text-lead font-semibold">Choosing the right tool</h3>
         <p class="mt-3 text-muted">Need FTP, WebDAV or S3, or want to script transfers? WinSCP is excellent. Need RDP, VNC, X11 or port forwarding? MobaXterm covers them. Ferry focuses on SSH and SFTP, with files, terminal, logs and monitoring in one window.</p>
-        <p class="mt-8 text-small text-muted">
-          Checked November 2026. Sources:
-          <template v-for="([n, u], i) in sources" :key="u"><a :href="u" class="underline underline-offset-2">{{ n }}</a>{{ i < sources.length - 1 ? ', ' : '; ' }}</template>
-          the Mobatek blog post on MobaXterm 10.6 (remote monitoring is experimental); KIT HPC documentation (monitoring is off by default).
-        </p>
+        <p class="mt-8 text-small text-muted">Checked November 2026. Sources:</p>
+        <ul class="mt-1 flex flex-wrap justify-center gap-x-5 text-small text-muted">
+          <li v-for="[n, u] in sources" :key="u"><a :href="u" class="inline-flex min-h-11 items-center underline underline-offset-2 hover:text-highlighted">{{ n }}</a></li>
+        </ul>
+        <p class="mt-1 text-small text-muted">Also the Mobatek blog post on MobaXterm 10.6 (remote monitoring is experimental) and the KIT HPC documentation (monitoring is off by default).</p>
       </div>
     </div>
   </section>

@@ -7,12 +7,18 @@
   --aura: rgb(10 132 255 / .20);
   --pool: rgb(10 132 255 / .10);
   --scroll-thumb: #a9c8ea;
+  --ambient-line: rgb(10 132 255 / .14);
+  --ambient-node: rgb(10 132 255 / .30);
+  --ambient-pulse: rgb(10 132 255 / .55);
 }
 .dark {
   --grid-line: rgb(147 197 253 / .07);
   --aura: rgb(61 155 255 / .26);
   --pool: rgb(61 155 255 / .13);
   --scroll-thumb: #24406b;
+  --ambient-line: rgb(147 197 253 / .12);
+  --ambient-node: rgb(147 197 253 / .30);
+  --ambient-pulse: rgb(96 175 255 / .60);
 }
 
 body { background: var(--ui-bg); }
@@ -44,7 +50,49 @@ body { background: var(--ui-bg); }
 @media (width < 64rem) { .pool { --pool-x: 50%; } .pool::before { inset: -4rem -1.5rem; } }
 
 /* Toned band, to separate sections by tone as well as by space. */
-.band { background: var(--ui-bg-muted); border-block: 1px solid var(--ui-border); }
+.band { background: color-mix(in oklab, var(--ui-bg-muted) 90%, transparent); border-block: 1px solid var(--ui-border); }
+
+/* Ambient connection layer: one fixed, decorative layer behind the page (AmbientConnectionBackground). Blue only.
+   The component writes data-section (which section is in view) and, in the hero, --tx/--ty/--ax/--ay. */
+.ambient { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; contain: strict; }
+.ambient-light {
+  position: absolute; inset: 0; opacity: 0;
+  background: radial-gradient(28rem 22rem at var(--ax, 50%) var(--ay, 32%), var(--aura), transparent 70%);
+}
+.ambient-svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: translate3d(var(--tx, 0px), var(--ty, 0px), 0) scale(1.04); }
+.ambient-path { stroke: var(--ambient-line); stroke-width: 1.25; vector-effect: non-scaling-stroke; }
+.ambient-node { fill: var(--ambient-node); }
+.ambient-pulse { stroke: var(--ambient-pulse); stroke-width: 2; vector-effect: non-scaling-stroke; stroke-dasharray: 6 94; stroke-dashoffset: 6; opacity: 0; }
+.ambient-converge { opacity: 0; }
+
+/* Section emphasis: opacity only, so a theme switch never flashes. */
+.ambient-svg, .ambient-light { opacity: .5; }
+.ambient[data-section='hero'] .ambient-svg { opacity: 1; }
+.ambient[data-section='hero'] .ambient-light { opacity: 1; }
+.ambient[data-section='features'] .ambient-svg { opacity: .6; }
+.ambient[data-section='example'] .ambient-svg { opacity: .5; }
+.ambient[data-section='compare'] .ambient-svg { opacity: .12; }
+.ambient[data-section='download'] .ambient-svg { opacity: .55; }
+.ambient[data-section='download'] .ambient-converge { opacity: 1; }
+.ambient[data-section='faq'] .ambient-svg, .ambient[data-section='footer'] .ambient-svg { opacity: .1; }
+.ambient:not([data-section='hero']) .ambient-light { opacity: 0; }
+
+@media (width < 64rem) { .ambient-extra { display: none; } }
+@media (width < 40rem), (pointer: coarse) { .ambient-light { display: none; } }
+
+@media (prefers-reduced-motion: no-preference) {
+  .ambient-svg, .ambient-light, .ambient-converge { transition: opacity 1.2s ease; }
+  @keyframes ambient-signal { 0% { stroke-dashoffset: 6; opacity: 0; } 8%, 92% { opacity: 1; } 100% { stroke-dashoffset: -94; opacity: 0; } }
+  @media (width >= 40rem) and (pointer: fine) {
+    /* One pass per section entry, 4s plus a .5s stagger: done within 5 seconds (WCAG 2.2.2). */
+    .ambient-pulse { animation: ambient-signal 4s ease-in-out both; }
+    .ambient-pulse-b { animation-delay: .5s; }
+    .ambient[data-paused] .ambient-pulse,
+    .ambient[data-section='compare'] .ambient-pulse,
+    .ambient[data-section='faq'] .ambient-pulse,
+    .ambient[data-section='footer'] .ambient-pulse { animation-play-state: paused; }
+  }
+}
 
 /* Motion. Page-load sequence for the hero, and reveals tied to scroll position (no JavaScript).
    Browsers without scroll-driven animations simply show the content. Reduced motion gets none of it. */

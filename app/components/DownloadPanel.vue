@@ -32,7 +32,7 @@ function showInstallDetails(e: Event) {
         <p class="relative mt-5 text-muted md:hidden">Ferry runs on Windows. Open this page on your PC to install.</p>
         <p class="relative mt-8 text-small text-muted">
           Ferry’s installer is currently unsigned. Windows may display a SmartScreen warning.
-          <a href="#install-details" class="font-medium text-primary underline underline-offset-4" @click="showInstallDetails">Installation details</a>
+          <a href="#install-details" class="-my-3 inline-block py-3 font-medium text-primary underline underline-offset-4" @click="showInstallDetails">Installation details</a>
         </p>
         <div class="relative mt-4 flex flex-col items-center gap-4">
           <UButton :to="href" size="xl" icon="i-lucide-download" class="min-h-12 max-w-full rounded-[10px] px-6" :ui="{ label: 'whitespace-normal break-words text-left' }" :label="installer ? `${label}: Ferry-Setup-${installer.version}.exe` : label" />
