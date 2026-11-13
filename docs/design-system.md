@@ -94,19 +94,20 @@ Background layers (all static):
 1. Grid: `.grid-fade`, an `aria-hidden` div as the first child of the hero (`relative isolate overflow-x-clip`). A 64px hairline grid in `--grid-line`, masked so it fades out towards the edges.
 2. Aura: `.aura`, an `aria-hidden` div behind the hero window, one bloom of light in `--aura`.
 3. Pools: `.pool` on each feature block, with `.pool-flip` when the demo is on the left and `.pool-center` for the wide blocks. The features section needs `overflow-x-clip`.
-4. Bands: `.band` on `#example` and `#download` (muted background at 90% so the ambient layer reads faintly through, plus hairline borders).
-5. Ambient connection layer: `AmbientConnectionBackground`, mounted once in `app.vue`. A fixed, `aria-hidden`, `pointer-events: none` layer (`z-index: -1`) of fine blue paths, a few nodes and two soft pulses. Blue only, never amber, and it never implies a connection state. The server renders the finished static picture; the component sets `data-section` from the section in view and CSS sets the emphasis (opacity only, so themes never flash):
+4. Bands: `.band` on `#example` and `#download` (muted background at 65% so the ambient layer reads through, plus hairline borders).
+5. Ambient connection layer ("Hybrid Current"): `AmbientConnectionBackground`, mounted once in `app.vue`. A fixed, `aria-hidden`, `pointer-events: none` layer (`z-index: -1`) that reads left to right as source, connection, destination: two source nodes on the left, two destination nodes on the right, a relay node on each of two arcs, and a faint crossing path. Blue only, never amber, and it never implies a connection state. A mask keeps the lines quiet behind the headline and CTA. The server renders the finished static picture; the component sets `data-section` from the section in view and `data-side` (where the feature demo is: `l`, `r` or `c`), and CSS sets the emphasis (opacity only, so themes never flash):
 
    | Section | Layer opacity | Notes |
    | --- | --- | --- |
-   | hero | 1 | Pointer light on |
-   | `#features` | .6 | |
-   | `#example` | .5 | |
+   | hero | 1 | Pointer light (.6) and shift; both arcs pulse |
+   | `#features` | .6 | A rail on the side of the demo in view (both at .6 for wide rows); both arcs pulse |
+   | `#example` | .5 | One quiet pulse, on the lower arc |
    | `#compare` | .12 | No pulse |
-   | `#download` | .55 | Converging paths fade in |
-   | `#faq`, footer | .1 | No pulse |
+   | `#download` | .8 | Four paths converge on one hub; both arcs pulse |
+   | `#faq` | .16 | No pulse |
+   | footer | .06 | No pulse |
 
-   Pointer: only in the hero, on a fine pointer at 64rem and up. A light and a shift of at most 12px ease towards the pointer through `useRafFn`, which stops itself once settled. Leaving the hero eases back to centre. Pulses: entering a section replays one pass of the two pulses (4s plus a .5s stagger, the pulse group is keyed by section), then the layer is still. Motion therefore ends within 5 seconds and needs no pause control (section 10). A hidden tab pauses a pass in flight (`data-paused`). Below 64rem the two extra paths are hidden; below 40rem or on coarse pointers there is no pulse and no light. Under `prefers-reduced-motion` the lines and nodes stay static, with no transition, pulse or pointer tracking.
+   Pointer: only in the hero, on a fine pointer at 64rem and up. A light (translated, not a cursor spotlight) and a shift of at most 8px ease towards the pointer through `useRafFn`, which stops itself once settled. Leaving the hero eases back to centre. Pulses: entering a section replays one left-to-right pass of the pulses (4s plus a .5s stagger; neighbouring sections use different keyframe names so it restarts), then the layer is still. Motion therefore ends within 5 seconds and needs no pause control (section 10). A hidden tab pauses a pass in flight (`data-paused`). Below 64rem (phones and tablets) a separate static vertical SVG is shown instead (two sources at the top, a relay, two destinations at the bottom): no pulse, no pointer, and no light below 40rem or on coarse pointers. Under `prefers-reduced-motion` the lines and nodes stay static, with no transition, pulse or pointer tracking.
 
 Motion (none of it runs under `prefers-reduced-motion`):
 
