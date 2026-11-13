@@ -7,14 +7,19 @@ All notable changes to this project are documented here. The format follows [Kee
 ### Changed
 
 - The page now has one continuous, quiet background of fine blue lines that run from your computer to your servers, with soft signal pulses, that follows the section you are reading and, in the hero on desktop, reacts gently to the mouse. Phones and tablets get a still version, and so do visitors who prefer reduced motion.
-- Demos are now labelled as interactive previews with sample data. The unsigned-installer notice now shows before the download button in the hero and download section, the header Download button goes to that section, and file verification is optional in an expandable section. The protocol FAQ is merged into one question and the comparison closing heading is neutral. The FAQ is reordered around compatibility, protocols, security, licensing, installation and updates.
+- The unsigned-installer notice appears before the download button in the hero and download section, and the header Download button links to that section. The protocol FAQ is merged into one question, and the FAQ is ordered around compatibility, protocols, security, licensing, installation and updates.
 - Redesigned the page with dark and light themes. Six working demos in code replace the videos and screenshots, the type is now Geist, and sections have more room. The page also has a calmer background, content that fades in as you scroll, and a scrollbar in the site colours.
 
 ### Fixed
 
 - The download button only uses the Ferry installer from the Ferry GitHub releases, and an older, undated or malformed release response can no longer replace a newer valid link.
 - The size no longer says "About 90 MB" in fixed text, and a missing size, date or checksum is left out instead of showing a broken value.
-- The unsigned-installer notice now explains how to check the SHA-256 in PowerShell, says a match proves the file is intact rather than who built it, and says GitHub's "Verified" badge is not code signing.
+- The unsigned-installer notice clearly explains why Windows SmartScreen may warn about Ferry's not-yet-code-signed installer.
+
+### Removed
+
+- The "Installation & file verification" panel and "Choosing the right tool" recommendation block, while keeping the installer warning and comparison sources.
+- Visible "interactive preview" and "sample data" captions surrounding the demos; accessible demo labels remain.
 
 ## 0.2.0 (2026-11-12)
 
