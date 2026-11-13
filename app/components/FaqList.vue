@@ -1,8 +1,7 @@
 <script setup lang="ts">
 const faq = [
   ['Which Windows versions does it run on?', 'Windows 10 and 11, 64-bit.'],
-  ['Which servers can I connect to?', 'Any server that speaks SSH. Ferry uses SSH and SFTP only, so there is no FTP, FTPS or SCP.'],
-  ['Which connection types does Ferry not support?', 'FTP, S3, RDP, X11 and tunnels. Ferry focuses on SSH and SFTP. The comparison above shows what other tools cover.'],
+  ['Which protocols and connections does Ferry support?', 'Ferry connects to any server that speaks SSH, and transfers files over SFTP. It does not offer FTP, FTPS, SCP, S3, RDP, X11 or tunnels. The comparison above shows what other tools cover.'],
   ['Where are my passwords kept?', 'Saved passwords are encrypted with Windows secure storage and only decrypted in memory when you connect.'],
   ['Is Ferry free?', 'Yes. Ferry is released under the MIT licence, and you can read it in the LICENSE file of the release repository.'],
   ['Why does Windows SmartScreen warn me?', 'The installer is not code-signed yet, so Windows does not recognise the publisher and may show a warning. The installation details in the download section explain this and how to check the file’s SHA-256, which confirms the file is intact but not who built it.'],

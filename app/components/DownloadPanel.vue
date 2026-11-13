@@ -30,15 +30,16 @@ function showInstallDetails(e: Event) {
         <img src="/icon.webp" alt="" width="88" height="88" class="relative mx-auto size-22 rounded-[22px]">
         <h2 id="download-title" class="relative mt-8">Get Ferry for Windows</h2>
         <p class="relative mt-5 text-muted md:hidden">Ferry runs on Windows. Open this page on your PC to install.</p>
-        <div class="relative mt-10 flex flex-col items-center gap-4">
+        <p class="relative mt-8 text-small text-muted">
+          Ferry’s installer is currently unsigned. Windows may display a SmartScreen warning.
+          <a href="#install-details" class="font-medium text-primary underline underline-offset-4" @click="showInstallDetails">Installation details</a>
+        </p>
+        <div class="relative mt-4 flex flex-col items-center gap-4">
           <UButton :to="href" size="xl" icon="i-lucide-download" class="min-h-12 max-w-full rounded-[10px] px-6" :ui="{ label: 'whitespace-normal break-words text-left' }" :label="installer ? `${label}: Ferry-Setup-${installer.version}.exe` : label" />
           <span v-if="meta" class="text-muted">{{ meta }}</span>
         </div>
         <p class="relative mt-4 text-small text-muted">Requires Windows 10 or 11, 64-bit. Ferry updates itself.</p>
-        <p class="relative mt-2 text-small text-muted">
-          Ferry’s installer is currently unsigned. Windows may display a SmartScreen warning.
-          <a href="#install-details" class="font-medium text-primary underline underline-offset-4" @click="showInstallDetails">Installation details</a>
-        </p>
+        <p class="relative mt-2 text-small text-muted">Free · MIT licensed · No account required</p>
         <p class="relative mt-1 flex flex-wrap justify-center gap-x-6 text-small">
           <a :href="notesUrl" class="flex min-h-11 items-center font-medium text-primary underline underline-offset-4">Release notes</a>
           <a :href="releasesUrl" class="flex min-h-11 items-center font-medium text-primary underline underline-offset-4">All releases</a>
@@ -61,6 +62,7 @@ function showInstallDetails(e: Event) {
             <p class="text-muted">
               The installer is not code-signed yet, so Windows does not recognise the publisher and SmartScreen may warn you before it runs. Download it only from this page or the
               <a :href="releasesUrl" class="text-primary underline underline-offset-4">release page</a>.
+              GitHub’s “Verified” badge on commits and tags is not Windows code signing and does not change this.
             </p>
             <template v-if="installer?.sha256">
               <h3 class="mt-6 text-base font-semibold text-highlighted">Optional: check the file</h3>

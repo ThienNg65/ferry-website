@@ -1,5 +1,4 @@
 <script setup lang="ts">
-defineProps<{ href: string, label: string, releasesUrl: string }>()
 const links = [
   { label: 'Features', to: '#features' },
   { label: 'Compare', to: '#compare' },
@@ -24,8 +23,8 @@ const links = [
           <UColorModeButton class="size-11 justify-center rounded-full" />
           <template #fallback><span class="block size-11" aria-hidden="true" /></template>
         </ClientOnly>
-        <UButton to="#download" label="Download" size="lg" class="min-h-11 rounded-full px-4 md:hidden" />
-        <UButton :to="href" :label="label" size="lg" class="hidden min-h-11 rounded-full px-4 md:inline-flex" />
+        <!-- Goes to the download section, where the unsigned-installer notice comes before the button. -->
+        <UButton to="#download" label="Download" size="lg" class="min-h-11 rounded-full px-4" />
       </div>
     </div>
   </header>

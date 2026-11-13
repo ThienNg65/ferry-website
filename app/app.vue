@@ -8,7 +8,7 @@ useSeoMeta({ ogUrl: `${site}/`, ogImage: `${site}/og.jpg`, twitterImage: `${site
 <template>
   <UApp>
     <a href="#main" class="skip-link">Skip to content</a>
-    <SiteHeader :href="href" :label="label" :releases-url="releasesUrl" />
+    <SiteHeader />
     <main id="main">
       <HeroWaterline :installer="installer" :href="href" :label="label" />
       <FeatureExplorer />

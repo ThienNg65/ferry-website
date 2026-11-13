@@ -67,7 +67,7 @@ const sources = [
         </table>
       </div>
       <div class="reveal mx-auto mt-16 max-w-[68ch] text-center">
-        <h3 class="text-lead font-semibold">When another tool fits better</h3>
+        <h3 class="text-lead font-semibold">Choosing the right tool</h3>
         <p class="mt-3 text-muted">Need FTP, WebDAV or S3, or want to script transfers? WinSCP is excellent. Need RDP, VNC, X11 or port forwarding? MobaXterm covers them. Ferry focuses on SSH and SFTP, with files, terminal, logs and monitoring in one window.</p>
         <p class="mt-8 text-small text-muted">
           Checked November 2026. Sources:
