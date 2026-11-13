@@ -44,7 +44,7 @@ const modules = [
     <div class="page-x">
       <div class="stack-head reveal mx-auto max-w-[68ch] text-center">
         <h2 id="explorer-title">What is in the window</h2>
-        <p class="text-lead text-muted">Six tools share one connection to your server. The windows below are working illustrations built for this page, so click around.</p>
+        <p class="text-lead text-muted">Six tools share one connection to your server. The windows below are interactive previews with sample data, so click around.</p>
       </div>
       <template v-for="(m, i) in modules" :key="m.id">
         <!-- Wide: a centred heading over one large window, with the details in a row beneath it. -->

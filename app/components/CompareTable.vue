@@ -33,7 +33,7 @@ const sources = [
     <div class="page-x">
       <div class="stack-head reveal mx-auto max-w-[68ch] text-center">
         <h2 id="compare-title">How Ferry compares</h2>
-        <p class="text-lead text-muted">Ferry next to the two tools people most often use for the same job on Windows.</p>
+        <p class="text-lead text-muted">Ferry puts files, terminal, logs and monitoring in one window. Here it is next to the two tools people most often use for the same job on Windows.</p>
       </div>
       <!-- No box around the table: hairlines between rows, and the Ferry column lifted as one tinted card. -->
       <div role="region" aria-label="Comparison table, scrolls sideways on small screens" tabindex="0" class="reveal mx-auto max-w-[68rem] overflow-x-auto">

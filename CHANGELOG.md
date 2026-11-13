@@ -6,6 +6,7 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ### Changed
 
+- Demos are now labelled as interactive previews with sample data, and the download section shows the unsigned-installer notice next to the button with optional file verification in an expandable section. The FAQ is reordered around compatibility, protocols, security, licensing, installation and updates.
 - Redesigned the page with dark and light themes. Six working demos in code replace the videos and screenshots, the type is now Geist, and sections have more room. The page also has a calmer background, content that fades in as you scroll, and a scrollbar in the site colours.
 
 ### Fixed

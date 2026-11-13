@@ -24,7 +24,6 @@ const facts = [
       <p class="rise mt-5 text-small text-muted" style="--d: 220ms">
         <template v-if="installer">Version {{ installer.version }} for Windows 10 and 11, 64-bit.</template>
         <template v-else>For Windows 10 and 11, 64-bit.</template>
-        Released under the MIT licence. No account needed.
       </p>
     </div>
 

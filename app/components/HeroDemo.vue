@@ -24,6 +24,6 @@ const { scene, frozen, running, reduced, root, pick, toggle } = useDemoLoop({ co
         <DemoLogs v-else compact />
       </div>
     </div>
-    <template #caption>An illustration of the Ferry window. It is built in code, not recorded.</template>
+    <template #caption>Interactive preview with sample data, not a recording of a real server.</template>
   </DemoWindow>
 </template>
