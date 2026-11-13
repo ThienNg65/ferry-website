@@ -56,7 +56,7 @@ Fonts load through `@nuxt/fonts` (Google provider, downloaded at build, served f
 | Role | Family | Weights | Variable | Where |
 |---|---|---|---|---|
 | Headings and body | Geist | 400, 500, 600, 700 | `--font-sans` | Everything, wordmark included |
-| Mono | Cascadia Code (the app's own mono) | 400 | `--font-mono` | Real code or file content (the SHA-256, `Get-FileHash`) and the terminal and log text inside the demos |
+| Mono | Cascadia Code (the app's own mono) | 400 | `--font-mono` | Terminal and log text inside the demos |
 
 Rules:
 
@@ -130,7 +130,7 @@ Components in page order. Each stays presentational and short. Only `app.vue` ca
 | `FeatureExplorer` | `#features`: six blocks. Files and Connections are wide (centred heading, one large demo, details in a row beneath); Transfers, Terminal, Logs and Monitor are split (short text column with a checked list beside the demo, sides alternating) | Each block is `#module-<id>`. A module is wide when it has `wide: true` |
 | `RealWorldExample` | "A deploy broke at 6 pm": five steps as buttons on the left, and the matching coded demo (Files, Logs, Terminal, Monitor) on the right | A real sequence, so a numbered `<ol>` is allowed here only. Buttons use `aria-pressed`; the demo swaps with the `swap` transition |
 | `CompareTable` | Honest comparison with WinSCP and MobaXterm | See section 7. No box around the table: hairlines between rows, and the Ferry column lifted as one tinted card with the app icon |
-| `DownloadPanel` | Centred call to action (app icon, heading, button, size and date, requirements, links) over two quiet cards: "What's new" with the SHA-256 and copy button, and the unsigned notice | Notes render as text, never `v-html`. Without an installer only the notice card shows |
+| `DownloadPanel` | Centred download call to action with app icon, version details, requirement links, a short unsigned-installer notice above the button and an optional "What's new" card | Notes render as text, never `v-html`. No file-verification panel |
 | `FaqList` | Native `<details>` list | No JavaScript |
 | `SiteFooter` | Wordmark, "Ferry on GitHub" button, three link columns, then a bottom bar with the copyright and MIT licence line and "Back to top" | Footer headings are `h2` styled small. The year is set at build time |
 | `demo/DemoWindow` | App chrome (title bar, Search pill, site tab), slot, optional pause button, caption slot | `bare` drops the chrome so a demo can sit inside another |
@@ -144,7 +144,7 @@ Nuxt UI is used sparingly: `UApp`, `UButton`, `UIcon`, `UColorModeButton`. VueUs
 
 ### Coded demos
 
-- The page carries no real screenshot or recording of the app (only `og.jpg`). Two sentences say so: the features lead ("Six tools share one connection to your server. The windows below are working illustrations built for this page, so click around.") and the hero caption ("An illustration of the Ferry window. It is built in code, not recorded."). A wrong label or control in a demo would be a false claim, so check each against the app source in `ferry/src/renderer/src/`.
+- The page carries no real screenshot or recording of the app (only `og.jpg`). The demos are coded illustrations with sample data, but the landing page no longer displays visible "interactive preview" or "sample data" captions. Keep descriptive accessibility labels and check demo labels/controls against the app source in `ferry/src/renderer/src/` to avoid misleading claims.
 - Every demo is wrapped in `DemoWindow` (`<figure role="group">` with a label), which gives the `.window` border and glow.
 - The fixed app palette is the `.demo` block in `main.css` (the app is dark in both site themes). Raw hex is allowed only there. Container queries (`.pane`) drop the Modified and Permissions columns when a pane is narrow.
 - What each one mirrors and what the visitor can do: Files (hero view; click a local file to send it), Transfers (`TransferQueue`, `TransferItem`, `HistoryDialog`; Retry on the failed row, history filter All, Done, Error, Cancelled), Terminal (`TerminalView`; Replay), Logs (`LogTailViewer`; filters All, Errors, Warnings+, Info+, Debug really filter, pause), Monitor (`MonitorPanel`, `ProcessTable`; click Name, RAM or CPU% to sort), Connections (`SessionManagerView`; the search box filters, Quick Connect is display only with disabled inputs).
@@ -155,7 +155,7 @@ Nuxt UI is used sparingly: `UApp`, `UButton`, `UIcon`, `UColorModeButton`. VueUs
 ### Download resolution
 
 - `app/utils/release.ts` holds the pure `pickInstaller(release)`: matches `^Ferry-Setup-(.+)\.exe$`, never the `.blockmap`, reads the SHA-256 from the asset `digest` (`sha256:` prefix), returns `null` when there is no installer. It also requires a `github.com/.../releases/download/` URL and a fully uploaded asset, keeps the SHA-256 only when it is 64 hex characters, and drops an unusable size, date or notes link. `keepInstaller` never replaces a newer baked release with an older one.
-- The SHA-256 comes from the same GitHub release, so the copy says it proves the file is intact, not who built it, and that GitHub's "Verified" badge is not code signing.
+- The SHA-256 remains available in release metadata, but the landing page no longer renders file-verification instructions or a checksum copy control. The short unsigned-installer notice remains above both download CTAs, with a SmartScreen explanation in the FAQ.
 - `useLatestRelease()` fetches `api.github.com/repos/<repo>/releases/latest` at prerender (baked into the HTML), refreshes once on mount, and on any failure falls back to the releases page with the label "Download from GitHub Releases".
 - The repo is `runtimeConfig.public.releaseRepo` (default `ThienNg65/ferry-release`). The build must never fail because of the API.
 - `app/utils/release.test.ts` covers the exe pick, the blockmap being ignored, a missing asset and a missing digest. Keep it passing.
@@ -165,7 +165,7 @@ Nuxt UI is used sparingly: `UApp`, `UButton`, `UIcon`, `UColorModeButton`. VueUs
 - Cells are copied from `.claude/plan/landing-page-v2-plan.md`. Do not add, upgrade or soften a cell; re-check the source first and update the "Checked" date.
 - A real `<table>` with a `<caption>` (screen-reader only), `scope` headers and text in every cell. Icons are decoration (`aria-hidden`); a cell starting "Yes" gets a check, "No" a dash, anything else text only.
 - The Ferry column is lit: `bg-primary/10`, `border-x border-primary/40`, a primary-coloured header and `text-primary` check icons. The table wrapper is `bg-elevated border-default rounded-[20px]`. The first column is sticky. The table scrolls sideways inside its own wrapper (`role="region"`, `tabindex="0"`, labelled), never the page.
-- Under it: "When another tool fits better" and a sources footnote saying "Checked November 2026".
+- Under it: a compact sources footnote saying "Comparison checked November 2026"; the recommendation block has been removed.
 
 ## 8. Copy
 
