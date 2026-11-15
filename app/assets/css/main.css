@@ -42,6 +42,8 @@
   --on-water: #ffffff;
   --on-water-muted: #bfe2fe;
   --glow: rgb(13 38 77 / .45);
+  --spotlight: rgb(9 104 214 / .09);
+  --specular: rgb(255 255 255 / .75);
 }
 .dark {
   --ui-bg: #07111f;
@@ -55,6 +57,8 @@
   --beacon: #ffb454;
   --water: #0b2247;
   --glow: rgb(61 155 255 / .35);
+  --spotlight: rgb(61 155 255 / .12);
+  --specular: rgb(255 255 255 / .08);
 }
 
 @theme inline {
@@ -64,7 +68,11 @@
   --color-on-water-muted: var(--on-water-muted);
 }
 
-html { scroll-behavior: smooth; scroll-padding-top: 6rem; font-size: 16px; }
+html { scroll-padding-top: 6rem; font-size: 16px; }
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.lenis-smooth) { scroll-behavior: smooth; }
+}
+html.motion-ready .reveal-pre { opacity: 0; }
 /* In a layer so utility classes (text-on-water, tracking-*) can override them. */
 @layer base {
   body { color: var(--ui-text); font-family: var(--font-sans); font-size: 1.125rem; line-height: 1.65; }
@@ -80,12 +88,44 @@ html { scroll-behavior: smooth; scroll-padding-top: 6rem; font-size: 16px; }
 .skip-link:focus { top: 1rem; }
 
 /* One rhythm for every section; change it here, not per component. */
-@utility section-y { padding-block: 7rem; @media (min-width: 64rem) { padding-block: 10rem; } }
+@utility section-y { padding-block: 4.5rem; @media (min-width: 40rem) { padding-block: 6.5rem; } @media (min-width: 64rem) { padding-block: 10rem; } }
 @utility page-x { margin-inline: auto; max-width: 80rem; padding-inline: 1.5rem; @media (min-width: 64rem) { padding-inline: 2rem; } }
-@utility stack-head { margin-bottom: 3.5rem; & > * + * { margin-top: 1.25rem; } @media (min-width: 64rem) { margin-bottom: 4.5rem; } }
+@utility stack-head { margin-bottom: 2.5rem; & > * + * { margin-top: 1rem; } @media (min-width: 40rem) { margin-bottom: 3.5rem; & > * + * { margin-top: 1.25rem; } } @media (min-width: 64rem) { margin-bottom: 4.5rem; } }
 
 /* Product windows: the coded demos. */
 .window { border: 1px solid var(--ui-border); border-radius: 14px; overflow: hidden; box-shadow: 0 40px 120px -30px var(--glow); }
+
+/* Tactile hover lift & win-feeling button label swap. */
+.btn-win { display: inline-grid; grid-template-areas: 'label'; place-items: center; overflow: hidden; }
+.btn-win > span { grid-area: label; white-space: nowrap; }
+.btn-win .win-hover { opacity: 0; pointer-events: none; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .hover-lift {
+    transition: transform 220ms cubic-bezier(.22, 1, .36, 1), box-shadow 220ms ease, border-color 220ms ease;
+  }
+  .hover-lift:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in oklab, var(--ui-primary) 45%, var(--ui-border));
+    box-shadow: 0 18px 40px -18px var(--glow);
+  }
+  .hover-lift:active { transform: translateY(-1px); }
+
+  .btn-win > span {
+    transition: transform 220ms cubic-bezier(.22, 1, .36, 1), opacity 180ms ease;
+  }
+  .btn-win .win-hover { transform: translateY(65%); }
+  .group:hover .btn-win .win-default,
+  .group:focus-visible .btn-win .win-default,
+  .btn-win:hover .win-default { opacity: 0; transform: translateY(-65%); }
+  .group:hover .btn-win .win-hover,
+  .group:focus-visible .btn-win .win-hover,
+  .btn-win:hover .win-hover { opacity: 1; transform: translateY(0); }
+
+  .group:hover .icon-nudge-down { transform: translateY(2px); }
+  .group:hover .icon-nudge-up { transform: translateY(-2px); }
+  .icon-nudge-down, .icon-nudge-up { transition: transform 220ms cubic-bezier(.22, 1, .36, 1); }
+}
 
 /* The real app is dark in both site themes, so the demos keep a fixed app palette sampled from the app. Raw hex lives only in this block. */
 .demo {
@@ -133,9 +173,16 @@ html { scroll-behavior: smooth; scroll-padding-top: 6rem; font-size: 16px; }
 .demo.frozen, .demo.frozen * { animation-play-state: paused !important; }
 @media (prefers-reduced-motion: reduce) {
   .demo, .demo * { animation: none !important; }
+  .transition-transform { transition-property: none !important; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+/* Specular edge and pointer spotlight sheen for elevated cards (monochrome Ferry-Blue). */
+.surface-specular { box-shadow: inset 0 1px 0 var(--specular); }
+.spotlight-layer {
+  opacity: 0;
+  background: radial-gradient(280px circle at var(--sx, 50%) var(--sy, 50%), var(--spotlight), transparent 72%);
+  transition: opacity 220ms ease;
+}
+@media (prefers-reduced-motion: no-preference) and (pointer: fine) {
+  .spotlight-host:hover .spotlight-layer { opacity: 1; }
 }

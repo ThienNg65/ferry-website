@@ -12,6 +12,7 @@ useSeoMeta({ ogUrl: `${site}/`, ogImage: `${site}/og.jpg`, twitterImage: `${site
     <SiteHeader />
     <main id="main">
       <HeroWaterline :installer="installer" :href="href" :label="label" />
+      <MobileSectionNav />
       <FeatureExplorer />
       <RealWorldExample />
       <CompareTable />

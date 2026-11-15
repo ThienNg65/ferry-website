@@ -1,7 +1,7 @@
 export default defineNuxtConfig({
   compatibilityDate: '2026-11-01',
   modules: ['@nuxt/ui'],
-  css: ['~/assets/css/main.css'],
+  css: ['lenis/dist/lenis.css', '~/assets/css/main.css'],
   ssr: true,
   colorMode: { preference: 'dark', fallback: 'dark' },
   runtimeConfig: {
@@ -14,6 +14,13 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: { lang: 'en' },
+      script: [
+        {
+          // Mark motion-ready before first paint only when reduced motion is off, preventing SSR hydration FOUC on below-the-fold reveals.
+          innerHTML: "if(!window.matchMedia('(prefers-reduced-motion:reduce)').matches){document.documentElement.classList.add('motion-ready')}",
+          tagPosition: 'head'
+        }
+      ],
       title: 'Ferry: files, terminal, logs and monitoring for your servers in one Windows app',
       meta: [
         { name: 'description', content: 'Ferry is a Windows app for moving files to Linux servers, running commands, following logs and watching resources, all in one window.' },
