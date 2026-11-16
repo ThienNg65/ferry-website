@@ -109,25 +109,30 @@ body { background: var(--ui-bg); }
   }
 }
 
-/* Motion. Page-load sequence for the hero, and reveals tied to scroll position (no JavaScript).
-   Browsers without scroll-driven animations simply show the content. Reduced motion gets none of it. */
+/* Motion. Page-load sequence for the hero (CSS .rise for immediate LCP), directional demo swaps, and smooth disclosure height.
+   Below-the-fold scroll choreography runs via GSAP ScrollTrigger. Reduced motion disables spatial movement while keeping colour fades. */
 @keyframes rise { from { opacity: 0; transform: translateY(24px); } }
-@keyframes reveal { from { opacity: 0; transform: translate(var(--from-x, 0), var(--from-y, 28px)); } }
 @media (prefers-reduced-motion: no-preference) {
   .rise { animation: rise 700ms cubic-bezier(.2, .7, .2, 1) both; animation-delay: var(--d, 0ms); }
-  @supports (animation-timeline: view()) {
-    .reveal, .reveal-l, .reveal-r { animation: reveal linear both; animation-timeline: view(); animation-range: entry 5% entry 45%; }
-    .reveal-l { --from-x: -36px; --from-y: 0; }
-    .reveal-r { --from-x: 36px; --from-y: 0; }
+  /* Swapping one demo for another (the deploy story and directional feature tabs). */
+  .swap-enter-active, .swap-leave-active,
+  .swap-next-enter-active, .swap-next-leave-active,
+  .swap-prev-enter-active, .swap-prev-leave-active {
+    transition: opacity .22s cubic-bezier(.22, 1, .36, 1), transform .22s cubic-bezier(.22, 1, .36, 1);
   }
-  /* Swapping one demo for another (the deploy story). */
-  .swap-enter-active, .swap-leave-active { transition: opacity .18s ease, transform .18s ease; }
   .swap-enter-from, .swap-leave-to { opacity: 0; transform: translateY(8px); }
+  .swap-next-enter-from { opacity: 0; transform: translateX(18px); }
+  .swap-next-leave-to { opacity: 0; transform: translateX(-18px); }
+  .swap-prev-enter-from { opacity: 0; transform: translateX(-18px); }
+  .swap-prev-leave-to { opacity: 0; transform: translateX(18px); }
   a, button, summary { transition: color .2s ease, background-color .2s ease, border-color .2s ease, box-shadow .2s ease; }
-  /* FAQ answers open and close smoothly where the browser can animate to `auto`. */
+  /* FAQ and disclosure answers open and close smoothly where the browser can animate to `auto`. */
   :root { interpolate-size: allow-keywords; }
-  details::details-content { block-size: 0; overflow: clip; transition: block-size .3s ease, content-visibility .3s allow-discrete; }
+  details::details-content { block-size: 0; overflow: clip; contain: layout; transition: block-size .3s ease, content-visibility .3s allow-discrete; }
   details[open]::details-content { block-size: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  a, button, summary { transition: color .2s ease, background-color .2s ease, border-color .2s ease; }
 }
 
 /* Scrollbar in the site's colours. */

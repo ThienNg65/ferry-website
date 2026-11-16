@@ -56,7 +56,7 @@ Fonts load through `@nuxt/fonts` (Google provider, downloaded at build, served f
 | Role | Family | Weights | Variable | Where |
 |---|---|---|---|---|
 | Headings and body | Geist | 400, 500, 600, 700 | `--font-sans` | Everything, wordmark included |
-| Mono | Cascadia Code (the app's own mono) | 400 | `--font-mono` | Terminal and log text inside the demos |
+| Mono | Cascadia Code (the app's own mono) | 400 | `--font-mono` | Real code or file content (the SHA-256, `Get-FileHash`) and the terminal and log text inside the demos |
 
 Rules:
 
@@ -109,12 +109,14 @@ Background layers (all static):
 
    Pointer: only in the hero, on a fine pointer at 64rem and up. A light (translated, not a cursor spotlight) and a shift of at most 8px ease towards the pointer through `useRafFn`, which stops itself once settled. Leaving the hero eases back to centre. Pulses: entering a section replays one left-to-right pass of the pulses (4s plus a .5s stagger; neighbouring sections use different keyframe names so it restarts), then the layer is still. Motion therefore ends within 5 seconds and needs no pause control (section 10). A hidden tab pauses a pass in flight (`data-paused`). Below 64rem (phones and tablets) a separate static vertical SVG is shown instead (two sources at the top, a relay, two destinations at the bottom): no pulse, no pointer, and no light below 40rem or on coarse pointers. Under `prefers-reduced-motion` the lines and nodes stay static, with no transition, pulse or pointer tracking.
 
-Motion (none of it runs under `prefers-reduced-motion`):
+Motion (all spatial/scroll motion respects `prefers-reduced-motion`):
 
-- `.rise`: the hero's page-load sequence. Headline, lead, buttons, version line and window fade up in turn; set the delay with `style="--d: 160ms"`.
-- `.reveal`, `.reveal-l`, `.reveal-r`: content fades and slides in as it scrolls into view. This is CSS only (`animation-timeline: view()`); browsers without it show the content with no animation. Put it on content blocks, not on a `.pool` element.
-- Links, buttons and FAQ summaries transition colour over 200ms; FAQ answers open and close smoothly where the browser can animate to `auto`.
-- The coded demos keep their own motion through `useDemoLoop` (section 7).
+- **Smooth scroll & GSAP sync (`app/plugins/motion.client.ts`)**: Client-only Lenis instance synchronized with GSAP `ScrollTrigger` via `gsap.ticker`, handling same-page anchor jumps with `-96px` header offset. Automatically disabled under `prefers-reduced-motion: reduce`.
+- **Hero `.rise`**: CSS page-load sequence for above-the-fold Hero elements (`h1`, lead, CTAs, notice, `HeroDemo` wrapper) so First Paint and LCP stay instant with zero JS hydration flash. The `HeroDemo` frame settles subtly on scroll (`scale: 0.985 -> 1`, no 3D tilt so `12px` demo text remains razor-sharp).
+- **Below-the-fold reveals (`app/composables/useScrollMotion.ts`)**: GSAP `ScrollTrigger` entrances on `.reveal-pre` elements. An inline `<head>` script marks `html.motion-ready` before first paint only when reduced motion is off, preventing hydration FOUC while guaranteeing no-JS and reduced-motion users always see `opacity: 1`. Expanding `<details>` accordions refreshes `ScrollTrigger` after the `0.3s` height transition (`scheduleScrollTriggerRefresh(320)`).
+- **Surface polish (`SpotlightSurface`, `.surface-specular`)**: Non-clipping monochrome Ferry-Blue pointer sheen on fine pointers and subtle `1px` top specular edge on elevated cards and active panels.
+- **Links, buttons and disclosures**: Colour/background/border transitions stay enabled even under reduced motion; spatial transforms, directional tab swaps (`swap-next` / `swap-prev`), and chevron rotation are disabled when `prefers-reduced-motion: reduce` is set.
+- **Coded demos**: Keep their own motion through `useDemoLoop` (section 7).
 
 Scrollbar: 12px, rounded thumb in `--scroll-thumb`, primary colour on hover, transparent track. Firefox gets `scrollbar-color` and `scrollbar-width: thin`.
 
@@ -124,14 +126,15 @@ Components in page order. Each stays presentational and short. Only `app.vue` ca
 
 | Component | Job | Notes |
 |---|---|---|
-| `SiteHeader` | Floating pill: wordmark, Features, Compare, Download, FAQ, GitHub, theme toggle, Download button | Below `md` the button links to `#download`. The toggle is wrapped in `<ClientOnly>` with a same-size placeholder |
-| `HeroWaterline` | Headline, lead, CTA ("See the features" links to `#features`), version line, grid, aura, hero demo and facts row | `h1` is the only `h1`. The name is historical |
+| `SiteHeader` | Floating pill: wordmark, grouped nav (`Explore` and `Resources` with icons), theme toggle, mobile menu drawer, Download button | Scroll-reactive elevation past `36px`; GSAP menu transitions. Below `lg` the grouped nav moves into the mobile menu toggle wrapped in `<ClientOnly>` |
+| `HeroWaterline` | Headline, lead, primary CTA (`Download for Windows` + `See the features` with `.hover-lift` and `.btn-win`), version/SmartScreen notice beneath, grid, aura, hero demo and grouped facts strip | `h1` is the only `h1` (CSS `.rise` for instant LCP); subtle scroll scale settle on `HeroDemo`. The name is historical |
 | `HeroDemo` | The whole Ferry window, auto-cycling, built from the `demo/` pieces | Files on top, a dock with Transfers, Terminal and Log Tail |
-| `FeatureExplorer` | `#features`: six blocks. Files and Connections are wide (centred heading, one large demo, details in a row beneath); Transfers, Terminal, Logs and Monitor are split (short text column with a checked list beside the demo, sides alternating) | Each block is `#module-<id>`. A module is wide when it has `wide: true` |
-| `RealWorldExample` | "A deploy broke at 6 pm": five steps as buttons on the left, and the matching coded demo (Files, Logs, Terminal, Monitor) on the right | A real sequence, so a numbered `<ol>` is allowed here only. Buttons use `aria-pressed`; the demo swaps with the `swap` transition |
-| `CompareTable` | Honest comparison with WinSCP and MobaXterm | See section 7. No box around the table: hairlines between rows, and the Ferry column lifted as one tinted card with the app icon |
-| `DownloadPanel` | Centred download call to action with app icon, version details, requirement links, a short unsigned-installer notice above the button and an optional "What's new" card | Notes render as text, never `v-html`. No file-verification panel |
-| `FaqList` | Native `<details>` list | No JavaScript |
+| `FeatureExplorer` | `#features`: unified interactive explorer ordered by workflow (`1. Connect`, `2. Move & Run`, `3. Observe`) with grouped stage buttons, animated desktop indicator bar, directional `Demo*` preview swap, and `SpotlightSurface` `<details>` accordion | Supports `#module-<id>` hash selection and refreshes `ScrollTrigger` on accordion toggle |
+| `RealWorldExample` | "A deploy broke at 6 pm": five steps in `SpotlightSurface` cards on the left, and the matching sticky coded demo (Files, Logs, Terminal, Monitor) on the right | A real sequence, so a numbered `<ol>` is allowed here only. Sticky wrapper stays transform-free for Lenis compatibility |
+| `CompareTable` | Honest comparison with WinSCP and MobaXterm | See section 7. No box around the table: hairlines between rows, Ferry column lifted with `.surface-specular`, `SpotlightSurface` accordions |
+| `DownloadPanel` | Centred call to action (app icon, heading, button, size and date, requirements, links) over two `SpotlightSurface` cards: "What's new" with the SHA-256 and copy button, and the unsigned notice | Notes render as text, never `v-html`. Details link scrolls via Lenis and focuses with `{ preventScroll: true }` |
+| `FaqList` | Native `<details>` list | Staggered GSAP reveal; refreshes `ScrollTrigger` on toggle |
+| `SpotlightSurface` | Non-clipping pointer radial sheen wrapper (`--sx`, `--sy`) | Keeps `:focus-visible` outlines unclipped via an inner `aria-hidden` clip layer; active on fine pointer only |
 | `SiteFooter` | Wordmark, "Ferry on GitHub" button, three link columns, then a bottom bar with the copyright and MIT licence line and "Back to top" | Footer headings are `h2` styled small. The year is set at build time |
 | `demo/DemoWindow` | App chrome (title bar, Search pill, site tab), slot, optional pause button, caption slot | `bare` drops the chrome so a demo can sit inside another |
 | `demo/DemoFiles`, `DemoTransfers`, `DemoTerminal`, `DemoLogs`, `DemoMonitor`, `DemoSites` | The six demos | Each mirrors a real app view (section 7). `compact` is used by the hero |
@@ -144,7 +147,7 @@ Nuxt UI is used sparingly: `UApp`, `UButton`, `UIcon`, `UColorModeButton`. VueUs
 
 ### Coded demos
 
-- The page carries no real screenshot or recording of the app (only `og.jpg`). The demos are coded illustrations with sample data, but the landing page no longer displays visible "interactive preview" or "sample data" captions. Keep descriptive accessibility labels and check demo labels/controls against the app source in `ferry/src/renderer/src/` to avoid misleading claims.
+- The page carries no real screenshot or recording of the app (only `og.jpg`). Two sentences say so: the features lead ("Six tools share one connection to your server. The windows below are working illustrations built for this page, so click around.") and the hero caption ("An illustration of the Ferry window. It is built in code, not recorded."). A wrong label or control in a demo would be a false claim, so check each against the app source in `ferry/src/renderer/src/`.
 - Every demo is wrapped in `DemoWindow` (`<figure role="group">` with a label), which gives the `.window` border and glow.
 - The fixed app palette is the `.demo` block in `main.css` (the app is dark in both site themes). Raw hex is allowed only there. Container queries (`.pane`) drop the Modified and Permissions columns when a pane is narrow.
 - What each one mirrors and what the visitor can do: Files (hero view; click a local file to send it), Transfers (`TransferQueue`, `TransferItem`, `HistoryDialog`; Retry on the failed row, history filter All, Done, Error, Cancelled), Terminal (`TerminalView`; Replay), Logs (`LogTailViewer`; filters All, Errors, Warnings+, Info+, Debug really filter, pause), Monitor (`MonitorPanel`, `ProcessTable`; click Name, RAM or CPU% to sort), Connections (`SessionManagerView`; the search box filters, Quick Connect is display only with disabled inputs).
@@ -155,7 +158,7 @@ Nuxt UI is used sparingly: `UApp`, `UButton`, `UIcon`, `UColorModeButton`. VueUs
 ### Download resolution
 
 - `app/utils/release.ts` holds the pure `pickInstaller(release)`: matches `^Ferry-Setup-(.+)\.exe$`, never the `.blockmap`, reads the SHA-256 from the asset `digest` (`sha256:` prefix), returns `null` when there is no installer. It also requires a `github.com/.../releases/download/` URL and a fully uploaded asset, keeps the SHA-256 only when it is 64 hex characters, and drops an unusable size, date or notes link. `keepInstaller` never replaces a newer baked release with an older one.
-- The SHA-256 remains available in release metadata, but the landing page no longer renders file-verification instructions or a checksum copy control. The short unsigned-installer notice remains above both download CTAs, with a SmartScreen explanation in the FAQ.
+- The SHA-256 comes from the same GitHub release, so the copy says it proves the file is intact, not who built it, and that GitHub's "Verified" badge is not code signing.
 - `useLatestRelease()` fetches `api.github.com/repos/<repo>/releases/latest` at prerender (baked into the HTML), refreshes once on mount, and on any failure falls back to the releases page with the label "Download from GitHub Releases".
 - The repo is `runtimeConfig.public.releaseRepo` (default `ThienNg65/ferry-release`). The build must never fail because of the API.
 - `app/utils/release.test.ts` covers the exe pick, the blockmap being ignored, a missing asset and a missing digest. Keep it passing.
@@ -165,19 +168,19 @@ Nuxt UI is used sparingly: `UApp`, `UButton`, `UIcon`, `UColorModeButton`. VueUs
 - Cells are copied from `.claude/plan/landing-page-v2-plan.md`. Do not add, upgrade or soften a cell; re-check the source first and update the "Checked" date.
 - A real `<table>` with a `<caption>` (screen-reader only), `scope` headers and text in every cell. Icons are decoration (`aria-hidden`); a cell starting "Yes" gets a check, "No" a dash, anything else text only.
 - The Ferry column is lit: `bg-primary/10`, `border-x border-primary/40`, a primary-coloured header and `text-primary` check icons. The table wrapper is `bg-elevated border-default rounded-[20px]`. The first column is sticky. The table scrolls sideways inside its own wrapper (`role="region"`, `tabindex="0"`, labelled), never the page.
-- Under it: a compact sources footnote saying "Comparison checked November 2026"; the recommendation block has been removed.
+- Under it: "When another tool fits better" and a sources footnote saying "Checked November 2026".
 
 ## 8. Copy
 
 - Name user tasks in plain, active words ("Follow a log as it is written"), not product-speak.
-- Button labels say exactly what happens: "Download for Windows". No trailing arrow.
+- Button labels say exactly what happens: "Download for Windows". No trailing arrow. Interactive CTAs may use `.btn-win` to reveal encouraging micro-copy on hover while keeping `aria-label` explicit.
 - No `A · B · C` meta strings; write a sentence ("Version 0.20.0 for Windows 10 and 11, 64-bit.").
 - No numbered 01/02/03 markers.
 - British-leaning spelling is used in places ("colour"); keep the page consistent with itself.
 
 ## 9. Banned list
 
-Do not add: all-caps eyebrows, a single highlighted word in a headline, `→` appended to buttons, numbered step markers, hover-lift cards, gradient blobs, beacon used as decoration, any animated background layer other than the ambient connection layer (section 5), reveals that need JavaScript, analytics, pricing claims, Inter, a display typeface or system-default type.
+Do not add: all-caps eyebrows, a single highlighted word in a headline, `→` appended to buttons, numbered step markers, gradient blobs, beacon used as decoration, any animated background layer other than the ambient connection layer (section 5), JS-only content that stays hidden when JS/motion is disabled, analytics, pricing claims, Inter, a display typeface or system-default type. (Controlled `.hover-lift` of 2–3px using `--glow`, monochrome Ferry-Blue `SpotlightSurface` hover sheen, and GSAP `ScrollTrigger` reveals paired with the `html.motion-ready` guard are permitted when `prefers-reduced-motion: no-preference`.)
 
 ## 10. Accessibility floor
 
@@ -185,7 +188,7 @@ Do not add: all-caps eyebrows, a single highlighted word in a headline, `→` ap
 - Visible focus: 3px `var(--ui-primary)` outline with 3px offset on `:focus-visible` (global in `main.css`).
 - Touch targets at least 44px (`min-h-11`), including the buttons. The exception is the dense rows and pills inside the demos, which keep the app's compact size and get an extended hit area (section 7).
 - Contrast at least 4.5:1 (see section 2).
-- `prefers-reduced-motion: reduce` turns off the rise animation, the chevron rotation and smooth scrolling (global rule in `main.css`) and shows every demo's finished state without movement.
+- `prefers-reduced-motion: reduce` disables Lenis smooth scrolling, GSAP spatial choreography, `.rise`, chevron rotation and demo animations, while keeping colour/background hover transitions intact and showing every section and demo's finished state immediately.
 - Anything that moves for more than 5 seconds has a pause control (the hero, Logs and Monitor). The ambient pulse stops within 5 seconds of each section change, so it needs none.
 - Inline links in a sentence may be text height (WCAG 2.5.8 inline exception) only when the sentence is the content; link lists such as sources get `min-h-11`, and lone links in a short line get an extended hit area (`-my-3 inline-block py-3`).
 - FAQ uses native `<details>`; keep it that way.

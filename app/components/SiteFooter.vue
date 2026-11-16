@@ -2,7 +2,7 @@
 const props = defineProps<{ releasesUrl: string, notesUrl: string }>()
 const repo = 'https://github.com/ThienNg65/ferry-release'
 const cols = [
-  { title: 'Product', links: [['Features', '#features'], ['Compare', '#compare'], ['Download', '#download'], ['Questions', '#faq']] },
+  { title: 'Product', links: [['Features', '#features'], ['Workflow', '#example'], ['Compare', '#compare'], ['Download', '#download'], ['Questions', '#faq']] },
   { title: 'Releases', links: [['Latest release', props.releasesUrl], ['Release notes', props.notesUrl], ['Changelog', props.releasesUrl.replace(/\/latest$/, '')], ['Licence', `${repo}/blob/main/LICENSE`]] },
   { title: 'Help', links: [['Report an issue', `${repo}/issues`], ['This website', 'https://github.com/ThienNg65/ferry-website']] }
 ]
@@ -15,8 +15,16 @@ const year = new Date().getFullYear()
       <div>
         <p class="flex items-center gap-2.5 text-xl font-bold text-highlighted"><img src="/icon.webp" alt="" width="32" height="32" class="size-8 rounded-lg">Ferry</p>
         <p class="mt-4 max-w-[30ch] text-small text-muted">A Windows app for working with remote servers.</p>
-        <a :href="repo" class="mt-6 inline-flex min-h-11 items-center gap-2 rounded-[10px] border border-default px-4 text-small font-medium text-highlighted hover:border-primary/60 hover:text-primary">
-          <UIcon name="i-lucide-github" class="size-5" aria-hidden="true" />Ferry on GitHub
+        <a
+          :href="repo"
+          aria-label="Ferry on GitHub"
+          class="group hover-lift mt-6 inline-flex min-h-11 items-center gap-2 rounded-[10px] border border-default px-4 text-small font-medium text-highlighted hover:text-primary"
+        >
+          <UIcon name="i-lucide-github" class="size-5 shrink-0" aria-hidden="true" />
+          <span class="btn-win">
+            <span class="win-default">Ferry on GitHub</span>
+            <span class="win-hover" aria-hidden="true">View source &amp; releases</span>
+          </span>
         </a>
       </div>
       <nav v-for="c in cols" :key="c.title" :aria-label="c.title">
@@ -29,7 +37,9 @@ const year = new Date().getFullYear()
     <div class="border-t border-default">
       <div class="page-x flex flex-col items-start justify-between gap-2 py-6 text-small text-muted sm:flex-row sm:items-center">
         <p>© {{ year }} Ferry. Released under the <a :href="`${repo}/blob/main/LICENSE`" class="-my-3 inline-block py-3 underline underline-offset-2 hover:text-highlighted">MIT licence</a>.</p>
-        <a href="#main" class="flex min-h-11 items-center gap-1.5 hover:text-highlighted"><UIcon name="i-lucide-arrow-up" class="size-4" aria-hidden="true" />Back to top</a>
+        <a href="#main" class="group flex min-h-11 items-center gap-1.5 hover:text-highlighted">
+          <UIcon name="i-lucide-arrow-up" class="icon-nudge-up size-4" aria-hidden="true" />Back to top
+        </a>
       </div>
     </div>
   </footer>

@@ -36,14 +36,14 @@ useEventListener(() => (pointerOn.value ? window : null), 'pointermove', (e: Poi
 watch(pointerOn, (on) => { if (!on) { target = { x: 0, y: 0 }; resume() } })
 
 onMounted(() => {
-  const sections = Array.from(document.querySelectorAll('main > section, footer'))
+  const sections = Array.from(document.querySelectorAll<HTMLElement>('main > section, footer'))
   useIntersectionObserver(sections, (entries) => {
     for (const e of entries) {
       if (e.isIntersecting) section.value = e.target.id || (e.target.tagName === 'FOOTER' ? 'footer' : 'hero')
     }
   }, { rootMargin: '-45% 0px -45% 0px' })
   // The demo of the feature row in view is on the right (.pool), on the left (.pool-flip) or wide (.pool-center).
-  useIntersectionObserver(Array.from(document.querySelectorAll('#features .pool')), (entries) => {
+  useIntersectionObserver(Array.from(document.querySelectorAll<HTMLElement>('#features .pool')), (entries) => {
     for (const e of entries) {
       if (e.isIntersecting) side.value = e.target.classList.contains('pool-center') ? 'c' : e.target.classList.contains('pool-flip') ? 'l' : 'r'
     }
