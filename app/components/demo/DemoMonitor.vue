@@ -1,5 +1,6 @@
 <script setup lang="ts">
 // Mirrors monitor/MonitorPanel.vue and ProcessTable.vue: Storage, Memory and CPU summaries over a process table sorted from its header.
+const props = defineProps<{ compact?: boolean }>()
 const t = ref(29)
 const { root, running, frozen, reduced, toggle } = useDemoLoop({ ms: 2000, tick: () => { t.value++ } })
 
@@ -16,15 +17,18 @@ function sort(k: ProcKey) {
   if (key.value === k) dir.value = dir.value === 'desc' ? 'asc' : 'desc'
   else { key.value = k; dir.value = k === 'name' ? 'asc' : 'desc' }
 }
-const rows = computed(() => sortProcesses(processes.map(p => ({ ...p, cpu: Math.max(0, Math.round((p.cpu + 1.5 * Math.sin(t.value + p.pid)) * 10) / 10) })), key.value, dir.value))
+const rows = computed(() => {
+  const sorted = sortProcesses(processes.map(p => ({ ...p, cpu: Math.max(0, Math.round((p.cpu + 1.5 * Math.sin(t.value + p.pid)) * 10) / 10) })), key.value, dir.value)
+  return props.compact ? sorted.slice(0, 3) : sorted
+})
 const sortable: [ProcKey, string][] = [['ram', 'RAM'], ['cpu', 'CPU%']]
 const bars = [['Storage', 2, '16.0 GB / 1006.9 GB'], ['Memory', 7, '1.3 GB / 19.5 GB, swap 107.9 MB (1%)']] as const
 </script>
 
 <template>
-  <DemoWindow ref="root" label="Ferry resource monitor, working illustration" :pausable="!reduced" :running :frozen @toggle="toggle">
+  <DemoWindow ref="root" label="Ferry resource monitor, working illustration" :bare="compact" :pausable="!reduced && !compact" :running :frozen @toggle="toggle">
     <div class="@container">
-      <div class="grid gap-3 px-3 py-3 @lg:grid-cols-3 @lg:gap-4" aria-hidden="true">
+      <div class="grid gap-2.5 px-3 @lg:grid-cols-3 @lg:gap-4" :class="compact ? 'py-2' : 'py-3'" aria-hidden="true">
         <div v-for="[name, pct, text] in bars" :key="name">
           <p class="flex justify-between"><b class="font-medium">{{ name }}</b><span class="mono text-[11px] text-[var(--muted)]">{{ pct }}%</span></p>
           <div class="mt-1 h-1.5 rounded-full bg-[var(--chip)]"><div class="h-full rounded-full bg-[var(--accent)]" :style="{ width: `${pct}%` }" /></div>

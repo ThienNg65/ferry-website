@@ -4,8 +4,15 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## Unreleased
 
+### Added
+
+- A 35-second HTML motion product tour (`PromoVideoModal`) triggered from the hero ("Watch 35s tour") or directly at `/?promo=1`, featuring five choreographed scenes, multi-step cursor movement, chapter controls, an end-card download button, and a clean 16:9 stage mode for recording social-media videos.
+- An "Imports WinSCP, PuTTY and ~/.ssh/config" fact in the hero and a visible "Import WinSCP / PuTTY" badge in the Connections demo (`DemoSites`).
+
 ### Changed
 
+- Updated all coded app demos (`DemoWindow`, `DemoFiles`, `DemoLogs`, `DemoMonitor`, `DemoSites`, `HeroDemo`) to match the latest Ferry `v0.28+` desktop UI: unified single-band `SiteTabBar` with `Search Ctrl+K` pill, active-pane accent and compact toolbar in file panes, inline symlink targets (`current → releases/2026-11-16`), interactive four-tab hero dock (`Transfers`, `Terminal`, `Log Tail`, `Monitor`) with a labeled Bottom / Right-split layout toggle, live log tail tab with right-edge error/warning `LogRail`, and Quick Connect `Recent` dropdown with side-by-side Host and Port fields.
+- Added explicit "More info → Run anyway" SmartScreen steps to the installation details panel (`DownloadPanel`).
 - The page now has one continuous, quiet background of fine blue lines that run from your computer to your servers, with soft signal pulses, that follows the section you are reading and, in the hero on desktop, reacts gently to the mouse. Phones and tablets get a still version, and so do visitors who prefer reduced motion.
 - The unsigned-installer notice appears before the download button in the hero and download section, and the header Download button links to that section. The protocol FAQ is merged into one question, and the FAQ is ordered around compatibility, protocols, security, licensing, installation and updates.
 - Redesigned the page with dark and light themes. Six working demos in code replace the videos and screenshots, the type is now Geist, and sections have more room. The page also has a calmer background, content that fades in as you scroll, and a scrollbar in the site colours.

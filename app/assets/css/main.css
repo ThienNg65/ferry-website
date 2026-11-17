@@ -95,6 +95,10 @@ html.motion-ready .reveal-pre { opacity: 0; }
 /* Product windows: the coded demos. */
 .window { border: 1px solid var(--ui-border); border-radius: 14px; overflow: hidden; box-shadow: 0 40px 120px -30px var(--glow); }
 
+/* Native modal dialog scroll containment (never set display on closed dialog). */
+dialog:modal { overscroll-behavior: contain; }
+dialog::backdrop { overflow: hidden; overscroll-behavior: contain; background: rgb(7 17 31 / .82); backdrop-filter: blur(8px); }
+
 /* Tactile hover lift & win-feeling button label swap. */
 .btn-win { display: inline-grid; grid-template-areas: 'label'; place-items: center; overflow: hidden; }
 .btn-win > span { grid-area: label; white-space: nowrap; }

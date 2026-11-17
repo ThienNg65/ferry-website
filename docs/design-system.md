@@ -127,8 +127,9 @@ Components in page order. Each stays presentational and short. Only `app.vue` ca
 | Component | Job | Notes |
 |---|---|---|
 | `SiteHeader` | Floating pill: wordmark, grouped nav (`Explore` and `Resources` with icons), theme toggle, mobile menu drawer, Download button | Scroll-reactive elevation past `36px`; GSAP menu transitions. Below `lg` the grouped nav moves into the mobile menu toggle wrapped in `<ClientOnly>` |
-| `HeroWaterline` | Headline, lead, primary CTA (`Download for Windows` + `See the features` with `.hover-lift` and `.btn-win`), version/SmartScreen notice beneath, grid, aura, hero demo and grouped facts strip | `h1` is the only `h1` (CSS `.rise` for instant LCP); subtle scroll scale settle on `HeroDemo`. The name is historical |
-| `HeroDemo` | The whole Ferry window, auto-cycling, built from the `demo/` pieces | Files on top, a dock with Transfers, Terminal and Log Tail |
+| `HeroWaterline` | Headline, lead, primary CTA (`Download for Windows` + `See the features` + `Watch 35s tour` with `.hover-lift` and `.btn-win`), version/SmartScreen notice beneath, grid, aura, hero demo and grouped facts strip | `h1` is the only `h1` (CSS `.rise` for instant LCP); subtle scroll scale settle on `HeroDemo`. The name is historical |
+| `HeroDemo` | The whole Ferry window, auto-cycling, built from the `demo/` pieces | Files on top (or left), a 6-tab dock (`Transfers`, `Activity`, `Log Tail`, `Terminal`, `Monitor`, `Edits`) with a working Bottom / Right-split dock toggle |
+| `PromoVideoModal` | Native `<dialog>` 35-second HTML motion tour (`Watch 35s tour` or `/?promo=1`) | Choreographs 5 scenes across `DemoSites`, `DemoFiles`, `DemoTransfers`, `DemoLogs`, `DemoTerminal` and `DemoMonitor` with simulated cursor, camera pans, chapter buttons, and a Clean 16:9 stage mode for social media capture |
 | `FeatureExplorer` | `#features`: unified interactive explorer ordered by workflow (`1. Connect`, `2. Move & Run`, `3. Observe`) with grouped stage buttons, animated desktop indicator bar, directional `Demo*` preview swap, and `SpotlightSurface` `<details>` accordion | Supports `#module-<id>` hash selection and refreshes `ScrollTrigger` on accordion toggle |
 | `RealWorldExample` | "A deploy broke at 6 pm": five steps in `SpotlightSurface` cards on the left, and the matching sticky coded demo (Files, Logs, Terminal, Monitor) on the right | A real sequence, so a numbered `<ol>` is allowed here only. Sticky wrapper stays transform-free for Lenis compatibility |
 | `CompareTable` | Honest comparison with WinSCP and MobaXterm | See section 7. No box around the table: hairlines between rows, Ferry column lifted with `.surface-specular`, `SpotlightSurface` accordions |
@@ -136,8 +137,8 @@ Components in page order. Each stays presentational and short. Only `app.vue` ca
 | `FaqList` | Native `<details>` list | Staggered GSAP reveal; refreshes `ScrollTrigger` on toggle |
 | `SpotlightSurface` | Non-clipping pointer radial sheen wrapper (`--sx`, `--sy`) | Keeps `:focus-visible` outlines unclipped via an inner `aria-hidden` clip layer; active on fine pointer only |
 | `SiteFooter` | Wordmark, "Ferry on GitHub" button, three link columns, then a bottom bar with the copyright and MIT licence line and "Back to top" | Footer headings are `h2` styled small. The year is set at build time |
-| `demo/DemoWindow` | App chrome (title bar, Search pill, site tab), slot, optional pause button, caption slot | `bare` drops the chrome so a demo can sit inside another |
-| `demo/DemoFiles`, `DemoTransfers`, `DemoTerminal`, `DemoLogs`, `DemoMonitor`, `DemoSites` | The six demos | Each mirrors a real app view (section 7). `compact` is used by the hero |
+| `demo/DemoWindow` | App chrome matching Ferry's unified `SiteTabBar` (env-bordered site tab, `+`, `Search Ctrl+K` pill, shell icons), slot, optional pause button, caption slot | `bare` drops the chrome so a demo can sit inside another |
+| `demo/DemoFiles`, `DemoTransfers`, `DemoTerminal`, `DemoLogs`, `DemoMonitor`, `DemoSites` | The six demos | Each mirrors a real app view (section 7), including active-pane accent and inline symlink targets in `DemoFiles`, open tail tab + `LogRail` in `DemoLogs`, and `Recent` + side-by-side Host/Port in `DemoSites`. `compact` is used by the hero |
 
 Shared code: `app/composables/useDemoLoop.ts` (timer, visibility and pause logic), `app/utils/demoData.ts` (made-up sample data, `filterLogs`, `sortProcesses`) with `demoData.test.ts`.
 

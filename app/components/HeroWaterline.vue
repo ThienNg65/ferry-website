@@ -5,6 +5,7 @@ import type { Installer } from '~/utils/release'
 
 defineProps<{ installer: Installer | null, href: string, label: string }>()
 const facts = [
+  ['i-lucide-import', 'Imports WinSCP, PuTTY and ~/.ssh/config'],
   ['i-lucide-key-round', 'SSH and SFTP only'],
   ['i-lucide-monitor', 'Windows 10 and 11, 64-bit'],
   ['i-lucide-scale', 'MIT licence'],
@@ -14,6 +15,7 @@ const facts = [
 const heroRef = ref<HTMLElement>()
 const demoFrameRef = ref<HTMLElement>()
 const installOpen = useState('install-details-open', () => false)
+const promoOpen = useState('promo-video-open', () => false)
 let ctx: gsap.Context | undefined
 let mm: gsap.MatchMedia | undefined
 
@@ -79,6 +81,18 @@ onUnmounted(() => {
             <span class="win-hover" aria-hidden="true">Try the live demos</span>
           </span>
         </a>
+        <button
+          type="button"
+          aria-label="Watch 35-second product tour"
+          class="group hover-lift inline-flex min-h-12 items-center gap-2 rounded-[10px] border border-default bg-elevated/80 px-5 font-medium text-highlighted hover:text-primary"
+          @click="promoOpen = true"
+        >
+          <UIcon name="i-lucide-play-circle" class="size-4 shrink-0 text-primary" aria-hidden="true" />
+          <span class="btn-win">
+            <span class="win-default">Watch 35s tour</span>
+            <span class="win-hover" aria-hidden="true">Motion preview (0:35)</span>
+          </span>
+        </button>
       </div>
 
       <!-- Supporting context & SmartScreen notice grouped beneath the action -->

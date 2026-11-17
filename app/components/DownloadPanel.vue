@@ -134,7 +134,7 @@ function onInstallToggle(e: Event) {
           </summary>
           <div class="relative border-t border-default pb-8 pt-5">
             <p class="text-muted">
-              The installer is not code-signed yet, so Windows does not recognise the publisher and SmartScreen may warn you before it runs. Download it only from this page or the
+              The installer is not code-signed yet, so Windows does not recognise the publisher and SmartScreen may warn you before it runs. If SmartScreen appears, click <b class="font-semibold text-highlighted">More info</b> and then <b class="font-semibold text-highlighted">Run anyway</b>. Download it only from this page or the
               <a :href="releasesUrl" class="text-primary underline underline-offset-4">release page</a>.
               GitHub’s “Verified” badge on commits and tags is not Windows code signing and does not change this.
             </p>

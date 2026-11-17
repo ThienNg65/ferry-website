@@ -19,6 +19,7 @@ useSeoMeta({ ogUrl: `${site}/`, ogImage: `${site}/og.jpg`, twitterImage: `${site
       <DownloadPanel :installer="installer" :href="href" :label="label" :releases-url="releasesUrl" :notes-url="notesUrl" />
       <FaqList />
     </main>
+    <PromoVideoModal :href="href" :label="label" />
     <SiteFooter :releases-url="releasesUrl" :notes-url="notesUrl" />
   </UApp>
 </template>

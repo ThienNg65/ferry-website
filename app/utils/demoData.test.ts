@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { filterLogs, initialLogs, sortProcesses } from './demoData'
+import { filterLogs, initialLogs, promoSceneAt, promoScenes, promoTotalMs, remoteFiles, sortProcesses } from './demoData'
 import type { LogLine, Proc } from './demoData'
 
 const L = (level: LogLine['level']): LogLine => ({ n: 1, level, ts: '', src: '', text: '' })
@@ -22,4 +22,21 @@ describe('sortProcesses', () => {
   it('sorts numbers highest first by default', () => expect(sortProcesses(rows, 'cpu').map(r => r.name)).toEqual(['a', 'c', 'b']))
   it('honours ascending order', () => expect(sortProcesses(rows, 'ram', 'asc').map(r => r.name)).toEqual(['c', 'b', 'a']))
   it('does not mutate its input', () => { sortProcesses(rows, 'ram'); expect(rows[0]!.name).toBe('b') })
+})
+
+describe('promoSceneAt & latest UI data', () => {
+  it('includes an inline symlink target in remoteFiles', () => {
+    const symlink = remoteFiles.find(r => r[0] === 'current')
+    expect(symlink?.[5]).toBe('releases/2026-11-16')
+  })
+  it('maps elapsed time across all 5 promo scenes (35s total)', () => {
+    expect(promoTotalMs).toBe(35000)
+    expect(promoSceneAt(0).scene.id).toBe('connect')
+    expect(promoSceneAt(6000).scene.id).toBe('transfer')
+    expect(promoSceneAt(14000).scene.id).toBe('logs')
+    expect(promoSceneAt(22000).scene.id).toBe('terminal')
+    expect(promoSceneAt(22000).scene.dockPosition).toBe('right')
+    expect(promoSceneAt(35000).scene.id).toBe('outro')
+    expect(promoSceneAt(35000).totalProgress).toBe(1)
+  })
 })
