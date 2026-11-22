@@ -78,6 +78,8 @@ html {
   html:not(.lenis-smooth) { scroll-behavior: smooth; }
 }
 html.motion-ready .reveal-pre { opacity: 0; }
+html:not(.light) .shot-light { display: none; }
+html.light .shot-dark { display: none; }
 
 @layer base {
   body {

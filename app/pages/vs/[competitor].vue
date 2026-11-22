@@ -64,14 +64,14 @@ useSeoMeta({
       </div>
 
       <div class="mt-10">
-        <figure class="window overflow-hidden bg-[#070b14]">
-          <img
+        <figure class="window overflow-hidden bg-elevated">
+          <AppShot
             src="/media/files-terminal.webp"
             alt="Ferry Modern Glass UI showing dual-pane SFTP and embedded SSH terminal"
-            width="1920"
-            height="1080"
-            class="block h-auto w-full"
-          >
+            :width="1920"
+            :height="1080"
+            eager
+          />
         </figure>
       </div>
 

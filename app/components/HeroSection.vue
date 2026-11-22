@@ -64,16 +64,14 @@ const badges = [
       </div>
 
       <div class="rise mx-auto mt-12 max-w-[68rem]" style="--d: 200ms">
-        <figure class="window bg-[#070b14]">
-          <img
+        <figure class="window bg-elevated">
+          <AppShot
             src="/media/files-terminal.webp"
             alt="Ferry on Windows showing dual-pane local and remote files above an interactive SSH terminal"
-            width="1920"
-            height="1080"
-            fetchpriority="high"
-            decoding="async"
-            class="block h-auto w-full"
-          >
+            :width="1920"
+            :height="1080"
+            eager
+          />
         </figure>
       </div>
     </div>

@@ -33,30 +33,26 @@ const monitorBullets = [
             </li>
           </ul>
         </div>
-        <figure class="reveal-pre window bg-[#070b14]">
-          <img
+        <figure class="reveal-pre window bg-elevated">
+          <AppShot
             src="/media/log-tail.webp"
             alt="Ferry live log tail showing error and warning filters with the right-hand overview rail"
-            width="1920"
-            height="1080"
-            loading="lazy"
-            class="block h-auto w-full"
-          >
+            :width="1920"
+            :height="1080"
+          />
         </figure>
       </div>
     </section>
 
     <section class="section-y border-t border-default" aria-labelledby="monitor-title">
       <div class="page-x grid items-center gap-10 lg:grid-cols-[7fr_5fr] lg:gap-14">
-        <figure class="reveal-pre window order-2 bg-[#070b14] lg:order-1">
-          <img
+        <figure class="reveal-pre window order-2 bg-elevated lg:order-1">
+          <AppShot
             src="/media/monitor.webp"
             alt="Ferry resource monitor displaying CPU, memory, storage, and running processes"
-            width="1920"
-            height="1200"
-            loading="lazy"
-            class="block h-auto w-full"
-          >
+            :width="1920"
+            :height="1200"
+          />
         </figure>
         <div class="reveal-pre order-1 lg:order-2">
           <h2 id="monitor-title">

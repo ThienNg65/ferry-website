@@ -60,15 +60,13 @@ useSectionReveal(rootRef, '.reveal-pre', { batch: true })
             <h3 class="text-xl text-highlighted">{{ card.title }}</h3>
             <p class="mt-2 text-small text-muted">{{ card.body }}</p>
           </div>
-          <figure class="border-t border-default bg-[#070b14]">
-            <img
+          <figure class="border-t border-default bg-elevated">
+            <AppShot
               :src="card.src"
               :alt="card.alt"
               :width="card.width"
               :height="card.height"
-              loading="lazy"
-              class="block h-auto w-full"
-            >
+            />
           </figure>
         </article>
       </div>

@@ -13,6 +13,27 @@ const scrolled = ref(false)
 const headerRef = ref<HTMLElement | null>(null)
 const colorMode = useColorMode()
 
+function preloadOppositeShots(target: 'light' | 'dark') {
+  const selector = target === 'light' ? 'img.shot-light' : 'img.shot-dark'
+  return Array.from(document.querySelectorAll<HTMLImageElement>(selector))
+    .filter((img) => {
+      const r = img.getBoundingClientRect()
+      return r.bottom > -300 && r.top < window.innerHeight + 300
+    })
+    .map(async (img) => {
+      img.loading = 'eager'
+      if (!img.complete) {
+        await new Promise<void>((res) => {
+          const done = () => res()
+          img.addEventListener('load', done, { once: true })
+          img.addEventListener('error', done, { once: true })
+          setTimeout(done, 800)
+        })
+      }
+      await img.decode().catch(() => {})
+    })
+}
+
 function toggleTheme(e: MouseEvent) {
   const next = colorMode.value === 'dark' ? 'light' : 'dark'
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -27,8 +48,10 @@ function toggleTheme(e: MouseEvent) {
   document.documentElement.style.setProperty('--theme-x', `${x}px`)
   document.documentElement.style.setProperty('--theme-y', `${y}px`)
   document.documentElement.style.setProperty('--theme-r', `${endRadius}px`)
-  document.startViewTransition(() => {
+  document.startViewTransition(async () => {
     colorMode.preference = next
+    await nextTick()
+    await Promise.all(preloadOppositeShots(next))
   })
 }
 

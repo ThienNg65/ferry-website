@@ -72,15 +72,13 @@ useSectionReveal(rootRef, '.reveal-pre', { batch: true })
 
         <div class="reveal-pre min-w-0">
           <Transition name="swap" mode="out-in">
-            <figure :key="items[active]!.id" class="window bg-[#070b14]">
-              <img
+            <figure :key="items[active]!.id" class="window bg-elevated">
+              <AppShot
                 :src="items[active]!.src"
                 :alt="items[active]!.alt"
                 :width="items[active]!.width"
                 :height="items[active]!.height"
-                loading="lazy"
-                class="block h-auto w-full"
-              >
+              />
             </figure>
           </Transition>
         </div>
