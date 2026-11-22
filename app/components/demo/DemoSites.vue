@@ -22,7 +22,7 @@ const authOptions = ['Password', 'Private key', 'SSH agent'] as const
             <h4 :id="`${id}-s`" class="text-[15px] font-semibold tracking-tight">Sites</h4>
             <div class="flex items-center gap-1.5 text-[11px]" aria-hidden="true">
               <span class="hidden rounded-md px-2 py-1 text-[var(--muted)] sm:inline">Select</span>
-              <span class="hidden items-center gap-1 rounded-md px-2 py-1 text-[var(--muted)] md:inline-flex">
+              <span class="hidden items-center gap-1 rounded-md px-2 py-1 text-[var(--muted)] sm:inline-flex">
                 <UIcon name="i-lucide-folder-down" class="size-3 text-[var(--accent-text)]" />
                 Import / Export
                 <UIcon name="i-lucide-chevron-down" class="size-3" />
@@ -31,7 +31,7 @@ const authOptions = ['Password', 'Private key', 'SSH agent'] as const
             </div>
           </div>
           <label :for="`${id}-q`" class="sr-only">Search sites by name, host, or user</label>
-          <input :id="`${id}-q`" v-model="q" type="search" placeholder="Search sites by name, host, or user…" autocomplete="off" class="demo-glass-well mt-3 h-9 w-full rounded-lg px-3 text-[var(--fg)] placeholder:text-[var(--muted)] focus:border-[var(--accent)] focus:outline-none">
+          <input :id="`${id}-q`" v-model="q" type="search" placeholder="Search sites by name, host, or user…" autocomplete="off" class="demo-glass-well mt-3 h-11 w-full rounded-lg px-3 text-[var(--fg)] placeholder:text-[var(--muted)] focus:border-[var(--accent)] focus:outline-none">
           <p v-if="empty" class="py-4 text-center text-[var(--muted)]" role="status">No sites match "{{ q }}".</p>
           <div v-for="x in groups" :key="x.g" class="mt-2.5" role="group" :aria-label="x.g">
             <p class="px-1.5 pb-1 text-[10px] font-semibold uppercase tracking-wider text-[var(--muted)]" aria-hidden="true">{{ x.g }}</p>

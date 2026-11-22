@@ -56,7 +56,7 @@ defineEmits<{ toggle: [] }>()
       </div>
       <slot />
       <button
-        v-if="pausable" type="button" class="demo-glass-card absolute right-1 top-0.5 z-10 flex size-10 items-center justify-center !rounded-full text-[var(--fg)] hover:border-white/25"
+        v-if="pausable" type="button" class="demo-glass-card absolute right-1 top-0 z-10 flex size-11 items-center justify-center !rounded-full text-[var(--fg)] hover:border-white/25"
         :aria-label="running ? 'Pause the demo' : 'Play the demo'" @click="$emit('toggle')"
       >
         <UIcon :name="running ? 'i-lucide-pause' : 'i-lucide-play'" class="size-4" aria-hidden="true" />

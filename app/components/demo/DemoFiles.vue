@@ -32,7 +32,7 @@ const remote = computed<Row[]>(() => {
     <div class="relative grid grid-cols-2">
       <div class="pane border-r border-[var(--line)]" @pointerdown="activePane = 'local'">
         <div
-          class="crumb border-b border-[var(--line)] bg-[rgba(13,18,30,0.52)]"
+          class="crumb border-b border-[var(--line)] bg-[var(--chrome)]"
           :class="activePane === 'local' ? 'shadow-[inset_0_-2px_0_var(--accent)]' : ''"
         >
           <span class="crumb-pill" :class="activePane === 'local' ? 'border-[var(--accent)]/40' : ''">
@@ -59,7 +59,7 @@ const remote = computed<Row[]>(() => {
       </div>
       <div class="pane" @pointerdown="activePane = 'remote'">
         <div
-          class="crumb border-b border-[var(--line)] bg-[rgba(13,18,30,0.52)]"
+          class="crumb border-b border-[var(--line)] bg-[var(--chrome)]"
           :class="activePane === 'remote' ? 'shadow-[inset_0_-2px_0_var(--accent)]' : ''"
         >
           <span class="crumb-pill" :class="activePane === 'remote' ? 'border-[var(--accent)]/40' : ''">

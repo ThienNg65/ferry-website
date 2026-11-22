@@ -29,7 +29,7 @@ const bars = [['Storage', 2, '16.0 GB / 1006.9 GB'], ['Memory', 7, '1.3 GB / 19.
   <DemoWindow ref="root" label="Ferry resource monitor, working illustration" :bare="compact" :pausable="!reduced && !compact" :running :frozen @toggle="toggle">
     <div class="@container">
       <div class="grid gap-2.5 px-3 @lg:grid-cols-3 @lg:gap-3" :class="compact ? 'py-2' : 'py-3'" aria-hidden="true">
-        <div v-for="[name, pct, text] in bars" :key="name" class="demo-glass-card !rounded-lg p-2.5">
+        <div v-for="[name, pct, text] in bars" :key="name" class="demo-glass-card !rounded-lg" :class="compact ? 'p-2' : 'p-2.5'">
           <p class="flex items-center justify-between">
             <b class="font-medium text-[var(--fg)]">{{ name }}</b>
             <span class="mono rounded-full bg-[var(--sel)] px-1.5 py-0.5 text-[10px] font-semibold text-[var(--accent-text)]">{{ pct }}%</span>
@@ -37,7 +37,7 @@ const bars = [['Storage', 2, '16.0 GB / 1006.9 GB'], ['Memory', 7, '1.3 GB / 19.
           <div class="mt-1.5 h-1.5 overflow-hidden rounded-full bg-[var(--well)]"><div class="h-full rounded-full bg-[var(--accent)] shadow-[0_0_8px_var(--accent)]" :style="{ width: `${pct}%` }" /></div>
           <p class="mt-1.5 text-[11px] text-[var(--muted)]">{{ text }}</p>
         </div>
-        <div class="demo-glass-card !rounded-lg p-2.5">
+        <div class="demo-glass-card !rounded-lg" :class="compact ? 'p-2' : 'p-2.5'">
           <div class="flex items-center justify-between">
             <b class="font-medium text-[var(--fg)]">CPU</b>
             <span class="inline-flex items-center gap-1 rounded-full border border-[var(--ok)]/40 bg-[var(--ok)]/10 px-1.5 py-0.5 text-[10px] font-semibold text-[var(--ok-text)]">
@@ -56,11 +56,11 @@ const bars = [['Storage', 2, '16.0 GB / 1006.9 GB'], ['Memory', 7, '1.3 GB / 19.
           </p>
         </div>
       </div>
-      <div class="demo-glass-well mx-3 mb-3 overflow-hidden rounded-lg">
+      <div class="demo-glass-well overflow-hidden rounded-lg" :class="compact ? 'mx-1 mb-1' : 'mx-3 mb-3'">
         <table class="w-full">
           <caption class="sr-only">Processes on the server, click Name, RAM or CPU% to sort</caption>
           <thead>
-            <tr class="bg-[rgba(13,18,30,0.55)] text-[11px] uppercase tracking-wide text-[var(--muted)]">
+            <tr class="bg-[var(--chrome)] text-[11px] uppercase tracking-wide text-[var(--muted)]">
               <th scope="col" :aria-sort="key === 'name' ? (dir === 'asc' ? 'ascending' : 'descending') : 'none'" class="border-b border-[var(--line)] text-left font-medium">
                 <button type="button" class="hit inline-flex h-7 w-full items-center gap-0.5 px-3 uppercase hover:text-[var(--accent-text)]" @click="sort('name')">
                   Name<UIcon v-if="key === 'name'" :name="dir === 'asc' ? 'i-lucide-chevron-up' : 'i-lucide-chevron-down'" class="size-3" aria-hidden="true" />

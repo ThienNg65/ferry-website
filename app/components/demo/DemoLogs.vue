@@ -30,7 +30,7 @@ const railMarks = computed(() => (props.compact ? initialLogs.slice(0, 12) : lin
         <UIcon name="i-lucide-file-text" class="size-3 text-[var(--accent-text)]" />
         <span>app.log</span>
       </span>
-      <component :is="compact ? 'span' : 'button'" :type="compact ? undefined : 'button'" class="mono hit flex shrink-0 items-center gap-1.5 rounded-full border bg-[var(--well)] px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wider" :style="{ color: running ? 'var(--ok-text)' : 'var(--warn-text)', borderColor: running ? 'rgba(48, 209, 88, 0.45)' : 'rgba(255, 159, 10, 0.45)' }" @click="!compact && toggle()">
+      <component :is="compact ? 'span' : 'button'" :type="compact ? undefined : 'button'" class="mono hit flex shrink-0 items-center gap-1.5 rounded-full border bg-[var(--well)] px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wider" :style="{ color: running ? 'var(--ok-text)' : 'var(--warn-text)', borderColor: 'color-mix(in srgb, currentColor 45%, transparent)' }" @click="!compact && toggle()">
         <span class="size-2 rounded-full" :class="{ 'live-dot': running }" :style="{ background: 'currentColor' }" aria-hidden="true" />{{ running ? 'Live' : 'Paused' }}
       </component>
       <span class="mono flex shrink-0 items-center gap-1.5 text-[11px] text-[var(--muted)]">
@@ -58,7 +58,7 @@ const railMarks = computed(() => (props.compact ? initialLogs.slice(0, 12) : lin
         </div>
       </div>
       <!-- LogRail overview strip showing error and warning density marks -->
-      <div class="relative flex w-2.5 shrink-0 flex-col border-l border-[var(--line)] bg-[rgba(13,18,30,0.65)]">
+      <div class="relative flex w-2.5 shrink-0 flex-col border-l border-[var(--line)] bg-[var(--chrome)]">
         <span v-for="m in railMarks" :key="m.n" class="relative min-h-0 flex-1">
           <i
             v-if="m.level === 'error' || m.level === 'warn'"
