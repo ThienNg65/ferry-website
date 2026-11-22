@@ -24,29 +24,29 @@ const railMarks = computed(() => (props.compact ? initialLogs.slice(0, 12) : lin
 
 <template>
   <DemoWindow ref="root" label="Ferry log viewer, working illustration" :bare="compact" :pausable="!reduced && !compact" :running :frozen @toggle="toggle">
-    <div class="flex items-center gap-x-2.5 gap-y-1 overflow-x-auto border-b border-[var(--line)] px-2 py-1">
-      <span aria-hidden="true" class="flex shrink-0 items-center gap-1.5 rounded-md border border-[var(--line)] bg-[var(--bg)] px-2 py-0.5 text-[11px] font-medium text-[var(--fg)]">
+    <div class="demo-glass-chrome flex items-center gap-x-2.5 gap-y-1 overflow-x-auto border-b border-[var(--line)] px-2.5 py-1.5">
+      <span aria-hidden="true" class="demo-glass-tab flex shrink-0 items-center gap-1.5 px-2.5 py-0.5 text-[11px] font-medium text-[var(--fg)]">
         <span class="size-2 rounded-full bg-[var(--ok)]" :class="{ 'live-dot': running }" />
-        <UIcon name="i-lucide-file-text" class="size-3 text-[var(--muted)]" />
+        <UIcon name="i-lucide-file-text" class="size-3 text-[var(--accent-text)]" />
         <span>app.log</span>
       </span>
-      <component :is="compact ? 'span' : 'button'" :type="compact ? undefined : 'button'" class="mono hit flex shrink-0 items-center gap-1.5 rounded-full border px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wider" :style="{ color: running ? 'var(--ok)' : 'var(--warn)', borderColor: 'currentColor' }" @click="!compact && toggle()">
+      <component :is="compact ? 'span' : 'button'" :type="compact ? undefined : 'button'" class="mono hit flex shrink-0 items-center gap-1.5 rounded-full border bg-[var(--well)] px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wider" :style="{ color: running ? 'var(--ok-text)' : 'var(--warn-text)', borderColor: running ? 'rgba(48, 209, 88, 0.45)' : 'rgba(255, 159, 10, 0.45)' }" @click="!compact && toggle()">
         <span class="size-2 rounded-full" :class="{ 'live-dot': running }" :style="{ background: 'currentColor' }" aria-hidden="true" />{{ running ? 'Live' : 'Paused' }}
       </component>
       <span class="mono flex shrink-0 items-center gap-1.5 text-[11px] text-[var(--muted)]">
         <span><b class="font-semibold text-[var(--fg)]">{{ total }}</b><span v-if="total !== lines.length"> / {{ lines.length }}</span> lines</span>
-        <span class="hidden h-1.5 w-10 overflow-hidden rounded-full bg-[var(--chip)] sm:inline-block" aria-hidden="true">
+        <span class="hidden h-1.5 w-10 overflow-hidden rounded-full bg-[var(--well)] sm:inline-block" aria-hidden="true">
           <i class="block h-full rounded-full bg-[var(--accent)]" :style="{ width: `${bufferPct}%` }" />
         </span>
       </span>
-      <div role="group" aria-label="Filter lines by level" class="flex shrink-0 gap-0.5 rounded-md bg-[var(--chip)] p-0.5">
-        <button v-for="[id, label, n] in filters" :key="id" type="button" :aria-pressed="filter === id" class="mono hit flex items-center gap-1 rounded px-2 py-0.5 text-[11px]"
-          :class="filter === id ? 'bg-[var(--bg)] font-semibold text-[var(--fg)]' : 'text-[var(--muted)] hover:text-[var(--fg)]'" @click="filter = id">
+      <div role="group" aria-label="Filter lines by level" class="demo-glass-well flex shrink-0 gap-0.5 rounded-lg p-0.5">
+        <button v-for="[id, label, n] in filters" :key="id" type="button" :aria-pressed="filter === id" class="mono hit flex items-center gap-1 rounded-md px-2 py-0.5 text-[11px] transition-colors"
+          :class="filter === id ? 'bg-[var(--chip)] font-semibold text-[var(--fg)] shadow-[inset_0_1px_0_rgba(255,255,255,0.14)]' : 'text-[var(--muted)] hover:text-[var(--fg)]'" @click="filter = id">
           {{ label }}<span v-if="n && id !== 'all'" class="rounded-full px-1 text-[10px] font-bold" :style="{ color: hue[id] }">{{ n }}</span>
         </button>
       </div>
     </div>
-    <div class="flex" :class="compact ? 'h-24' : 'h-72'" aria-hidden="true">
+    <div class="demo-glass-well flex !border-0" :class="compact ? 'h-24' : 'h-72'" aria-hidden="true">
       <div class="mono min-w-0 flex-1 overflow-hidden py-0.5 text-[12px] leading-relaxed">
         <div v-for="(l, i) in view" :key="l.n" class="flex items-start" :class="{ line: compact || l.n > 24 }"
           :style="{ background: l.level === 'error' || l.level === 'warn' ? `color-mix(in srgb, ${hue[l.level]} 14%, transparent)` : undefined, animationDelay: compact ? `${0.3 + i * 0.7}s` : undefined }">
@@ -58,7 +58,7 @@ const railMarks = computed(() => (props.compact ? initialLogs.slice(0, 12) : lin
         </div>
       </div>
       <!-- LogRail overview strip showing error and warning density marks -->
-      <div class="relative flex w-2.5 shrink-0 flex-col border-l border-[var(--line)] bg-[var(--chip)]/35">
+      <div class="relative flex w-2.5 shrink-0 flex-col border-l border-[var(--line)] bg-[rgba(13,18,30,0.65)]">
         <span v-for="m in railMarks" :key="m.n" class="relative min-h-0 flex-1">
           <i
             v-if="m.level === 'error' || m.level === 'warn'"

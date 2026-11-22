@@ -328,7 +328,7 @@ function formatTime(ms: number) {
                     : 'border-t border-[var(--line)]'"
                 >
                   <!-- Dock Bar with 6 Tabs + Right-Split Indicator -->
-                  <div class="flex items-center gap-1 overflow-x-auto bg-[var(--chip)]/45 px-2 py-1" aria-hidden="true">
+                  <div class="demo-glass-chrome flex items-center gap-1 overflow-x-auto border-b border-[var(--line)] px-2.5 py-1.5" aria-hidden="true">
                     <span
                       v-for="tabItem in [
                         ['transfers', 'Transfers', 1],
@@ -339,13 +339,14 @@ function formatTime(ms: number) {
                         ['edits', 'Edits', 0]
                       ] as const"
                       :key="tabItem[0]"
-                      class="inline-flex items-center gap-1 rounded px-2 py-0.5 text-[11px] font-medium"
+                      class="relative inline-flex items-center gap-1 rounded-lg px-2.5 py-1 text-[11px] font-medium"
                       :class="activeDockPanel === tabItem[0]
-                        ? 'bg-[var(--sel)] text-[var(--accent-text)] font-semibold'
+                        ? 'demo-glass-tab text-[var(--fg)] font-semibold'
                         : 'text-[var(--muted)]'"
                     >
                       <span>{{ tabItem[1] }}</span>
-                      <span v-if="tabItem[2]" class="rounded-full bg-[var(--bg)] px-1 text-[10px] font-bold text-[var(--accent-text)]">{{ tabItem[2] }}</span>
+                      <span v-if="tabItem[2]" class="rounded-full bg-[var(--sel)] px-1.5 text-[10px] font-bold text-[var(--accent-text)]">{{ tabItem[2] }}</span>
+                      <span v-if="activeDockPanel === tabItem[0]" class="pointer-events-none absolute inset-x-2 bottom-0 h-0.5 rounded-full bg-[var(--accent)] shadow-[0_0_8px_var(--accent)]" />
                     </span>
                     <span class="ml-auto inline-flex items-center gap-1 text-[11px] text-[var(--muted)]">
                       <UIcon :name="activeScene.dockPosition === 'right' ? 'i-lucide-panel-bottom' : 'i-lucide-panel-right'" class="size-3.5 text-[var(--accent-text)]" />

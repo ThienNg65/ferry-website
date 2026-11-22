@@ -39,30 +39,35 @@ const group = useId()
 
 <template>
   <DemoWindow label="Ferry transfer queue and history, working illustration" :bare="compact">
-    <div class="px-3 pb-3 pt-2">
-      <p class="text-[var(--muted)]"><b class="font-medium text-[var(--fg)]">{{ compact ? '1 of 1' : `${done} of ${queue.length}` }}</b>, {{ compact ? solo.pct : done < queue.length ? 57 : 100 }}%</p>
-      <ul class="mt-1 border-t border-[var(--line)]">
-        <li v-for="it in list" :key="it.name + it.run" class="border-b border-[var(--line)] py-2">
-          <div class="flex items-center justify-between gap-2">
-            <span class="flex min-w-0 items-center gap-1.5">
-              <UIcon :name="it.up ? 'i-lucide-upload' : 'i-lucide-download'" class="size-3.5 shrink-0 text-[var(--muted)]" aria-hidden="true" />
-              <b class="shrink-0 font-medium">{{ it.name }}</b><span class="truncate text-[var(--muted)]">in {{ it.dir }}</span>
-            </span>
-            <button v-if="it.state === 'error'" type="button" class="btn hit !min-h-7 !px-1.5" aria-label="Retry transfer" @click="retry(it)">
-              <UIcon name="i-lucide-rotate-cw" class="size-3.5" aria-hidden="true" />Retry
-            </button>
-          </div>
-          <div class="mt-1.5 h-1 rounded-full bg-[var(--chip)]" aria-hidden="true">
-            <div class="h-full rounded-full" :class="{ bar: !compact }" :style="{ width: `${it.pct}%`, background: tone[it.state] }" />
-          </div>
-          <p class="mt-1 flex justify-between gap-2 text-[11px] text-[var(--muted)]">
-            <span :style="it.state === 'error' ? { color: 'var(--err)' } : undefined">{{ it.text }}</span><span class="mono">{{ it.right }}</span>
-          </p>
-        </li>
-      </ul>
+    <div class="p-3">
+      <div class="demo-glass-card !rounded-lg p-3">
+        <div class="flex items-center justify-between gap-2 pb-2">
+          <p class="text-[var(--muted)]"><b class="font-semibold text-[var(--fg)]">{{ compact ? '1 of 1' : `${done} of ${queue.length}` }}</b> · {{ compact ? solo.pct : done < queue.length ? 57 : 100 }}%</p>
+          <span class="rounded-full bg-[var(--sel)] px-2 py-0.5 text-[10px] font-semibold text-[var(--accent-text)]" aria-hidden="true">Queue</span>
+        </div>
+        <ul class="divide-y divide-[var(--line)] border-t border-[var(--line)]">
+          <li v-for="it in list" :key="it.name + it.run" class="py-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="flex min-w-0 items-center gap-1.5">
+                <UIcon :name="it.up ? 'i-lucide-upload' : 'i-lucide-download'" class="size-3.5 shrink-0 text-[var(--accent-text)]" aria-hidden="true" />
+                <b class="shrink-0 font-medium">{{ it.name }}</b><span class="truncate text-[var(--muted)]">in {{ it.dir }}</span>
+              </span>
+              <button v-if="it.state === 'error'" type="button" class="btn hit !min-h-7 rounded-md bg-white/5 !px-2 text-[11px] font-medium text-[var(--fg)]" aria-label="Retry transfer" @click="retry(it)">
+                <UIcon name="i-lucide-rotate-cw" class="size-3" aria-hidden="true" />Retry
+              </button>
+            </div>
+            <div class="mt-1.5 h-1.5 overflow-hidden rounded-full bg-[var(--well)]" aria-hidden="true">
+              <div class="h-full rounded-full" :class="{ bar: !compact }" :style="{ width: `${it.pct}%`, background: tone[it.state] }" />
+            </div>
+            <p class="mt-1 flex justify-between gap-2 text-[11px] text-[var(--muted)]">
+              <span :style="it.state === 'error' ? { color: 'var(--err-text)' } : undefined">{{ it.text }}</span><span class="mono">{{ it.right }}</span>
+            </p>
+          </li>
+        </ul>
+      </div>
 
       <template v-if="!compact">
-        <div class="mt-5 flex items-baseline justify-between gap-3">
+        <div class="mt-4 flex items-baseline justify-between gap-3">
           <h4 class="text-[15px] font-semibold">History</h4><span class="text-[var(--muted)]">Completed transfers and operations.</span>
         </div>
         <fieldset class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
@@ -71,11 +76,11 @@ const group = useId()
             <input v-model="filter" type="radio" :name="group" :value="v" class="size-3.5 accent-[var(--accent)]">{{ l }}
           </label>
         </fieldset>
-        <ul class="mt-2 divide-y divide-[var(--line)] rounded-md border border-[var(--line)]">
-          <li v-for="h in rows" :key="h.label" class="flex items-center gap-2 px-3 py-2">
+        <ul class="demo-glass-well mt-2 divide-y divide-[var(--line)] overflow-hidden rounded-lg">
+          <li v-for="h in rows" :key="h.label" class="flex items-center gap-2 px-3 py-2 transition-colors hover:bg-white/4">
             <UIcon :name="h.kind === 'up' ? 'i-lucide-upload' : 'i-lucide-download'" class="size-4 shrink-0 text-[var(--muted)]" aria-hidden="true" />
             <span class="min-w-0 flex-1"><span class="block truncate">{{ h.label }}</span><span class="block truncate text-[11px] text-[var(--muted)]">{{ h.meta }}</span></span>
-            <span class="rounded-md px-2 py-0.5 text-[11px] font-medium" :style="{ color: badge[h.status], background: 'var(--chip)' }">{{ h.status }}</span>
+            <span class="rounded-full border border-white/10 px-2 py-0.5 text-[10px] font-semibold" :style="{ color: badge[h.status], background: 'var(--chip)' }">{{ h.status }}</span>
           </li>
         </ul>
       </template>

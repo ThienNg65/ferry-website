@@ -28,48 +28,59 @@ const bars = [['Storage', 2, '16.0 GB / 1006.9 GB'], ['Memory', 7, '1.3 GB / 19.
 <template>
   <DemoWindow ref="root" label="Ferry resource monitor, working illustration" :bare="compact" :pausable="!reduced && !compact" :running :frozen @toggle="toggle">
     <div class="@container">
-      <div class="grid gap-2.5 px-3 @lg:grid-cols-3 @lg:gap-4" :class="compact ? 'py-2' : 'py-3'" aria-hidden="true">
-        <div v-for="[name, pct, text] in bars" :key="name">
-          <p class="flex justify-between"><b class="font-medium">{{ name }}</b><span class="mono text-[11px] text-[var(--muted)]">{{ pct }}%</span></p>
-          <div class="mt-1 h-1.5 rounded-full bg-[var(--chip)]"><div class="h-full rounded-full bg-[var(--accent)]" :style="{ width: `${pct}%` }" /></div>
-          <p class="mt-1 text-[11px] text-[var(--muted)]">{{ text }}</p>
+      <div class="grid gap-2.5 px-3 @lg:grid-cols-3 @lg:gap-3" :class="compact ? 'py-2' : 'py-3'" aria-hidden="true">
+        <div v-for="[name, pct, text] in bars" :key="name" class="demo-glass-card !rounded-lg p-2.5">
+          <p class="flex items-center justify-between">
+            <b class="font-medium text-[var(--fg)]">{{ name }}</b>
+            <span class="mono rounded-full bg-[var(--sel)] px-1.5 py-0.5 text-[10px] font-semibold text-[var(--accent-text)]">{{ pct }}%</span>
+          </p>
+          <div class="mt-1.5 h-1.5 overflow-hidden rounded-full bg-[var(--well)]"><div class="h-full rounded-full bg-[var(--accent)] shadow-[0_0_8px_var(--accent)]" :style="{ width: `${pct}%` }" /></div>
+          <p class="mt-1.5 text-[11px] text-[var(--muted)]">{{ text }}</p>
         </div>
-        <div>
-          <b class="font-medium">CPU</b>
-          <p class="flex items-center gap-2">
+        <div class="demo-glass-card !rounded-lg p-2.5">
+          <div class="flex items-center justify-between">
+            <b class="font-medium text-[var(--fg)]">CPU</b>
+            <span class="inline-flex items-center gap-1 rounded-full border border-[var(--ok)]/40 bg-[var(--ok)]/10 px-1.5 py-0.5 text-[10px] font-semibold text-[var(--ok-text)]">
+              <span class="size-1.5 rounded-full bg-[var(--ok)]" :class="{ 'live-dot': running }" />
+              Live · 2s
+            </span>
+          </div>
+          <p class="mt-0.5 flex items-center gap-2">
             <span class="text-[15px] font-semibold tabular-nums" :style="{ color: cpuColor }">{{ cpu.toFixed(1) }}%</span>
             <svg viewBox="0 0 100 32" class="h-4 w-12" :style="{ color: 'var(--accent-text)' }" preserveAspectRatio="none"><polyline :points fill="none" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke" /></svg>
             <span class="text-[11px] text-[var(--muted)]">10 cores</span>
           </p>
           <p class="mt-1 flex items-end gap-2">
-            <span class="flex gap-0.5"><i v-for="(c, i) in cores" :key="i" class="flex h-3 w-1 flex-col justify-end overflow-hidden rounded-sm bg-[var(--chip)]"><i class="block w-full bg-[var(--accent)]" :style="{ height: `${c}%` }" /></i></span>
+            <span class="flex gap-0.5"><i v-for="(c, i) in cores" :key="i" class="flex h-3 w-1 flex-col justify-end overflow-hidden rounded-sm bg-[var(--well)]"><i class="block w-full bg-[var(--accent)]" :style="{ height: `${c}%` }" /></i></span>
             <span class="text-[11px] text-[var(--muted)]">7.09/6.58/6.33, 4h 42m</span>
           </p>
         </div>
       </div>
-      <table class="w-full border-t border-[var(--line)]">
-        <caption class="sr-only">Processes on the server, click Name, RAM or CPU% to sort</caption>
-        <thead>
-          <tr class="text-[11px] uppercase tracking-wide">
-            <th scope="col" :aria-sort="key === 'name' ? (dir === 'asc' ? 'ascending' : 'descending') : 'none'" class="border-b border-[var(--line)] text-left font-medium">
-              <button type="button" class="hit inline-flex h-7 w-full items-center gap-0.5 px-3 uppercase hover:text-[var(--accent-text)]" @click="sort('name')">
-                Name<UIcon v-if="key === 'name'" :name="dir === 'asc' ? 'i-lucide-chevron-up' : 'i-lucide-chevron-down'" class="size-3" aria-hidden="true" />
-              </button>
-            </th>
-            <th scope="col" class="w-14 border-b border-[var(--line)] px-3 text-right font-medium text-[var(--muted)]">PID</th>
-            <th v-for="[k, label] in sortable" :key="k" scope="col" :aria-sort="key === k ? (dir === 'asc' ? 'ascending' : 'descending') : 'none'" class="w-20 border-b border-[var(--line)] text-right font-medium">
-              <button type="button" class="hit inline-flex h-7 w-full items-center justify-end gap-0.5 px-3 uppercase hover:text-[var(--accent-text)]" @click="sort(k)">
-                {{ label }}<UIcon v-if="key === k" :name="dir === 'asc' ? 'i-lucide-chevron-up' : 'i-lucide-chevron-down'" class="size-3" aria-hidden="true" />
-              </button>
-            </th>
-          </tr>
-        </thead>
-        <tbody class="tabular-nums">
-          <tr v-for="p in rows" :key="p.pid" class="h-7">
-            <td class="px-3">{{ p.name }}</td><td class="px-3 text-right text-[var(--muted)]">{{ p.pid }}</td><td class="px-3 text-right">{{ p.ram.toFixed(1) }} MB</td><td class="px-3 text-right">{{ p.cpu.toFixed(1) }}%</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="demo-glass-well mx-3 mb-3 overflow-hidden rounded-lg">
+        <table class="w-full">
+          <caption class="sr-only">Processes on the server, click Name, RAM or CPU% to sort</caption>
+          <thead>
+            <tr class="bg-[rgba(13,18,30,0.55)] text-[11px] uppercase tracking-wide text-[var(--muted)]">
+              <th scope="col" :aria-sort="key === 'name' ? (dir === 'asc' ? 'ascending' : 'descending') : 'none'" class="border-b border-[var(--line)] text-left font-medium">
+                <button type="button" class="hit inline-flex h-7 w-full items-center gap-0.5 px-3 uppercase hover:text-[var(--accent-text)]" @click="sort('name')">
+                  Name<UIcon v-if="key === 'name'" :name="dir === 'asc' ? 'i-lucide-chevron-up' : 'i-lucide-chevron-down'" class="size-3" aria-hidden="true" />
+                </button>
+              </th>
+              <th scope="col" class="w-14 border-b border-[var(--line)] px-3 text-right font-medium text-[var(--muted)]">PID</th>
+              <th v-for="[k, label] in sortable" :key="k" scope="col" :aria-sort="key === k ? (dir === 'asc' ? 'ascending' : 'descending') : 'none'" class="w-20 border-b border-[var(--line)] text-right font-medium">
+                <button type="button" class="hit inline-flex h-7 w-full items-center justify-end gap-0.5 px-3 uppercase hover:text-[var(--accent-text)]" @click="sort(k)">
+                  {{ label }}<UIcon v-if="key === k" :name="dir === 'asc' ? 'i-lucide-chevron-up' : 'i-lucide-chevron-down'" class="size-3" aria-hidden="true" />
+                </button>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-[var(--line)] tabular-nums">
+            <tr v-for="p in rows" :key="p.pid" class="h-7 transition-colors hover:bg-white/4">
+              <td class="px-3 font-medium">{{ p.name }}</td><td class="px-3 text-right text-[var(--muted)]">{{ p.pid }}</td><td class="px-3 text-right">{{ p.ram.toFixed(1) }} MB</td><td class="px-3 text-right text-[var(--accent-text)]">{{ p.cpu.toFixed(1) }}%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </DemoWindow>
 </template>

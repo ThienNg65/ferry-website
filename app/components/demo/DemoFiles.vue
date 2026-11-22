@@ -32,10 +32,13 @@ const remote = computed<Row[]>(() => {
     <div class="relative grid grid-cols-2">
       <div class="pane border-r border-[var(--line)]" @pointerdown="activePane = 'local'">
         <div
-          class="crumb justify-between border-b border-[var(--line)]"
-          :class="activePane === 'local' ? 'bg-[var(--chip)]/50 shadow-[inset_3px_0_0_var(--accent)]' : ''"
+          class="crumb border-b border-[var(--line)] bg-[rgba(13,18,30,0.52)]"
+          :class="activePane === 'local' ? 'shadow-[inset_0_-2px_0_var(--accent)]' : ''"
         >
-          <span class="min-w-0 truncate">C:\ ferry-demo \ <b>web-api</b></span>
+          <span class="crumb-pill" :class="activePane === 'local' ? 'border-[var(--accent)]/40' : ''">
+            <UIcon name="i-lucide-hard-drive" class="size-3 shrink-0 text-[var(--accent-text)]" aria-hidden="true" />
+            <span class="min-w-0 truncate">C:\ ferry-demo \ <b>web-api</b></span>
+          </span>
           <span class="hidden shrink-0 items-center gap-1.5 text-[var(--muted)] sm:flex" aria-hidden="true">
             <UIcon name="i-lucide-arrow-up" class="size-3" />
             <UIcon name="i-lucide-refresh-cw" class="size-3" />
@@ -43,9 +46,9 @@ const remote = computed<Row[]>(() => {
             <UIcon name="i-lucide-search" class="size-3" />
           </span>
         </div>
-        <div class="row head border-b border-[var(--line)]/60" aria-hidden="true"><span>Name</span><span class="meta">Size</span><span class="mod">Modified</span></div>
+        <div class="row head border-b border-[var(--line)]" aria-hidden="true"><span>Name</span><span class="meta">Size</span><span class="mod">Modified</span></div>
         <component :is="compact ? 'div' : 'button'" v-for="f in local" :key="f[0]" :type="compact ? undefined : 'button'" :aria-label="compact ? undefined : `Send ${f[0]} to the server`"
-          class="row relative w-full text-left" :class="{ sel: picked === f[0] }" @click="!compact && sendFile(f[0])">
+          class="row relative w-full text-left transition-colors hover:bg-white/4" :class="{ sel: picked === f[0] }" @click="!compact && sendFile(f[0])">
           <span class="name">
             <UIcon :name="icons[f[1]]" class="icon" :class="{ json: f[1] === 'json' }" aria-hidden="true" />
             <span class="truncate" :class="{ 'font-medium': f[1] === 'dir' }">{{ f[0] }}</span>
@@ -56,10 +59,13 @@ const remote = computed<Row[]>(() => {
       </div>
       <div class="pane" @pointerdown="activePane = 'remote'">
         <div
-          class="crumb justify-between border-b border-[var(--line)]"
-          :class="activePane === 'remote' ? 'bg-[var(--chip)]/50 shadow-[inset_3px_0_0_var(--accent)]' : ''"
+          class="crumb border-b border-[var(--line)] bg-[rgba(13,18,30,0.52)]"
+          :class="activePane === 'remote' ? 'shadow-[inset_0_-2px_0_var(--accent)]' : ''"
         >
-          <span class="min-w-0 truncate">/ config / apps / <b>web-api</b></span>
+          <span class="crumb-pill" :class="activePane === 'remote' ? 'border-[var(--accent)]/40' : ''">
+            <UIcon name="i-lucide-server" class="size-3 shrink-0 text-[var(--ok-text)]" aria-hidden="true" />
+            <span class="min-w-0 truncate">/ config / apps / <b>web-api</b></span>
+          </span>
           <span class="hidden shrink-0 items-center gap-1.5 text-[var(--muted)] sm:flex" aria-hidden="true">
             <UIcon name="i-lucide-arrow-up" class="size-3" />
             <UIcon name="i-lucide-refresh-cw" class="size-3" />
@@ -67,8 +73,8 @@ const remote = computed<Row[]>(() => {
             <UIcon name="i-lucide-bookmark" class="size-3" />
           </span>
         </div>
-        <div class="row r head border-b border-[var(--line)]/60" aria-hidden="true"><span>Name</span><span class="meta">Size</span><span class="mod">Modified</span><span class="perm">Permissions</span></div>
-        <div v-for="r in remote" :key="r[0] + (r[0] === picked ? seq : '')" class="row r" :class="{ arrive: r[0] === picked }">
+        <div class="row r head border-b border-[var(--line)]" aria-hidden="true"><span>Name</span><span class="meta">Size</span><span class="mod">Modified</span><span class="perm">Permissions</span></div>
+        <div v-for="r in remote" :key="r[0] + (r[0] === picked ? seq : '')" class="row r transition-colors hover:bg-white/4" :class="{ arrive: r[0] === picked }">
           <span class="name">
             <span v-if="r[5]" class="relative inline-flex size-4 shrink-0" aria-hidden="true">
               <UIcon :name="icons[r[1]]" class="icon" />
@@ -83,7 +89,7 @@ const remote = computed<Row[]>(() => {
       </div>
       <span v-if="picked" :key="`chip-${seq}`" class="chip" aria-hidden="true"><UIcon name="i-lucide-folder" class="icon" />{{ picked }}</span>
     </div>
-    <div v-if="!compact" class="flex items-center justify-between border-t border-[var(--line)] bg-[var(--chip)]/35 px-3 py-1.5 text-[11px] text-[var(--muted)]" aria-hidden="true">
+    <div v-if="!compact" class="demo-glass-chrome flex items-center justify-between border-t border-[var(--line)] px-3 py-1.5 text-[11px] text-[var(--muted)]" aria-hidden="true">
       <span class="flex items-center gap-1.5">
         <UIcon name="i-lucide-upload" class="size-3 text-[var(--accent-text)]" />
         <span>Click any local file on the left to send it to the server</span>
