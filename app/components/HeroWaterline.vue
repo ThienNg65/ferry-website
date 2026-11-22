@@ -4,11 +4,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import type { Installer } from '~/utils/release'
 
 defineProps<{ installer: Installer | null, href: string, label: string }>()
+const storeUrl = 'https://apps.microsoft.com/detail/9PJPWK568P53'
 const facts = [
   ['i-lucide-import', 'Imports WinSCP, PuTTY and ~/.ssh/config'],
   ['i-lucide-key-round', 'SSH and SFTP only'],
   ['i-lucide-monitor', 'Windows 10 and 11, 64-bit'],
-  ['i-lucide-scale', 'MIT licence'],
+  ['i-lucide-shield-check', 'DPAPI encrypted locally'],
   ['i-lucide-user-x', 'No account needed']
 ]
 
@@ -61,13 +62,13 @@ onUnmounted(() => {
         Ferry is a Windows app for your Linux servers. Move files between two panes, run commands, follow logs as they are written and watch CPU, memory and disk, all over one SSH connection.
       </p>
 
-      <!-- Primary action block: Download + Explore -->
+      <!-- Primary action block: Microsoft Store + Explore -->
       <div class="rise mt-10 flex flex-wrap items-center justify-center gap-4" style="--d: 140ms">
-        <UButton :to="href" :aria-label="label" size="xl" class="group hover-lift min-h-12 rounded-[10px] px-6">
-          <UIcon name="i-lucide-download" class="icon-nudge-down size-5 shrink-0" aria-hidden="true" />
+        <UButton :to="storeUrl" target="_blank" rel="noopener" aria-label="Get Ferry from Microsoft Store" size="xl" class="group hover-lift min-h-12 rounded-[10px] px-6">
+          <UIcon name="i-lucide-shopping-bag" class="icon-nudge-down size-5 shrink-0" aria-hidden="true" />
           <span class="btn-win">
-            <span class="win-default">{{ label }}</span>
-            <span class="win-hover" aria-hidden="true">Free · Ready to install</span>
+            <span class="win-default">Get it from Microsoft Store</span>
+            <span class="win-hover" aria-hidden="true">Signed · 1-click install</span>
           </span>
         </UButton>
         <a
@@ -95,16 +96,18 @@ onUnmounted(() => {
         </button>
       </div>
 
-      <!-- Supporting context & SmartScreen notice grouped beneath the action -->
+      <!-- Supporting context & direct installer option grouped beneath the action -->
       <div class="rise mx-auto mt-6 max-w-[60ch] space-y-1.5 text-small text-muted" style="--d: 200ms">
         <p>
           <template v-if="installer">Version {{ installer.version }} for Windows 10 and 11, 64-bit.</template>
           <template v-else>For Windows 10 and 11, 64-bit.</template>
-          Free · MIT licensed · No account required
+          Free · Verified on Microsoft Store · No account required
         </p>
         <p>
-          The installer is currently unsigned, so Windows may show a SmartScreen warning.
-          <a href="#install-details" class="-my-3 inline-block py-3 font-medium text-primary underline underline-offset-4" @click="installOpen = true">Details</a>
+          Prefer a direct download?
+          <a :href="href" class="-my-3 inline-block py-3 font-medium text-primary underline underline-offset-4">{{ installer ? `Ferry-Setup-${installer.version}.exe` : label }}</a>
+          ·
+          <a href="#install-details" class="-my-3 inline-block py-3 font-medium text-primary underline underline-offset-4" @click="installOpen = true">SHA-256 &amp; portable ZIP</a>
         </p>
       </div>
     </div>

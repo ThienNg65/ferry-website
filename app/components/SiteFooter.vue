@@ -23,7 +23,7 @@ const year = new Date().getFullYear()
           <UIcon name="i-lucide-github" class="size-5 shrink-0" aria-hidden="true" />
           <span class="btn-win">
             <span class="win-default">Ferry on GitHub</span>
-            <span class="win-hover" aria-hidden="true">View source &amp; releases</span>
+            <span class="win-hover" aria-hidden="true">Releases &amp; issue tracker</span>
           </span>
         </a>
       </div>
@@ -36,7 +36,7 @@ const year = new Date().getFullYear()
     </div>
     <div class="border-t border-default">
       <div class="page-x flex flex-col items-start justify-between gap-2 py-6 text-small text-muted sm:flex-row sm:items-center">
-        <p>© {{ year }} Ferry. Released under the <a :href="`${repo}/blob/main/LICENSE`" class="-my-3 inline-block py-3 underline underline-offset-2 hover:text-highlighted">MIT licence</a>.</p>
+        <p>© {{ year }} Ferry. Local-first Windows SSH/SFTP workspace (<a :href="`${repo}/blob/main/LICENSE`" class="-my-3 inline-block py-3 underline underline-offset-2 hover:text-highlighted">licence</a>).</p>
         <a href="#main" class="group flex min-h-11 items-center gap-1.5 hover:text-highlighted">
           <UIcon name="i-lucide-arrow-up" class="icon-nudge-up size-4" aria-hidden="true" />Back to top
         </a>

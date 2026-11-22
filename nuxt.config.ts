@@ -7,7 +7,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       releaseRepo: 'ThienNg65/ferry-release',
-      siteUrl: 'https://ferry-website.vercel.app'
+      siteUrl: 'https://www.ferryssh.com'
     }
   },
   nitro: { prerender: { routes: ['/'] } },

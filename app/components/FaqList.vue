@@ -3,8 +3,8 @@ const faq = [
   ['Which Windows versions does it run on?', 'Windows 10 and 11, 64-bit.'],
   ['Which protocols and connections does Ferry support?', 'Ferry connects to any server that speaks SSH, and transfers files over SFTP. It does not offer FTP, FTPS, SCP, S3, RDP, X11 or tunnels. The comparison above shows what other tools cover.'],
   ['Where are my passwords kept?', 'Saved passwords are encrypted with Windows secure storage and only decrypted in memory when you connect.'],
-  ['Is Ferry free?', 'Yes. Ferry is released under the MIT licence, and you can read it in the LICENSE file of the release repository.'],
-  ['Why does Windows SmartScreen warn me?', 'Ferry’s installer is not code-signed yet, so Windows does not recognise the publisher and may show a SmartScreen warning. Download Ferry only from this website or its official GitHub releases page.'],
+  ['Is Ferry free?', 'Yes. Ferry is free to download and use on Windows via the Microsoft Store or GitHub Releases, with no mandatory account or telemetry. See LICENSE in the release repository for historical source terms.'],
+  ['Why does Windows SmartScreen warn me?', 'Only the direct GitHub .exe installer is not code-signed yet and may show a SmartScreen warning. Install from the Microsoft Store for a signed 1-click install with no SmartScreen prompt.'],
   ['How do I update?', 'Ferry checks for new versions itself. You can also download the latest installer from this page.']
 ]
 

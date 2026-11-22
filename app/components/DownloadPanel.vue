@@ -3,6 +3,7 @@ import { useClipboard } from '@vueuse/core'
 import type { Installer } from '~/utils/release'
 
 const props = defineProps<{ installer: Installer | null, href: string, label: string, releasesUrl: string, notesUrl: string }>()
+const storeUrl = 'https://apps.microsoft.com/detail/9PJPWK568P53'
 const date = computed(() => props.installer?.date
   ? new Date(props.installer.date).toLocaleDateString('en-US', { dateStyle: 'long', timeZone: 'UTC' })
   : '')
@@ -69,25 +70,41 @@ function onInstallToggle(e: Event) {
         <img src="/icon.webp" alt="" width="88" height="88" class="relative mx-auto size-22 rounded-[22px]">
         <h2 id="download-title" class="relative mt-8">Get Ferry for Windows</h2>
         <p class="relative mt-5 text-muted md:hidden">Ferry runs on Windows. Open this page on your PC to install.</p>
-        <div class="relative mt-8 flex flex-col items-center gap-4">
+        <div class="relative mt-8 flex flex-wrap items-center justify-center gap-4">
+          <UButton
+            :to="storeUrl"
+            target="_blank"
+            rel="noopener"
+            size="xl"
+            aria-label="Get Ferry from Microsoft Store"
+            class="group hover-lift min-h-12 max-w-full rounded-[10px] px-6"
+          >
+            <UIcon name="i-lucide-shopping-bag" class="icon-nudge-down size-5 shrink-0" aria-hidden="true" />
+            <span class="btn-win">
+              <span class="win-default">Get it from Microsoft Store</span>
+              <span class="win-hover" aria-hidden="true">Signed MSIX · Auto-updates</span>
+            </span>
+          </UButton>
           <UButton
             :to="href"
+            color="neutral"
+            variant="outline"
             size="xl"
             :aria-label="installer ? `${label}: Ferry-Setup-${installer.version}.exe` : label"
             class="group hover-lift min-h-12 max-w-full rounded-[10px] px-6"
           >
             <UIcon name="i-lucide-download" class="icon-nudge-down size-5 shrink-0" aria-hidden="true" />
             <span class="btn-win">
-              <span class="win-default">{{ installer ? `${label}: Ferry-Setup-${installer.version}.exe` : label }}</span>
-              <span class="win-hover" aria-hidden="true">Ready to install — Free &amp; MIT</span>
+              <span class="win-default">{{ installer ? `Ferry-Setup-${installer.version}.exe` : label }}</span>
+              <span class="win-hover" aria-hidden="true">Direct installer · Free</span>
             </span>
           </UButton>
-          <span v-if="meta" class="text-muted">{{ meta }}</span>
         </div>
-        <p class="relative mt-4 text-small text-muted">Requires Windows 10 or 11, 64-bit. Ferry updates itself. Free · MIT licensed · No account required.</p>
+        <span v-if="meta" class="relative mt-3 block text-muted">{{ meta }}</span>
+        <p class="relative mt-4 text-small text-muted">Requires Windows 10 or 11, 64-bit. Free · Local-first (Windows DPAPI) · No account required.</p>
         <p class="relative mt-2 text-small text-muted">
-          Ferry’s installer is currently unsigned. Windows may display a SmartScreen warning.
-          <a href="#install-details" class="-my-3 inline-block py-3 font-medium text-primary underline underline-offset-4" @click="showInstallDetails">Installation &amp; SmartScreen details</a>
+          The direct <code>.exe</code> installer is unsigned (use Microsoft Store above to skip SmartScreen).
+          <a href="#install-details" class="-my-3 inline-block py-3 font-medium text-primary underline underline-offset-4" @click="showInstallDetails">Installation &amp; SHA-256 details</a>
         </p>
         <p class="relative mt-1 flex flex-wrap justify-center gap-x-6 text-small">
           <a :href="notesUrl" class="flex min-h-11 items-center gap-1.5 font-medium text-primary underline underline-offset-4">
