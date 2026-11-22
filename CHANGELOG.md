@@ -6,27 +6,20 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ### Added
 
-- A 35-second HTML motion product tour (`PromoVideoModal`) triggered from the hero ("Watch 35s tour") or directly at `/?promo=1`, featuring five choreographed scenes, multi-step cursor movement, chapter controls, an end-card download button, and a clean 16:9 stage mode for recording social-media videos.
-- An "Imports WinSCP, PuTTY and ~/.ssh/config" fact in the hero and a visible "Import WinSCP / PuTTY" badge in the Connections demo (`DemoSites`).
-
-### Changed
-
-- Updated all coded app demos (`DemoWindow`, `DemoFiles`, `DemoLogs`, `DemoMonitor`, `DemoSites`, `HeroDemo`) to match the latest Ferry `v0.28+` desktop UI: unified single-band `SiteTabBar` with `Search Ctrl+K` pill, active-pane accent and compact toolbar in file panes, inline symlink targets (`current → releases/2026-11-16`), interactive four-tab hero dock (`Transfers`, `Terminal`, `Log Tail`, `Monitor`) with a labeled Bottom / Right-split layout toggle, live log tail tab with right-edge error/warning `LogRail`, and Quick Connect `Recent` dropdown with side-by-side Host and Port fields.
-- Added explicit "More info → Run anyway" SmartScreen steps to the installation details panel (`DownloadPanel`).
-- The page now has one continuous, quiet background of fine blue lines that run from your computer to your servers, with soft signal pulses, that follows the section you are reading and, in the hero on desktop, reacts gently to the mouse. Phones and tablets get a still version, and so do visitors who prefer reduced motion.
-- The unsigned-installer notice appears before the download button in the hero and download section, and the header Download button links to that section. The protocol FAQ is merged into one question, and the FAQ is ordered around compatibility, protocols, security, licensing, installation and updates.
-- Redesigned the page with dark and light themes. Six working demos in code replace the videos and screenshots, the type is now Geist, and sections have more room. The page also has a calmer background, content that fades in as you scroll, and a scrollbar in the site colours.
-
-### Fixed
-
-- The download button only uses the Ferry installer from the Ferry GitHub releases, and an older, undated or malformed release response can no longer replace a newer valid link.
-- The size no longer says "About 90 MB" in fixed text, and a missing size, date or checksum is left out instead of showing a broken value.
-- The unsigned-installer notice clearly explains why Windows SmartScreen may warn about Ferry's not-yet-code-signed installer.
+- Midnight Navy Minimal redesign (`DESIGN.md`, `PRODUCT.md`) with dark-first default (`#030816`) and light-mode toggle (`.light`), modeled on `termius.com` structure and two-tone heading hierarchy.
+- Newest Frosted Glass Ferry icon (`public/ferry-glass.svg`, `public/favicon.ico`, `public/icon.webp`, `public/apple-touch-icon.png`, `public/site.webmanifest`) and regenerated `1200x630` Modern Glass `public/og.jpg`.
+- Real `1600x900` WebP Modern Glass UI captures (`public/media/*.webp`) across a linear problem-solving flow (`HeroSection`, `WorkspaceSection`, `ProblemSplitsSection`, `MigrationBentoSection`, `SecuritySection`) and the 35-second 1080p MP4 product tour (`public/media/ferry-launch-demo-35s.mp4`) inside `PromoVideoModal`.
+- Full `v1.3.2+` product and distribution sync: Microsoft Store (`9PJPWK568P53`), Direct `.exe` + Portable `.zip` (`pickInstaller` in `app/utils/release.ts`), in-place remote file editing, Folder Sync & Compare, and File Visibility Filters.
+- Static SEO & legal routes: `/privacy`, `/terms`, `/vs/winscp`, `/vs/termius`, `/vs/mobaxterm`, `/vs/filezilla`, plus `public/robots.txt`, `public/sitemap.xml`, and `SoftwareApplication`, `WebSite`, `FAQPage`, and `BreadcrumbList` JSON-LD schemas.
 
 ### Removed
 
-- The "Installation & file verification" panel and "Choosing the right tool" recommendation block, while keeping the installer warning and comparison sources.
-- Visible "interactive preview" and "sample data" captions surrounding the demos; accessible demo labels remain.
+- Retired coded HTML/CSS UI demos (`Demo*`, `HeroDemo`, `useDemoLoop`, `demoData`), decorative `background.css` (`.grid-fade`), `AmbientConnectionBackground.vue`, `MobileSectionNav.vue`, `SpotlightSurface.vue`, `.btn-win` hover label swaps, and `CodeBlock.vue`.
+
+### Fixed
+
+- Routed all public GitHub, release, issue, and licence links exclusively to `ThienNg65/ferry-release`.
+- Fixed missing `absolute` positioning on `LogRail` markers in `DemoLogs.vue`.
 
 ## 0.2.0 (2026-11-12)
 

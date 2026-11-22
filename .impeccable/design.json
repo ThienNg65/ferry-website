@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-22T21:06:00+07:00",
+  "title": "Design System: Ferry Website",
+  "extensions": {
+    "colorMeta": {
+      "primary": { "role": "primary", "displayName": "Electric Ferry Blue", "canonical": "#3b93ff" },
+      "neutral-bg": { "role": "neutral", "displayName": "Midnight Navy Canvas", "canonical": "#030816" },
+      "neutral-elevated": { "role": "neutral", "displayName": "Card Elevated", "canonical": "#0a1122" }
+    },
+    "motion": [
+      { "name": "ease-out-expo", "value": "cubic-bezier(0.22, 1, 0.36, 1)", "purpose": "Entrance and tab swap easing" }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [],
+  "narrative": {
+    "northStar": "Midnight Navy Minimal",
+    "overview": "A deep midnight navy canvas (#030816) paired with #0a1122 elevated surfaces, 1px slate hairlines, two-tone headings, and Electric Ferry Blue (#3b93ff).",
+    "keyCharacteristics": [
+      "Dark-first midnight navy polarity so dark Modern Glass UI screenshots blend into the page naturally.",
+      "Two-tone heading hierarchy (.heading-muted for setup words, crisp highlighted ink for the subject).",
+      "Real 1600x900 WebP Modern Glass screenshots throughout, paired with the optional 35-second MP4 tour dialog."
+    ],
+    "rules": [],
+    "dos": [
+      "Do keep copy plain, concrete, and focused on the real Windows server problem Ferry solves.",
+      "Do route all public GitHub issues, releases, and licence links solely to ThienNg65/ferry-release."
+    ],
+    "donts": [
+      "Don't add AI-style marketing buzzwords, decorative grid backgrounds, or coded UI simulations.",
+      "Don't link to the private ThienNg65/ferry repository on public pages."
+    ]
+  }
+}

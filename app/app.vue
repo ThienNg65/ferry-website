@@ -1,23 +1,13 @@
 <script setup lang="ts">
-const { installer, href, label, releasesUrl, notesUrl } = useLatestRelease()
-const site = useRuntimeConfig().public.siteUrl.replace(/\/$/, '')
-useHead({ link: [{ rel: 'canonical', href: `${site}/` }] })
-useSeoMeta({ ogUrl: `${site}/`, ogImage: `${site}/og.jpg`, twitterImage: `${site}/og.jpg` })
+const { href, label, releasesUrl, notesUrl } = useLatestRelease()
 </script>
 
 <template>
   <UApp>
     <a href="#main" class="skip-link">Skip to content</a>
-    <AmbientConnectionBackground />
     <SiteHeader />
     <main id="main">
-      <HeroWaterline :installer="installer" :href="href" :label="label" />
-      <MobileSectionNav />
-      <FeatureExplorer />
-      <RealWorldExample />
-      <CompareTable />
-      <DownloadPanel :installer="installer" :href="href" :label="label" :releases-url="releasesUrl" :notes-url="notesUrl" />
-      <FaqList />
+      <NuxtPage />
     </main>
     <PromoVideoModal :href="href" :label="label" />
     <SiteFooter :releases-url="releasesUrl" :notes-url="notesUrl" />

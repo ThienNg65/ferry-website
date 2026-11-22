@@ -48,12 +48,12 @@ export function useSectionReveal(
 
         const y = opts.y ?? 22
         const x = opts.x ?? 0
-        const duration = opts.duration ?? 0.62
-        const stagger = opts.stagger ?? 0.07
+        const duration = opts.duration ?? 0.65
+        const stagger = opts.stagger ?? 0.08
         const start = opts.start ?? 'top 86%'
 
         if (opts.batch) {
-          gsap.set(targets, { autoAlpha: 0, y, x })
+          gsap.set(targets, { autoAlpha: 0, y, x, scale: 0.985 })
           for (const el of targets) el.classList.remove('reveal-pre')
 
           ScrollTrigger.batch(targets, {
@@ -64,6 +64,7 @@ export function useSectionReveal(
                 autoAlpha: 1,
                 y: 0,
                 x: 0,
+                scale: 1,
                 duration,
                 stagger,
                 ease: 'power3.out',
@@ -80,11 +81,12 @@ export function useSectionReveal(
 
         gsap.fromTo(
           targets,
-          { autoAlpha: 0, y, x },
+          { autoAlpha: 0, y, x, scale: 0.985 },
           {
             autoAlpha: 1,
             y: 0,
             x: 0,
+            scale: 1,
             duration,
             stagger,
             ease: 'power3.out',

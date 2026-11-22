@@ -1,0 +1,26 @@
+{
+  "name": "Ferry — Windows SSH, SFTP, Terminal & Server Monitor",
+  "short_name": "Ferry",
+  "description": "Lightweight (~23 MB) local-first Windows SSH and SFTP workspace with dual-pane files, terminal, live tail -F logs, and resource monitor.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fafbfd",
+  "theme_color": "#0968d6",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/ferry-glass.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

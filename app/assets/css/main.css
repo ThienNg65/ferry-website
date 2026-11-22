@@ -1,6 +1,5 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
-@import "./background.css";
 
 @theme static {
   --color-brand-50: #eff8ff;
@@ -8,7 +7,7 @@
   --color-brand-200: #bfe2fe;
   --color-brand-300: #92cffd;
   --color-brand-400: #5cb2fa;
-  --color-brand-500: #0a84ff;
+  --color-brand-500: #2980ff;
   --color-brand-600: #0968d6;
   --color-brand-700: #0a53ab;
   --color-brand-800: #0e468c;
@@ -18,244 +17,193 @@
   --font-sans: 'Geist', 'Segoe UI Variable', 'Segoe UI', system-ui, sans-serif;
   --font-mono: 'Cascadia Code', Consolas, ui-monospace, monospace;
 
-  --text-lead: 1.25rem;
-  --text-lead--line-height: 1.6;
-  --text-body: 1.125rem;
+  --text-lead: 1.1875rem;
+  --text-lead--line-height: 1.55;
+  --text-body: 1.0625rem;
   --text-body--line-height: 1.65;
   --text-small: 0.9375rem;
   --text-small--line-height: 1.5;
 }
 
-/* Day crossing (light) and night crossing (dark). Nuxt UI reads the --ui-* variables, so its components follow the theme. */
-:root {
-  --ui-bg: #eff8ff;
-  --ui-bg-muted: #e3f1fe;
-  --ui-bg-elevated: #ffffff;
-  --ui-border: #cfe3f7;
-  --ui-text: #0e2240;
-  --ui-text-highlighted: #0e2240;
-  --ui-text-muted: #4a5b72;
-  --ui-primary: #0968d6;
-  --ui-radius: 0.5rem;
-  --beacon: #a35400;
-  --water: #0d264d;
-  --on-water: #ffffff;
-  --on-water-muted: #bfe2fe;
-  --glow: rgb(13 38 77 / .45);
-  --spotlight: rgb(9 104 214 / .09);
-  --specular: rgb(255 255 255 / .75);
-}
+/* Midnight Navy Minimal (dark default, inspired by termius.com) and Crisp Daylight toggle (.light). */
+:root,
 .dark {
-  --ui-bg: #07111f;
-  --ui-bg-muted: #0a1728;
-  --ui-bg-elevated: #0d1b30;
-  --ui-border: #1c2e4a;
-  --ui-text: #c9d6ea;
-  --ui-text-highlighted: #f2f6fd;
-  --ui-text-muted: #93a4bd;
-  --ui-primary: #3d9bff;
-  --beacon: #ffb454;
-  --water: #0b2247;
-  --glow: rgb(61 155 255 / .35);
-  --spotlight: rgb(61 155 255 / .12);
-  --specular: rgb(255 255 255 / .08);
+  color-scheme: dark;
+  --ui-bg: #030816;
+  --ui-bg-muted: #060d1e;
+  --ui-bg-elevated: #0a1122;
+  --ui-border: rgba(148, 163, 184, 0.16);
+  --ui-text: #cbd5e1;
+  --ui-text-highlighted: #f8fafc;
+  --ui-text-muted: #94a3b8;
+  --ui-primary: #3b93ff;
+  --ui-radius: 0.5rem;
+  --scroll-thumb: #1e293b;
+  --hero-glow: radial-gradient(52% 48% at 50% 18%, rgba(41, 128, 255, 0.16), transparent 72%);
+  --ambient-mesh:
+    radial-gradient(88% 58% at 14% -4%, rgba(56, 189, 248, 0.16), transparent 62%),
+    radial-gradient(66% 50% at 88% 6%, rgba(124, 58, 237, 0.14), transparent 56%),
+    radial-gradient(70% 52% at 52% 48%, rgba(59, 147, 255, 0.10), transparent 66%),
+    radial-gradient(64% 48% at 12% 92%, rgba(14, 165, 233, 0.10), transparent 62%);
+  --frame-shadow: 0 30px 80px -24px rgb(2 6 23 / .85), 0 0 0 1px rgb(148 163 184 / .14);
+}
+.light {
+  color-scheme: light;
+  --ui-bg: #fafbfd;
+  --ui-bg-muted: #f2f5fa;
+  --ui-bg-elevated: #ffffff;
+  --ui-border: #e2e8f0;
+  --ui-text: #334155;
+  --ui-text-highlighted: #0b1220;
+  --ui-text-muted: #55647a;
+  --ui-primary: #0968d6;
+  --scroll-thumb: #cbd5e1;
+  --hero-glow: radial-gradient(52% 48% at 50% 18%, rgba(9, 104, 214, 0.08), transparent 72%);
+  --ambient-mesh:
+    radial-gradient(88% 58% at 14% -4%, rgba(56, 189, 248, 0.12), transparent 62%),
+    radial-gradient(66% 50% at 88% 6%, rgba(139, 92, 246, 0.09), transparent 56%),
+    radial-gradient(70% 52% at 52% 48%, rgba(59, 147, 255, 0.08), transparent 66%),
+    radial-gradient(64% 48% at 12% 92%, rgba(14, 165, 233, 0.08), transparent 62%);
+  --frame-shadow: 0 24px 64px -20px rgb(15 23 42 / .16), 0 4px 16px -4px rgb(15 23 42 / .06);
 }
 
-@theme inline {
-  --color-beacon: var(--beacon);
-  --color-water: var(--water);
-  --color-on-water: var(--on-water);
-  --color-on-water-muted: var(--on-water-muted);
+html {
+  scroll-padding-top: 5.5rem;
+  font-size: 16px;
+  scrollbar-gutter: stable;
+  scrollbar-color: var(--scroll-thumb) transparent;
+  scrollbar-width: thin;
 }
-
-html { scroll-padding-top: 6rem; font-size: 16px; }
 @media (prefers-reduced-motion: no-preference) {
   html:not(.lenis-smooth) { scroll-behavior: smooth; }
 }
 html.motion-ready .reveal-pre { opacity: 0; }
-/* In a layer so utility classes (text-on-water, tracking-*) can override them. */
+
 @layer base {
-  body { color: var(--ui-text); font-family: var(--font-sans); font-size: 1.125rem; line-height: 1.65; }
+  body {
+    position: relative;
+    background: var(--ui-bg);
+    color: var(--ui-text);
+    accent-color: var(--ui-primary);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+  }
+  /* Fixed atmospheric ambient wash matching Ferry's Modern Glass backdrop. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: var(--ambient-mesh);
+  }
+  header, main, footer {
+    position: relative;
+    z-index: 1;
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--ui-primary) 26%, transparent);
+    color: var(--ui-text-highlighted);
+  }
   h1, h2, h3 { color: var(--ui-text-highlighted); text-wrap: balance; }
-  h1 { font-size: clamp(2.75rem, 5.6vw, 4.5rem); font-weight: 700; letter-spacing: -0.035em; line-height: 1.05; }
-  h2 { font-size: clamp(2rem, 3.4vw, 2.75rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.12; }
-  h3 { font-size: clamp(1.625rem, 2.4vw, 2.125rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
+  h1 { font-size: clamp(2.5rem, 5vw, 4.25rem); font-weight: 700; letter-spacing: -0.035em; line-height: 1.05; }
+  h2 { font-size: clamp(1.875rem, 3.2vw, 2.75rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.12; }
+  h3 { font-size: clamp(1.25rem, 1.8vw, 1.5rem); font-weight: 600; letter-spacing: -0.015em; line-height: 1.25; }
+  a { text-underline-offset: 3px; }
 }
 
 :focus-visible { outline: 3px solid var(--ui-primary); outline-offset: 3px; border-radius: 4px; }
 
-.skip-link { position: absolute; left: 1rem; top: -4rem; z-index: 100; background: var(--water); color: var(--on-water); padding: .75rem 1rem; border-radius: .5rem; }
+.skip-link {
+  position: absolute; left: 1rem; top: -4rem; z-index: 100;
+  background: var(--ui-text-highlighted); color: var(--ui-bg);
+  padding: .75rem 1rem; border-radius: .5rem; font-weight: 600;
+}
 .skip-link:focus { top: 1rem; }
 
-/* One rhythm for every section; change it here, not per component. */
-@utility section-y { padding-block: 4.5rem; @media (min-width: 40rem) { padding-block: 6.5rem; } @media (min-width: 64rem) { padding-block: 10rem; } }
-@utility page-x { margin-inline: auto; max-width: 80rem; padding-inline: 1.5rem; @media (min-width: 64rem) { padding-inline: 2rem; } }
-@utility stack-head { margin-bottom: 2.5rem; & > * + * { margin-top: 1rem; } @media (min-width: 40rem) { margin-bottom: 3.5rem; & > * + * { margin-top: 1.25rem; } } @media (min-width: 64rem) { margin-bottom: 4.5rem; } }
+/* Termius-style two-tone heading split: muted lead phrase + crisp primary subject. */
+.heading-muted {
+  color: var(--ui-text-muted);
+  font-weight: 600;
+}
 
-/* Product windows: the coded demos. */
-.window { border: 1px solid var(--ui-border); border-radius: 14px; overflow: hidden; box-shadow: 0 40px 120px -30px var(--glow); }
+/* Unified vertical rhythm and horizontal container. */
+@utility section-y { padding-block: 4rem; @media (min-width: 40rem) { padding-block: 5.5rem; } @media (min-width: 64rem) { padding-block: 7rem; } }
+@utility page-x { margin-inline: auto; max-width: 74rem; padding-inline: 1.25rem; @media (min-width: 64rem) { padding-inline: 2rem; } }
+@utility stack-head { margin-bottom: 2.5rem; & > * + * { margin-top: 0.875rem; } @media (min-width: 64rem) { margin-bottom: 3.5rem; } }
+
+/* Product frame & subtle atmospheric hero spotlight. */
+.hero-glow {
+  background-image: var(--hero-glow);
+}
+.window {
+  border: 1px solid var(--ui-border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--frame-shadow);
+  transition: border-color .24s ease, box-shadow .24s ease;
+}
+.window:hover {
+  border-color: color-mix(in oklab, var(--ui-primary) 34%, var(--ui-border));
+}
+.card-lift {
+  transition: transform .24s cubic-bezier(.22, 1, .36, 1), border-color .2s ease, box-shadow .24s ease;
+}
+.card-lift:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in oklab, var(--ui-primary) 42%, var(--ui-border));
+}
+.cta-card {
+  background: radial-gradient(80% 90% at 50% 0%, rgba(41, 128, 255, 0.14), transparent 70%), var(--ui-bg-elevated);
+  border: 1px solid var(--ui-border);
+  box-shadow: inset 0 1px 0 0 rgba(56, 189, 248, 0.22);
+}
 
 /* Native modal dialog scroll containment (never set display on closed dialog). */
 dialog:modal { overscroll-behavior: contain; }
-dialog::backdrop { overflow: hidden; overscroll-behavior: contain; background: rgb(7 17 31 / .82); backdrop-filter: blur(8px); }
+dialog::backdrop { overflow: hidden; overscroll-behavior: contain; background: rgb(3 8 22 / .78); backdrop-filter: blur(6px); }
 
-/* Tactile hover lift & win-feeling button label swap. */
-.btn-win { display: inline-grid; grid-template-areas: 'label'; place-items: center; overflow: hidden; }
-.btn-win > span { grid-area: label; white-space: nowrap; }
-.btn-win .win-hover { opacity: 0; pointer-events: none; }
-
+/* Motion: hero CSS .rise for instant LCP, circular theme reveal & smooth disclosures. */
+@keyframes rise { from { opacity: 0; transform: translateY(16px); } }
+@keyframes theme-reveal {
+  from { clip-path: circle(0px at var(--theme-x, 90%) var(--theme-y, 32px)); }
+  to { clip-path: circle(var(--theme-r, 150vmax) at var(--theme-x, 90%) var(--theme-y, 32px)); }
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-new(root) {
+  z-index: 9999;
+  animation: theme-reveal 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
 @media (prefers-reduced-motion: no-preference) {
-  .hover-lift {
-    transition: transform 220ms cubic-bezier(.22, 1, .36, 1), box-shadow 220ms ease, border-color 220ms ease;
+  .rise { animation: rise 540ms cubic-bezier(.22, 1, .36, 1) both; animation-delay: var(--d, 0ms); }
+  .swap-enter-active, .swap-leave-active {
+    transition: opacity .22s cubic-bezier(.22, 1, .36, 1), transform .22s cubic-bezier(.22, 1, .36, 1);
   }
-  .hover-lift:hover {
-    transform: translateY(-3px);
-    border-color: color-mix(in oklab, var(--ui-primary) 45%, var(--ui-border));
-    box-shadow: 0 18px 40px -18px var(--glow);
-  }
-  .hover-lift:active { transform: translateY(-1px); }
-
-  .btn-win > span {
-    transition: transform 220ms cubic-bezier(.22, 1, .36, 1), opacity 180ms ease;
-  }
-  .btn-win .win-hover { transform: translateY(65%); }
-  .group:hover .btn-win .win-default,
-  .group:focus-visible .btn-win .win-default,
-  .btn-win:hover .win-default { opacity: 0; transform: translateY(-65%); }
-  .group:hover .btn-win .win-hover,
-  .group:focus-visible .btn-win .win-hover,
-  .btn-win:hover .win-hover { opacity: 1; transform: translateY(0); }
-
-  .group:hover .icon-nudge-down { transform: translateY(2px); }
-  .group:hover .icon-nudge-up { transform: translateY(-2px); }
-  .icon-nudge-down, .icon-nudge-up { transition: transform 220ms cubic-bezier(.22, 1, .36, 1); }
+  .swap-enter-from, .swap-leave-to { opacity: 0; transform: translateY(8px); }
+  a, button, summary { transition: color .18s ease, background-color .18s ease, border-color .18s ease, box-shadow .18s ease; }
+  :root { interpolate-size: allow-keywords; }
+  details::details-content { block-size: 0; overflow: clip; contain: layout; transition: block-size .28s ease, content-visibility .28s allow-discrete; }
+  details[open]::details-content { block-size: auto; }
 }
-
-/* Interactive Ferry previews — Modern Glass UI (html.dark.ferry-glass). Raw hex/rgba lives in this block so both site themes render the glass dark app UI. */
-.demo {
-  --bg: #0b0f19;
-  --chrome: rgba(13, 18, 30, 0.72);
-  --card: rgba(15, 23, 42, 0.62);
-  --card-border: rgba(255, 255, 255, 0.14);
-  --well: rgba(11, 15, 25, 0.80);
-  --line: rgba(255, 255, 255, 0.09);
-  --chip: rgba(30, 41, 59, 0.72);
-  --fg: #f8fafc;
-  --muted: #94a3b8;
-  --accent: #0a84ff;
-  --accent-text: #5cb2fa;
-  --sel: rgba(10, 132, 255, 0.20);
-  --ok: #30d158;
-  --ok-text: #4ade80;
-  --beacon: #ffb454;
-  --beacon-line: #d9a23f;
-  --warn: #ff9f0a;
-  --warn-text: #fbbf24;
-  --err: #ff453a;
-  --err-text: #f87171;
-  --info: #7dd3fc;
-  --term-bg: rgba(9, 13, 22, 0.90);
-  --term-fg: #e2e8f0;
-  --shadow: #020617;
-  --ambient-mesh:
-    radial-gradient(ellipse 68% 54% at 14% 8%, rgba(56, 189, 248, 0.24), transparent 62%),
-    radial-gradient(ellipse 62% 52% at 86% 14%, rgba(99, 102, 241, 0.24), transparent 64%),
-    radial-gradient(ellipse 58% 48% at 50% 92%, rgba(14, 165, 233, 0.18), transparent 64%),
-    linear-gradient(180deg, #070b14 0%, #0b1120 100%);
-  background: var(--bg);
-  color: var(--fg);
-  border-color: rgba(255, 255, 255, 0.14);
-  font: 400 12px/1.4 'Segoe UI Variable', 'Segoe UI', system-ui, sans-serif;
-}
-.demo.window {
-  background-color: var(--bg);
-  background-image: var(--ambient-mesh);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow:
-    0 28px 68px -22px rgba(2, 6, 23, 0.78),
-    0 0 0 1px rgba(255, 255, 255, 0.06),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.18);
-}
-.demo-glass-chrome {
-  background: var(--chrome);
-  backdrop-filter: blur(18px) saturate(180%);
-  -webkit-backdrop-filter: blur(18px) saturate(180%);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
-}
-.demo-glass-card {
-  background: var(--card);
-  backdrop-filter: blur(22px) saturate(190%);
-  -webkit-backdrop-filter: blur(22px) saturate(190%);
-  border: 1px solid var(--card-border);
-  border-radius: 12px;
-  box-shadow:
-    0 14px 34px -10px rgba(2, 6, 23, 0.65),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.20);
-}
-.demo-glass-well {
-  background: var(--well);
-  border: 1px solid var(--line);
-  box-shadow: inset 0 1px 2px 0 rgba(2, 6, 23, 0.45);
-}
-.demo-glass-tab {
-  position: relative;
-  border-radius: 0.5rem;
-  background: rgba(30, 41, 59, 0.76);
-  box-shadow:
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.16),
-    0 0 0 1px rgba(255, 255, 255, 0.12),
-    0 4px 12px -2px rgba(2, 6, 23, 0.5);
-  text-decoration: none;
-}
-@media (min-width: 640px) { .demo { font-size: 13px; } }
-.demo .mono { font-family: 'Cascadia Code', Consolas, ui-monospace, monospace; }
-.demo .crumb { display: flex; align-items: center; gap: .5rem; min-height: 2.35rem; padding: .25rem .625rem; color: var(--muted); white-space: nowrap; overflow: hidden; }
-.demo .crumb-pill { display: flex; align-items: center; gap: .375rem; min-width: 0; flex: 1; border-radius: 9999px; border: 1px solid rgba(255, 255, 255, 0.10); background: var(--well); padding: .2rem .65rem; font-size: 11px; color: var(--muted); }
-.demo .crumb b, .demo .crumb-pill b { color: var(--fg); font-weight: 600; }
-.demo .row { display: grid; grid-template-columns: 1fr; align-items: center; height: 1.75rem; padding: 0 .75rem; color: var(--fg); }
-.demo .row.head { color: var(--muted); font-weight: 600; font-size: 11px; background: rgba(13, 18, 30, 0.35); }
-.demo .pane { container-type: inline-size; background: rgba(11, 15, 25, 0.38); }
-.demo .row .meta, .demo .row .mod, .demo .row .perm { display: none; color: var(--muted); text-align: right; white-space: nowrap; }
-.demo .row .perm { text-align: left; }
-@container (min-width: 14rem) { .demo .row { grid-template-columns: 1fr 4rem; } .demo .row .meta { display: block; } }
-@container (min-width: 24rem) { .demo .row { grid-template-columns: 1fr 4rem 8.5rem; } .demo .row .mod { display: block; } }
-@container (min-width: 36rem) { .demo .row.r { grid-template-columns: 1fr 4rem 8.5rem 10.5rem; } .demo .row .perm { display: block; padding-left: 1rem; } }
-.demo .perm i { font-style: normal; padding: 1px 8px; border-radius: 9999px; background: rgba(30, 41, 59, 0.85); border: 1px solid rgba(255, 255, 255, 0.08); color: var(--fg); font-size: 11px; font-weight: 600; }
-.demo .name { display: flex; align-items: center; gap: .5rem; min-width: 0; white-space: nowrap; }
-.demo .icon { width: 1rem; height: 1rem; flex: none; color: var(--accent-text); }
-.demo .icon.json { color: #2dd4bf; }
-.demo .row.sel { background: var(--sel); }
-.demo .row.sel .meta, .demo .row.sel .mod { color: var(--fg); }
-.demo .hit { position: relative; }
-.demo .hit::after { content: ''; position: absolute; inset: -8px -4px; }
-.demo .btn { display: inline-flex; align-items: center; justify-content: center; gap: .375rem; min-height: 2.75rem; padding: 0 .75rem; border-radius: 10px; color: var(--muted); transition: color 160ms ease, background-color 160ms ease; }
-.demo .btn:hover:not(:disabled) { color: var(--fg); }
-.demo .btn[aria-pressed='true']:not(.demo-glass-tab) { color: var(--accent-text); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
-.demo .btn.demo-glass-tab { color: var(--fg); }
-.demo .bar { width: 100%; animation: bar 2.6s linear backwards; }
-.demo .type { display: inline-block; overflow: hidden; white-space: nowrap; vertical-align: bottom; animation: type 1.4s steps(30) backwards; }
-.demo .line { animation: line 250ms ease-out backwards; }
-.demo .cursor { display: inline-block; width: .6em; height: 1.1em; vertical-align: text-bottom; background: var(--beacon); animation: cursor 1s steps(1) infinite; }
-.demo .live-dot { animation: ping 1.6s ease-out infinite; }
-/* Every animated element's resting style is its finished state, so reduced motion simply drops the animation. */
-@keyframes type { from { width: 0; } }
-@keyframes cursor { 50% { opacity: 0; } }
-@keyframes bar { from { width: 0; } }
-@keyframes line { from { opacity: 0; transform: translateY(4px); } }
-@keyframes ping { 0% { box-shadow: 0 0 0 0 rgb(48 209 88 / .6); } 100% { box-shadow: 0 0 0 6px rgb(48 209 88 / 0); } }
-.demo.frozen, .demo.frozen * { animation-play-state: paused !important; }
 @media (prefers-reduced-motion: reduce) {
-  .demo, .demo * { animation: none !important; }
+  a, button, summary { transition: color .18s ease, background-color .18s ease, border-color .18s ease; }
+  .card-lift:hover { transform: none; }
   .transition-transform { transition-property: none !important; }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) { animation: none !important; }
 }
 
-/* Specular edge and pointer spotlight sheen for elevated cards (monochrome Ferry-Blue). */
-.surface-specular { box-shadow: inset 0 1px 0 var(--specular); }
-.spotlight-layer {
-  opacity: 0;
-  background: radial-gradient(280px circle at var(--sx, 50%) var(--sy, 50%), var(--spotlight), transparent 72%);
-  transition: opacity 220ms ease;
-}
-@media (prefers-reduced-motion: no-preference) and (pointer: fine) {
-  .spotlight-host:hover .spotlight-layer { opacity: 1; }
+/* WebKit fallback for browsers without scrollbar-color support. */
+@supports not (scrollbar-color: auto) {
+  html { scrollbar-width: auto; }
+  ::-webkit-scrollbar { width: 12px; height: 12px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--scroll-thumb); background-clip: padding-box; border: 3px solid transparent; border-radius: 9999px; }
+  ::-webkit-scrollbar-thumb:hover { background-color: var(--ui-primary); }
 }

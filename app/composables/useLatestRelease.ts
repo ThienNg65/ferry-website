@@ -1,6 +1,6 @@
 import type { GithubRelease } from '~/utils/release'
 
-/** Call once, in app.vue. Baked in at prerender, refreshed once on mount; a failed refresh keeps the baked installer. */
+/** Call once per page/layout. Baked in at prerender, refreshed once on mount; a failed refresh keeps the baked installer. */
 export function useLatestRelease() {
   const repo = useRuntimeConfig().public.releaseRepo
   const page = releasesPage(repo)
@@ -16,6 +16,7 @@ export function useLatestRelease() {
   return {
     installer,
     href: computed(() => installer.value?.url ?? page),
+    portableHref: computed(() => installer.value?.portableUrl ?? page),
     label: computed(() => (installer.value ? 'Download for Windows' : 'Download from GitHub Releases')),
     releasesUrl: page,
     notesUrl: computed(() => installer.value?.notesUrl || page)
