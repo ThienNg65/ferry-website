@@ -18,7 +18,7 @@ export function buildHomeJsonLd(siteUrl: string, version?: string) {
       applicationCategory: 'DeveloperApplication',
       applicationSubCategory: 'SSH and SFTP Client',
       operatingSystem: 'Windows 10, Windows 11 (64-bit)',
-      softwareVersion: version || '1.3.3',
+      ...(version ? { softwareVersion: version } : {}),
       fileSize: '23MB',
       isAccessibleForFree: true,
       keywords: 'Windows SFTP client, Windows SSH client, WinSCP alternative, PuTTY alternative, live log tail, server resource monitor',

@@ -3,7 +3,7 @@ import { RELEASES_URL } from '~/utils/release'
 
 const site = useRuntimeConfig().public.siteUrl.replace(/\/$/, '')
 const title = 'Privacy Policy — Ferry for Windows'
-const description = 'Ferry is local-first with zero telemetry, zero cookies, zero analytics, and zero accounts. Saved credentials stay encrypted on your Windows device with DPAPI.'
+const description = 'Ferry Desktop App is local-first with zero telemetry, zero cookies, zero analytics, and zero accounts. The ferryssh.com website uses cookie-free Vercel Web Analytics.'
 
 useHead({
   title,
@@ -29,12 +29,12 @@ useSeoMeta({
 })
 
 const localStorageRows = [
-  ['Saved sites & proxy settings', 'sites.json, app-settings.json', 'Hostnames, ports, usernames, key paths and preferences', 'Passwords and key passphrases are encrypted at rest with Windows DPAPI (CryptProtectData) and never leave the local backend decrypted'],
-  ['Transfer & operation history', 'history.json', 'Recent transfers and operations in History', 'Capped at 2,000 entries and pruned by your retention setting (default: 90 days)'],
-  ['Trusted SSH host keys', 'known_hosts.json', 'Trust-on-first-use SSH host-key verification', 'Local SHA-256 fingerprints; manageable or deletable in Settings'],
-  ['Directory bookmarks', 'bookmarks.json', 'Quick navigation to saved folders', 'Local JSON on your device'],
-  ['UI & window preferences', 'WebView localStorage', 'Theme, accent color, density, pane width and bounds', 'Local WebView storage only'],
-  ['Temporary staging & edit files', 'OS temp directory', 'Staging drag-and-drop uploads and external edits', 'Cleaned up after transfer or edit session close']
+  ['Saved sites & proxy settings', 'sites.json, app-settings.json', 'Passwords and key passphrases are encrypted at rest with Windows DPAPI (CryptProtectData) and never leave the local backend decrypted'],
+  ['Transfer & operation history', 'history.json', 'Capped at 2,000 entries and pruned by your retention setting (default: 90 days)'],
+  ['Trusted SSH host keys', 'known_hosts.json', 'Local SHA-256 fingerprints; manageable or deletable in Settings'],
+  ['Directory bookmarks', 'bookmarks.json', 'Local JSON on your device'],
+  ['UI & window preferences', 'WebView localStorage', 'Local WebView storage only'],
+  ['Temporary staging & edit files', 'OS temp directory', 'Cleaned up after transfer or edit session close']
 ] as const
 </script>
 
@@ -49,16 +49,16 @@ const localStorageRows = [
 
       <h1>Privacy Policy for Ferry</h1>
       <p class="mt-3 text-small text-muted">
-        Effective Date: 2026-11-14 · Policy Version: 1.0 · Maintainer: ThienNg65
+        Effective Date: 2026-11-23 · Policy Version: 1.1 · Maintainer: ThienNg65
       </p>
       <p class="mt-6 text-lead text-muted">
-        Ferry is a free, local-first Windows desktop SFTP and SSH client. We do not operate backend servers, user accounts, analytics, or advertising networks.
+        Ferry is a free, local-first Windows desktop SFTP and SSH client. The desktop app operates with zero telemetry, zero accounts, and zero analytics. The <code class="font-mono text-[0.9em]">ferryssh.com</code> website uses cookie-free Vercel Web Analytics to measure aggregate visits and download link clicks.
       </p>
 
-      <h2 class="mt-12 text-2xl">1. Data we do not collect</h2>
+      <h2 class="mt-12 text-2xl">1. Ferry Desktop App — Data we do not collect</h2>
       <ul class="mt-4 list-disc space-y-2 pl-5 text-default">
-        <li>Ferry does <strong>not</strong> collect, transmit, or sell personal data, usage telemetry, crash reports, or behavioral analytics.</li>
-        <li>Ferry does <strong>not</strong> use HTTP cookies, advertising identifiers, or third-party tracking SDKs (the application UI enforces a strict <code class="font-mono text-[0.9em]">default-src 'self'</code> Content Security Policy).</li>
+        <li>The Ferry desktop app does <strong>not</strong> collect, transmit, or sell personal data, usage telemetry, crash reports, or behavioral analytics.</li>
+        <li>The desktop app does <strong>not</strong> use HTTP cookies, advertising identifiers, or third-party tracking SDKs (the application UI enforces a strict <code class="font-mono text-[0.9em]">default-src 'self'</code> Content Security Policy).</li>
         <li>Ferry does <strong>not</strong> require user accounts, collect email addresses, process payments, or send any user data or files for AI training.</li>
       </ul>
 
@@ -76,7 +76,7 @@ const localStorageRows = [
             </tr>
           </thead>
           <tbody class="divide-y divide-default">
-            <tr v-for="[name, loc, _purpose, protection] in localStorageRows" :key="name" class="align-top">
+            <tr v-for="[name, loc, protection] in localStorageRows" :key="name" class="align-top">
               <th scope="row" class="px-4 py-3 font-medium text-highlighted">{{ name }}</th>
               <td class="px-4 py-3 font-mono text-xs text-muted">{{ loc }}</td>
               <td class="px-4 py-3 text-muted">{{ protection }}</td>
@@ -96,7 +96,12 @@ const localStorageRows = [
         In <strong>Settings → Privacy &amp; Legal</strong> you can configure history retention (<code class="font-mono text-[0.9em]">30 days</code>, <code class="font-mono text-[0.9em]">90 days</code> default, <code class="font-mono text-[0.9em]">1 year</code>, or <code class="font-mono text-[0.9em]">Unlimited</code>), run <strong>Export My Data</strong> (JSON excluding passwords/passphrases), or run <strong>Delete All Local Data</strong> to erase all saved sites, credentials, history, and known hosts.
       </p>
 
-      <h2 class="mt-12 text-2xl">5. Contact</h2>
+      <h2 class="mt-12 text-2xl">5. Website analytics (<code class="font-mono text-[0.9em]">ferryssh.com</code>)</h2>
+      <p class="mt-3 text-default">
+        Unlike the Ferry desktop app, the <code class="font-mono text-[0.9em]">ferryssh.com</code> marketing website uses privacy-friendly, cookie-free <strong>Vercel Web Analytics</strong> to measure aggregate page views and outbound download/Microsoft Store clicks. It does not set cookies, store personal identifiers, or track visitors across other websites.
+      </p>
+
+      <h2 class="mt-12 text-2xl">6. Contact</h2>
       <p class="mt-3 text-default">
         Questions or security reports can be submitted through <a :href="`${RELEASES_URL}/issues`" target="_blank" rel="noopener" class="text-primary underline">GitHub Issues on ThienNg65/ferry-release</a>.
       </p>

@@ -1,6 +1,6 @@
 export default defineNuxtConfig({
   compatibilityDate: '2026-11-01',
-  modules: ['@nuxt/ui', '@vercel/speed-insights'],
+  modules: ['@nuxt/ui', '@vercel/analytics/nuxt', '@vercel/speed-insights'],
   css: ['lenis/dist/lenis.css', '~/assets/css/main.css'],
   ssr: true,
   colorMode: { preference: 'dark', fallback: 'dark' },
