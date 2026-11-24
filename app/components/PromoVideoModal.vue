@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { GO_STORE_PATH } from '~/utils/release'
 
 defineProps<{ href?: string, label?: string }>()
 
@@ -141,11 +140,8 @@ function onDialogPointerUp(e: PointerEvent) {
           Windows 10 and 11 (64-bit) · ~23 MB
         </p>
         <div class="flex flex-wrap items-center gap-2">
-          <UButton :to="GO_STORE_PATH" target="_blank" rel="noopener" size="md" class="min-h-11 rounded-lg font-semibold">
-            <UIcon name="i-lucide-shopping-bag" class="size-4 shrink-0" aria-hidden="true" />
-            <span>Get on Microsoft Store</span>
-          </UButton>
-          <UButton v-if="href" :to="href" color="neutral" variant="outline" size="md" class="min-h-11 rounded-lg font-medium">
+          <MsStoreBadge size="small" />
+          <UButton v-if="href" :to="href" color="neutral" variant="outline" size="md" class="min-h-11 rounded-[5px] font-medium">
             <span>{{ label || 'Direct installer' }}</span>
           </UButton>
         </div>

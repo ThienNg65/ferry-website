@@ -6,7 +6,7 @@ const target = releasesPage(RELEASE_REPO)
 
 <template>
   <GoRedirect
-    title="Redirecting to GitHub Releases — Ferry"
+    title="Redirecting to GitHub Releases - Ferry"
     destination-label="GitHub Releases"
     :target="target"
   />

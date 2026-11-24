@@ -4,7 +4,7 @@ import { STORE_URL } from '~/utils/release'
 
 <template>
   <GoRedirect
-    title="Redirecting to Microsoft Store — Ferry"
+    title="Redirecting to Microsoft Store - Ferry"
     destination-label="Microsoft Store"
     :target="STORE_URL"
   />

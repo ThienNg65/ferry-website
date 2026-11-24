@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { GO_STORE_PATH, type Installer } from '~/utils/release'
+import type { Installer } from '~/utils/release'
 
 defineProps<{ installer: Installer | null, href: string, label: string }>()
 
@@ -25,16 +25,7 @@ const badges = [
         </p>
 
         <div class="rise mt-8 flex flex-col items-center gap-3" style="--d: 110ms">
-          <UButton
-            :to="GO_STORE_PATH"
-            target="_blank"
-            rel="noopener"
-            size="xl"
-            class="min-h-12 rounded-lg px-7 font-semibold"
-          >
-            <UIcon name="i-lucide-shopping-bag" class="size-5 shrink-0" aria-hidden="true" />
-            <span>Get it from Microsoft Store</span>
-          </UButton>
+          <MsStoreBadge />
           <p class="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-small text-muted">
             <a :href="href" class="-my-3 inline-block py-3 font-medium text-primary underline hover:text-highlighted">
               {{ installer ? `Download v${installer.version} (.exe)` : label }}

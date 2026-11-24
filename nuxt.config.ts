@@ -3,6 +3,11 @@ export default defineNuxtConfig({
   modules: ['@nuxt/ui', '@vercel/analytics/nuxt', '@vercel/speed-insights'],
   css: ['lenis/dist/lenis.css', '~/assets/css/main.css'],
   ssr: true,
+  vue: {
+    compilerOptions: {
+      isCustomElement: tag => tag === 'ms-store-badge'
+    }
+  },
   colorMode: { preference: 'dark', fallback: 'dark' },
   runtimeConfig: {
     public: {
@@ -26,22 +31,22 @@ export default defineNuxtConfig({
           tagPosition: 'head'
         }
       ],
-      title: 'Ferry — Modern Windows SFTP & SSH Client',
+      title: 'Ferry - Modern Windows SFTP & SSH Client',
       meta: [
         { name: 'color-scheme', content: 'dark light' },
         { name: 'robots', content: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' },
         { name: 'description', content: 'Move files, run SSH commands, follow live tail -F logs, and check server health in one ~23 MB Windows app. Import WinSCP and PuTTY sites in seconds.' },
         { property: 'og:site_name', content: 'Ferry' },
         { property: 'og:locale', content: 'en_US' },
-        { property: 'og:title', content: 'Ferry — Modern Windows SFTP & SSH Client' },
+        { property: 'og:title', content: 'Ferry - Modern Windows SFTP & SSH Client' },
         { property: 'og:description', content: 'Stop switching between WinSCP, PuTTY, and tail windows. Dual-pane SFTP, SSH terminal, live logs, and server health in one Windows app.' },
         { property: 'og:type', content: 'website' },
         { property: 'og:image', content: 'https://www.ferryssh.com/og.jpg' },
         { property: 'og:image:width', content: '1200' },
         { property: 'og:image:height', content: '630' },
-        { property: 'og:image:alt', content: 'Ferry for Windows — dual-pane SFTP, SSH terminal, live logs, and server monitor in one window' },
+        { property: 'og:image:alt', content: 'Ferry for Windows - dual-pane SFTP, SSH terminal, live logs, and server monitor in one window' },
         { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'twitter:title', content: 'Ferry — Modern Windows SFTP & SSH Client' },
+        { name: 'twitter:title', content: 'Ferry - Modern Windows SFTP & SSH Client' },
         { name: 'twitter:description', content: 'Stop switching between WinSCP, PuTTY, and tail windows. Dual-pane SFTP, SSH terminal, live logs, and server monitor in one ~23 MB Windows app.' },
         { name: 'twitter:image', content: 'https://www.ferryssh.com/og.jpg' },
         { name: 'theme-color', content: '#030816', media: '(prefers-color-scheme: dark)' },

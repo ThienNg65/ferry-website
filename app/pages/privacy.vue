@@ -2,7 +2,7 @@
 import { RELEASES_URL } from '~/utils/release'
 
 const site = useRuntimeConfig().public.siteUrl.replace(/\/$/, '')
-const title = 'Privacy Policy — Ferry for Windows'
+const title = 'Privacy Policy - Ferry for Windows'
 const description = 'Ferry Desktop App is local-first with zero telemetry, zero cookies, zero analytics, and zero accounts. The ferryssh.com website uses cookie-free Vercel Web Analytics.'
 
 useHead({
@@ -55,7 +55,7 @@ const localStorageRows = [
         Ferry is a free, local-first Windows desktop SFTP and SSH client. The desktop app operates with zero telemetry, zero accounts, and zero analytics. The <code class="font-mono text-[0.9em]">ferryssh.com</code> website uses cookie-free Vercel Web Analytics to measure aggregate visits and download link clicks.
       </p>
 
-      <h2 class="mt-12 text-2xl">1. Ferry Desktop App — Data we do not collect</h2>
+      <h2 class="mt-12 text-2xl">1. Ferry Desktop App - Data we do not collect</h2>
       <ul class="mt-4 list-disc space-y-2 pl-5 text-default">
         <li>The Ferry desktop app does <strong>not</strong> collect, transmit, or sell personal data, usage telemetry, crash reports, or behavioral analytics.</li>
         <li>The desktop app does <strong>not</strong> use HTTP cookies, advertising identifiers, or third-party tracking SDKs (the application UI enforces a strict <code class="font-mono text-[0.9em]">default-src 'self'</code> Content Security Policy).</li>

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { comparisons, competitorSlugs, type CompetitorSlug } from '~/utils/comparisons'
-import { GO_STORE_PATH } from '~/utils/release'
 
 const route = useRoute()
 const slug = String(route.params.competitor ?? '') as CompetitorSlug
@@ -53,11 +52,8 @@ useSeoMeta({
       <p class="mt-4 max-w-[68ch] text-default">{{ spec.angle }}</p>
 
       <div class="mt-8 flex flex-wrap items-center gap-3">
-        <UButton :to="GO_STORE_PATH" target="_blank" rel="noopener" size="xl" class="min-h-12 rounded-lg px-6 font-semibold">
-          <UIcon name="i-lucide-shopping-bag" class="size-5 shrink-0" aria-hidden="true" />
-          <span>{{ spec.ctaLabel }}</span>
-        </UButton>
-        <NuxtLink to="/#download" class="inline-flex min-h-12 items-center gap-2 rounded-lg border border-default bg-elevated px-5 text-small font-medium text-highlighted hover:border-primary/50 hover:text-primary">
+        <MsStoreBadge />
+        <NuxtLink to="/#download" class="inline-flex min-h-12 items-center gap-2 rounded-[5px] border border-default bg-elevated px-5 text-small font-medium text-highlighted hover:border-primary/50 hover:text-primary">
           <UIcon name="i-lucide-download" class="size-4 text-primary" aria-hidden="true" />
           <span>Direct .exe &amp; Portable .zip</span>
         </NuxtLink>

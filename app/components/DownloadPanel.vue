@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { GO_DOWNLOAD_PATH, GO_STORE_PATH, type Installer } from '~/utils/release'
+import { GO_DOWNLOAD_PATH, type Installer } from '~/utils/release'
 
 const props = defineProps<{ installer: Installer | null, href: string, portableHref: string, label: string, releasesUrl: string, notesUrl: string }>()
 
@@ -25,15 +25,12 @@ useSectionReveal(rootRef, '.reveal-pre', { batch: true })
         </p>
 
         <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <UButton :to="GO_STORE_PATH" target="_blank" rel="noopener" size="xl" class="min-h-12 rounded-lg px-7 font-semibold">
-            <UIcon name="i-lucide-shopping-bag" class="size-5 shrink-0" aria-hidden="true" />
-            <span>Get it from Microsoft Store</span>
-          </UButton>
-          <UButton :to="href" color="neutral" variant="outline" size="xl" class="min-h-12 rounded-lg px-5 font-medium">
+          <MsStoreBadge />
+          <UButton :to="href" color="neutral" variant="outline" size="xl" class="min-h-12 rounded-[5px] px-5 font-medium">
             <UIcon name="i-lucide-download" class="size-4 shrink-0 text-primary" aria-hidden="true" />
             <span>{{ installer ? `Ferry-Setup-${installer.version}.exe` : label }}</span>
           </UButton>
-          <UButton v-if="installer?.portableUrl" :to="portableHref" color="neutral" variant="outline" size="xl" class="min-h-12 rounded-lg px-5 font-medium">
+          <UButton v-if="installer?.portableUrl" :to="portableHref" color="neutral" variant="outline" size="xl" class="min-h-12 rounded-[5px] px-5 font-medium">
             <UIcon name="i-lucide-archive" class="size-4 shrink-0 text-primary" aria-hidden="true" />
             <span>Portable .zip</span>
           </UButton>

@@ -30,7 +30,7 @@ useSectionReveal(rootRef, '.reveal-pre', { batch: true })
           <span class="heading-muted">Built to stay</span> on your machine
         </h2>
         <p class="text-lead text-muted">
-          Your SSH keys, host list, and server passwords belong on your PC—not behind a paid subscription.
+          Your SSH keys, host list, and server passwords belong on your PC-not behind a paid subscription.
         </p>
       </div>
 

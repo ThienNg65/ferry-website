@@ -2,7 +2,7 @@
 const { installer, href, portableHref, label, releasesUrl, notesUrl } = useLatestRelease()
 const site = useRuntimeConfig().public.siteUrl.replace(/\/$/, '')
 
-const title = 'Ferry — Modern Windows SFTP & SSH Client'
+const title = 'Ferry - Modern Windows SFTP & SSH Client'
 const description = 'Move files, run SSH commands, follow live tail -F logs, and check server health in one ~23 MB Windows app. Import WinSCP and PuTTY sites in seconds.'
 
 useHead({

@@ -2,7 +2,7 @@
 import { RELEASES_URL, STORE_URL } from '~/utils/release'
 
 const site = useRuntimeConfig().public.siteUrl.replace(/\/$/, '')
-const title = 'Terms of Service — Ferry for Windows'
+const title = 'Terms of Service - Ferry for Windows'
 const description = 'Terms of Service, acceptable use, unsigned direct installer notice, and warranty disclaimer for Ferry on Windows.'
 
 useHead({

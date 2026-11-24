@@ -27,7 +27,7 @@ export const comparisons: Record<CompetitorSlug, ComparisonSpec> = {
   winscp: {
     slug: 'winscp',
     competitor: 'WinSCP',
-    metaTitle: 'Ferry vs. WinSCP — SFTP, SSH Terminal & Logs for Windows',
+    metaTitle: 'Ferry vs. WinSCP - SFTP, SSH Terminal & Logs for Windows',
     metaDescription: 'Looking for a modern WinSCP alternative on Windows 11? Ferry keeps dual-pane SFTP speed, imports WinSCP sites in 1 click, and adds SSH terminal, live logs, and server monitor.',
     h1: 'WinSCP vs. Ferry: Keep the dual-pane speed, drop the separate PuTTY window',
     subtitle: 'Same side-by-side local and remote panes plus WinSCP site import, now with a built-in SSH terminal, live tail -F logs, and server monitor in one window.',
@@ -54,7 +54,7 @@ export const comparisons: Record<CompetitorSlug, ComparisonSpec> = {
   termius: {
     slug: 'termius',
     competitor: 'Termius',
-    metaTitle: 'Ferry vs. Termius — Free Windows SFTP, SSH & Log Viewer',
+    metaTitle: 'Ferry vs. Termius - Free Windows SFTP, SSH & Log Viewer',
     metaDescription: 'Free Termius alternative for Windows 10/11. Dual-pane SFTP, folder sync, SSH terminal, live tail -F logs, and server monitor with Windows DPAPI encryption and no account.',
     h1: 'Termius vs. Ferry: Full SFTP, logs & monitoring without the $120/yr subscription',
     subtitle: 'Encrypted on your PC with Windows DPAPI, no cloud account needed, dual-pane SFTP with folder sync, and live tail -F logs and server monitor included free.',
@@ -69,7 +69,7 @@ export const comparisons: Record<CompetitorSlug, ComparisonSpec> = {
     ],
     rows: [
       ['Price & subscription', 'Free (no Pro tier or subscription)', 'Free limited tier; Pro ~$10/mo (~$120/yr)'],
-      ['Account & cloud requirement', 'None — stored on your PC with Windows DPAPI', 'Account required for Pro cloud vault & sync'],
+      ['Account & cloud requirement', 'None - stored on your PC with Windows DPAPI', 'Account required for Pro cloud vault & sync'],
       ['Dual-pane SFTP, folder sync & compare', 'Yes, dual-pane + one-way sync + filters', 'Split view in SFTP tab (no sync/compare)'],
       ['Live tail -F log viewer with Error/Warn rail', 'Yes, dedicated tab', 'Only manual tail in terminal'],
       ['Server resource & process monitor', 'Yes, live CPU, RAM, disk & top processes', 'No'],
@@ -80,7 +80,7 @@ export const comparisons: Record<CompetitorSlug, ComparisonSpec> = {
   mobaxterm: {
     slug: 'mobaxterm',
     competitor: 'MobaXterm',
-    metaTitle: 'Ferry vs. MobaXterm — Unlimited Windows SSH & SFTP Client',
+    metaTitle: 'Ferry vs. MobaXterm - Unlimited Windows SSH & SFTP Client',
     metaDescription: 'Lightweight MobaXterm alternative for Windows. Unlimited saved sessions, dual-pane SFTP, folder sync, SSH terminal, tail -F logs, and server monitor in ~23 MB.',
     h1: 'MobaXterm vs. Ferry: Focused SSH & SFTP without legacy clutter or session caps',
     subtitle: 'Unlimited saved sites and server tabs (no 12-session Home cap), dual-pane SFTP with folder sync, and a clean interface in ~23 MB.',
@@ -106,7 +106,7 @@ export const comparisons: Record<CompetitorSlug, ComparisonSpec> = {
   filezilla: {
     slug: 'filezilla',
     competitor: 'FileZilla',
-    metaTitle: 'Ferry vs. FileZilla — Clean Windows SFTP & SSH Client',
+    metaTitle: 'Ferry vs. FileZilla - Clean Windows SFTP & SSH Client',
     metaDescription: 'Clean FileZilla alternative for Linux servers on Windows. No bundled installer offers, built-in SSH terminal, live tail -F logs, file editor, and server monitor.',
     h1: 'FileZilla alternative for Linux servers: clean SFTP, built-in terminal & live logs',
     subtitle: 'Built for SSH and SFTP, with an in-app config editor, SSH terminal, and live tail -F log viewer with no bundled adware.',
