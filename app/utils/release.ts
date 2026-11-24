@@ -1,6 +1,8 @@
 export const RELEASE_REPO = 'ThienNg65/ferry-release'
 export const RELEASES_URL = `https://github.com/${RELEASE_REPO}`
 export const STORE_URL = 'https://apps.microsoft.com/detail/9PJPWK568P53'
+export const GO_STORE_PATH = '/go/store'
+export const GO_DOWNLOAD_PATH = '/go/download'
 export const releasesPage = (repo: string): string => `https://github.com/${repo}/releases/latest`
 
 export interface GithubAsset {

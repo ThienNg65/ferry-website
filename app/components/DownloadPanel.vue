@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { STORE_URL, type Installer } from '~/utils/release'
+import { GO_DOWNLOAD_PATH, GO_STORE_PATH, type Installer } from '~/utils/release'
 
 const props = defineProps<{ installer: Installer | null, href: string, portableHref: string, label: string, releasesUrl: string, notesUrl: string }>()
 
@@ -25,7 +25,7 @@ useSectionReveal(rootRef, '.reveal-pre', { batch: true })
         </p>
 
         <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <UButton :to="STORE_URL" target="_blank" rel="noopener" size="xl" class="min-h-12 rounded-lg px-7 font-semibold">
+          <UButton :to="GO_STORE_PATH" target="_blank" rel="noopener" size="xl" class="min-h-12 rounded-lg px-7 font-semibold">
             <UIcon name="i-lucide-shopping-bag" class="size-5 shrink-0" aria-hidden="true" />
             <span>Get it from Microsoft Store</span>
           </UButton>
@@ -43,7 +43,7 @@ useSectionReveal(rootRef, '.reveal-pre', { batch: true })
           <a :href="notesUrl" target="_blank" rel="noopener" class="inline-flex min-h-11 items-center gap-1.5 font-medium text-primary underline hover:text-highlighted">
             <UIcon name="i-lucide-file-text" class="size-4 shrink-0" aria-hidden="true" />Release notes
           </a>
-          <a :href="releasesUrl" target="_blank" rel="noopener" class="inline-flex min-h-11 items-center gap-1.5 font-medium text-primary underline hover:text-highlighted">
+          <a :href="GO_DOWNLOAD_PATH" target="_blank" rel="noopener" class="inline-flex min-h-11 items-center gap-1.5 font-medium text-primary underline hover:text-highlighted">
             <UIcon name="i-lucide-tag" class="size-4 shrink-0" aria-hidden="true" />All releases
           </a>
         </div>

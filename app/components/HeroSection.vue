@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { STORE_URL, type Installer } from '~/utils/release'
+import { GO_STORE_PATH, type Installer } from '~/utils/release'
 
 defineProps<{ installer: Installer | null, href: string, label: string }>()
 
@@ -26,7 +26,7 @@ const badges = [
 
         <div class="rise mt-8 flex flex-col items-center gap-3" style="--d: 110ms">
           <UButton
-            :to="STORE_URL"
+            :to="GO_STORE_PATH"
             target="_blank"
             rel="noopener"
             size="xl"
