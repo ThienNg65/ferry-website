@@ -95,7 +95,7 @@ onUnmounted(() => {
           v-for="link in navLinks"
           :key="link.to"
           :to="link.to"
-          class="flex min-h-11 items-center rounded-lg px-3.5 text-small font-medium text-muted hover:text-highlighted"
+          class="flex min-h-11 items-center rounded-[5px] px-3.5 text-small font-medium text-muted hover:text-highlighted"
         >
           {{ link.label }}
         </NuxtLink>
@@ -105,7 +105,7 @@ onUnmounted(() => {
         <ClientOnly>
           <button
             type="button"
-            class="flex size-11 items-center justify-center rounded-lg text-muted hover:bg-muted/70 hover:text-highlighted"
+            class="flex size-11 items-center justify-center rounded-[5px] text-muted hover:bg-muted/70 hover:text-highlighted"
             :aria-label="colorMode.value === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
             @click="toggleTheme"
           >
@@ -119,7 +119,7 @@ onUnmounted(() => {
         </ClientOnly>
         <button
           type="button"
-          class="flex size-11 items-center justify-center rounded-lg text-muted hover:bg-muted/70 hover:text-highlighted lg:hidden"
+          class="flex size-11 items-center justify-center rounded-[5px] text-muted hover:bg-muted/70 hover:text-highlighted lg:hidden"
           :aria-expanded="menuOpen"
           aria-controls="mobile-nav"
           aria-label="Toggle navigation menu"
@@ -127,7 +127,7 @@ onUnmounted(() => {
         >
           <UIcon :name="menuOpen ? 'i-lucide-x' : 'i-lucide-menu'" class="size-5" aria-hidden="true" />
         </button>
-        <UButton to="/#download" size="md" class="min-h-11 rounded-lg px-4 font-semibold">
+        <UButton to="/#download" size="md" class="min-h-11 rounded-[5px] px-4 font-semibold">
           <span>Get Ferry</span>
         </UButton>
       </div>
@@ -143,7 +143,7 @@ onUnmounted(() => {
         <li v-for="link in navLinks" :key="link.to">
           <NuxtLink
             :to="link.to"
-            class="flex min-h-11 items-center rounded-lg px-3 text-small font-medium text-highlighted hover:bg-muted/70"
+            class="flex min-h-11 items-center rounded-[5px] px-3 text-small font-medium text-highlighted hover:bg-muted/70"
             @click="menuOpen = false"
           >
             {{ link.label }}

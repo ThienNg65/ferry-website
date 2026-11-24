@@ -86,7 +86,7 @@ useSectionReveal(rootRef, '.reveal-pre', { batch: true })
           v-for="link in vsLinks"
           :key="link.to"
           :to="link.to"
-          class="inline-flex min-h-11 items-center rounded-lg border border-default bg-elevated px-3.5 text-small font-medium text-highlighted hover:border-primary/50 hover:text-primary"
+          class="inline-flex min-h-11 items-center rounded-[5px] border border-default bg-elevated px-3.5 text-small font-medium text-highlighted hover:border-primary/50 hover:text-primary"
         >
           {{ link.label }}
         </NuxtLink>

@@ -52,7 +52,7 @@ const year = new Date().getFullYear()
           :href="RELEASES_URL"
           target="_blank"
           rel="noopener"
-          class="mt-6 inline-flex min-h-11 items-center gap-2 rounded-lg border border-default bg-elevated px-4 text-small font-medium text-highlighted hover:border-primary/50 hover:text-primary"
+          class="mt-6 inline-flex min-h-11 items-center gap-2 rounded-[5px] border border-default bg-elevated px-4 text-small font-medium text-highlighted hover:border-primary/50 hover:text-primary"
         >
           <UIcon name="i-lucide-github" class="size-4 shrink-0" aria-hidden="true" />
           <span>Releases &amp; issue tracker</span>

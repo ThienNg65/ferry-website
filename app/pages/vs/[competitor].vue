@@ -113,7 +113,7 @@ useSeoMeta({
           <li v-for="o in others" :key="o.slug">
             <NuxtLink
               :to="`/vs/${o.slug}`"
-              class="inline-flex min-h-11 items-center rounded-lg border border-default bg-elevated px-4 text-small font-medium text-highlighted hover:border-primary/50 hover:text-primary"
+              class="inline-flex min-h-11 items-center rounded-[5px] border border-default bg-elevated px-4 text-small font-medium text-highlighted hover:border-primary/50 hover:text-primary"
             >
               Ferry vs. {{ o.competitor }}
             </NuxtLink>
