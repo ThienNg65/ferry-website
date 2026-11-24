@@ -40,10 +40,13 @@ useSectionReveal(rootRef, '.reveal-pre', { batch: true })
           <a :href="notesUrl" target="_blank" rel="noopener" class="inline-flex min-h-11 items-center gap-1.5 font-medium text-primary underline hover:text-highlighted">
             <UIcon name="i-lucide-file-text" class="size-4 shrink-0" aria-hidden="true" />Release notes
           </a>
-          <a :href="GO_DOWNLOAD_PATH" target="_blank" rel="noopener" class="inline-flex min-h-11 items-center gap-1.5 font-medium text-primary underline hover:text-highlighted">
+          <a :href="GO_DOWNLOAD_PATH" target="_blank" rel="noopener nofollow" class="inline-flex min-h-11 items-center gap-1.5 font-medium text-primary underline hover:text-highlighted">
             <UIcon name="i-lucide-tag" class="size-4 shrink-0" aria-hidden="true" />All releases
           </a>
         </div>
+        <p v-if="installer?.sha256" class="mt-3 break-all font-mono text-xs text-muted">
+          SHA-256 (.exe): {{ installer.sha256 }}
+        </p>
       </div>
 
       <div v-if="installer?.notes.length" class="reveal-pre mx-auto mt-4 max-w-[56rem]">

@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { buildComparisonJsonLd, buildHomeJsonLd, buildLegalJsonLd, buildTourJsonLd } from '../composables/useSeoSchema'
 import { keepInstaller, parseNotes, pickInstaller, releasesPage } from './release'
 import type { GithubRelease } from './release'
 
@@ -143,5 +144,56 @@ describe('release notes', () => {
   })
   it('puts the notes on the installer', () => {
     expect(pickInstaller({ body: '- One', assets: [exe] })?.notes).toEqual(['One'])
+  })
+})
+
+describe('useSeoSchema JSON-LD', () => {
+  const site = 'https://www.ferryssh.com/'
+
+  it('builds WebSite, Organization, SoftwareApplication and FAQPage on home', () => {
+    const schemas = buildHomeJsonLd(site, '1.3.2')
+    const types = schemas.map(s => s['@type'])
+    expect(types).toEqual(['WebSite', 'Organization', 'SoftwareApplication', 'FAQPage'])
+    const website = schemas[0] as { alternateName: string[], url: string }
+    expect(website.url).toBe('https://www.ferryssh.com/')
+    expect(website.alternateName).toContain('ferryssh.com')
+    const org = schemas[1] as { '@id': string, logo: string }
+    expect(org['@id']).toBe('https://www.ferryssh.com/#organization')
+    expect(org.logo).toBe('https://www.ferryssh.com/icon-512.png')
+    const app = schemas[2] as { softwareVersion: string, publisher: { '@id': string } }
+    expect(app.softwareVersion).toBe('1.3.2')
+    expect(app.publisher['@id']).toBe('https://www.ferryssh.com/#organization')
+  })
+
+  it('builds 3-item BreadcrumbList on comparison pages matching visible breadcrumb', () => {
+    const schemas = buildComparisonJsonLd(site, 'winscp', 'Ferry vs. WinSCP', 'desc', 'WinSCP')
+    const crumbs = schemas[1] as { itemListElement: Array<{ position: number, name: string, item: string }> }
+    expect(crumbs.itemListElement).toEqual([
+      { '@type': 'ListItem', position: 1, name: 'Ferry', item: 'https://www.ferryssh.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Compare', item: 'https://www.ferryssh.com/#compare' },
+      { '@type': 'ListItem', position: 3, name: 'Ferry vs. WinSCP', item: 'https://www.ferryssh.com/vs/winscp' }
+    ])
+  })
+
+  it('builds legal BreadcrumbList cleanly', () => {
+    const schemas = buildLegalJsonLd(site, '/privacy', 'Privacy', 'desc', 'Privacy Policy')
+    const crumbs = schemas[1] as { itemListElement: Array<{ position: number, name: string, item: string }> }
+    expect(crumbs.itemListElement).toHaveLength(2)
+    expect(crumbs.itemListElement[1]?.item).toBe('https://www.ferryssh.com/privacy')
+  })
+
+  it('builds VideoObject with SeekToAction and 4 Clip key moments on /tour', () => {
+    const schemas = buildTourJsonLd(site)
+    const video = schemas.find(s => s['@type'] === 'VideoObject') as {
+      duration: string
+      contentUrl: string
+      hasPart: Array<{ '@type': string, startOffset: number, endOffset: number, url: string }>
+    }
+    expect(video.duration).toBe('PT35S')
+    expect(video.contentUrl).toBe('https://www.ferryssh.com/media/ferry-launch-demo-35s.mp4')
+    expect(video.hasPart).toHaveLength(4)
+    expect(video.hasPart[0]?.startOffset).toBe(0)
+    expect(video.hasPart[3]?.endOffset).toBe(35)
+    expect(video.hasPart[2]?.url).toBe('https://www.ferryssh.com/tour?t=14')
   })
 })

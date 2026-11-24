@@ -1,45 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+  xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"
+>
   <url>
     <loc>https://www.ferryssh.com/</loc>
-    <lastmod>2026-11-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <lastmod>2026-11-24</lastmod>
+    <image:image>
+      <image:loc>https://www.ferryssh.com/media/files-terminal.webp</image:loc>
+      <image:title>Ferry dual-pane SFTP and embedded SSH terminal</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.ferryssh.com/media/folder-sync.webp</image:loc>
+      <image:title>Ferry dual-pane SFTP one-way folder sync preview</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.ferryssh.com/media/code-editor.webp</image:loc>
+      <image:title>Ferry in-place remote file editor with syntax highlighting</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.ferryssh.com/media/log-tail.webp</image:loc>
+      <image:title>Ferry live tail -F log viewer with error and warning filters</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.ferryssh.com/media/monitor.webp</image:loc>
+      <image:title>Ferry live server CPU, memory, disk, and process monitor</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.ferryssh.com/media/import-sessions.webp</image:loc>
+      <image:title>Ferry Import sites dialog for WinSCP, PuTTY, and ~/.ssh/config</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.ferryssh.com/media/site-options.webp</image:loc>
+      <image:title>Ferry site authentication, jump host, and proxy options</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.ferryssh.com/media/folder-compare.webp</image:loc>
+      <image:title>Ferry folder compare dialog showing local-only and remote-only files</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.ferryssh.com/media/connections-import.webp</image:loc>
+      <image:title>Ferry Connections screen with colour-coded server environments</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.ferryssh.com/tour</loc>
+    <lastmod>2026-11-24</lastmod>
+    <video:video>
+      <video:thumbnail_loc>https://www.ferryssh.com/og.jpg</video:thumbnail_loc>
+      <video:title>Ferry for Windows - 35-Second Launch Tour</video:title>
+      <video:description>Import saved WinSCP and PuTTY sessions, transfer files in dual-pane SFTP, run SSH commands, follow live tail -F logs, and monitor server CPU and memory in one Windows app.</video:description>
+      <video:content_loc>https://www.ferryssh.com/media/ferry-launch-demo-35s.mp4</video:content_loc>
+      <video:duration>35</video:duration>
+      <video:publication_date>2026-11-12T00:00:00+00:00</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
   </url>
   <url>
     <loc>https://www.ferryssh.com/vs/winscp</loc>
-    <lastmod>2026-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-11-24</lastmod>
+    <image:image>
+      <image:loc>https://www.ferryssh.com/media/import-sessions.webp</image:loc>
+      <image:title>Import saved WinSCP, PuTTY, and ~/.ssh/config sessions into Ferry</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.ferryssh.com/vs/termius</loc>
-    <lastmod>2026-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-11-24</lastmod>
+    <image:image>
+      <image:loc>https://www.ferryssh.com/media/log-tail.webp</image:loc>
+      <image:title>Ferry live tail -F log viewer with error and warning filters</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.ferryssh.com/vs/mobaxterm</loc>
-    <lastmod>2026-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-11-24</lastmod>
+    <image:image>
+      <image:loc>https://www.ferryssh.com/media/connections-import.webp</image:loc>
+      <image:title>Ferry unlimited saved connections grouped by environment</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.ferryssh.com/vs/filezilla</loc>
-    <lastmod>2026-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-11-24</lastmod>
+    <image:image>
+      <image:loc>https://www.ferryssh.com/media/code-editor.webp</image:loc>
+      <image:title>Ferry in-place remote file editor with syntax highlighting</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.ferryssh.com/privacy</loc>
     <lastmod>2026-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
   </url>
   <url>
     <loc>https://www.ferryssh.com/terms</loc>
     <lastmod>2026-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
   </url>
 </urlset>

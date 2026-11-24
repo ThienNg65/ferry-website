@@ -1,5 +1,13 @@
 export type CompetitorSlug = 'winscp' | 'termius' | 'mobaxterm' | 'filezilla'
 
+export interface ComparisonShot {
+  src: string
+  alt: string
+  caption: string
+  width: number
+  height: number
+}
+
 export interface ComparisonSpec {
   slug: CompetitorSlug
   competitor: string
@@ -11,6 +19,7 @@ export interface ComparisonSpec {
   stickWithTitle: string
   stickWithText: string
   ctaLabel: string
+  shot: ComparisonShot
   migrationSteps: string[]
   rows: [string, string, string][]
 }
@@ -29,12 +38,19 @@ export const comparisons: Record<CompetitorSlug, ComparisonSpec> = {
     competitor: 'WinSCP',
     metaTitle: 'Ferry vs. WinSCP - SFTP, SSH Terminal & Logs for Windows',
     metaDescription: 'Looking for a modern WinSCP alternative on Windows 11? Ferry keeps dual-pane SFTP speed, imports WinSCP sites in 1 click, and adds SSH terminal, live logs, and server monitor.',
-    h1: 'WinSCP vs. Ferry: Keep the dual-pane speed, drop the separate PuTTY window',
+    h1: 'Ferry vs. WinSCP: Keep dual-pane SFTP speed, drop the separate PuTTY window',
     subtitle: 'Same side-by-side local and remote panes plus WinSCP site import, now with a built-in SSH terminal, live tail -F logs, and server monitor in one window.',
     angle: 'WinSCP is great when you need FTP, FTPS, WebDAV, S3, or .NET scripts. For daily Linux server work over SSH and SFTP, Ferry saves you from jumping to PuTTY and separate log windows.',
     stickWithTitle: 'When to stick with WinSCP',
     stickWithText: 'Stick with WinSCP if you need FTP/FTPS, WebDAV, Amazon S3, SCP, or automated .NET assembly and CLI transfer scripts.',
     ctaLabel: 'Import from WinSCP & Install via Microsoft Store',
+    shot: {
+      src: '/media/import-sessions.webp',
+      alt: 'Ferry Import sites dialog scanning saved WinSCP, PuTTY, and ~/.ssh/config sessions',
+      caption: 'Import saved WinSCP, PuTTY, and ~/.ssh/config sites in one click.',
+      width: 1600,
+      height: 1000
+    },
     migrationSteps: [
       'Install Ferry from the Microsoft Store or download the standalone installer.',
       'On the Connections screen, click Import / Export and choose WinSCP sessions.',
@@ -56,12 +72,19 @@ export const comparisons: Record<CompetitorSlug, ComparisonSpec> = {
     competitor: 'Termius',
     metaTitle: 'Ferry vs. Termius - Free Windows SFTP, SSH & Log Viewer',
     metaDescription: 'Free Termius alternative for Windows 10/11. Dual-pane SFTP, folder sync, SSH terminal, live tail -F logs, and server monitor with Windows DPAPI encryption and no account.',
-    h1: 'Termius vs. Ferry: Full SFTP, logs & monitoring without the $120/yr subscription',
+    h1: 'Ferry vs. Termius: Full Windows SFTP, live logs & monitoring without the $120/yr subscription',
     subtitle: 'Encrypted on your PC with Windows DPAPI, no cloud account needed, dual-pane SFTP with folder sync, and live tail -F logs and server monitor included free.',
     angle: 'Termius focuses on cloud-synced cross-device terminals and charges ~$10/mo (~$120/yr) for Pro features. Ferry gives Windows developers dual-pane SFTP, terminal, live logs, and server health free with everything stored on your PC.',
     stickWithTitle: 'When to stick with Termius',
     stickWithText: 'Stick with Termius if you need iOS, Android, macOS, and Linux cross-device cloud sync, team vaults, or Mosh support.',
     ctaLabel: 'Get Ferry Free on Microsoft Store',
+    shot: {
+      src: '/media/log-tail.webp',
+      alt: 'Ferry live log tail showing error and warning filters with the right-hand overview rail',
+      caption: 'Built-in live tail -F log viewer with Error and Warning filters included free.',
+      width: 1920,
+      height: 1080
+    },
     migrationSteps: [
       'Install Ferry (~23 MB) from the Microsoft Store or GitHub Releases.',
       'Import existing ~/.ssh/config hosts in one click or add hosts with SSH agent, key, or jump host auth.',
@@ -82,12 +105,19 @@ export const comparisons: Record<CompetitorSlug, ComparisonSpec> = {
     competitor: 'MobaXterm',
     metaTitle: 'Ferry vs. MobaXterm - Unlimited Windows SSH & SFTP Client',
     metaDescription: 'Lightweight MobaXterm alternative for Windows. Unlimited saved sessions, dual-pane SFTP, folder sync, SSH terminal, tail -F logs, and server monitor in ~23 MB.',
-    h1: 'MobaXterm vs. Ferry: Focused SSH & SFTP without legacy clutter or session caps',
+    h1: 'Ferry vs. MobaXterm: Focused Windows SSH & SFTP without legacy clutter or session caps',
     subtitle: 'Unlimited saved sites and server tabs (no 12-session Home cap), dual-pane SFTP with folder sync, and a clean interface in ~23 MB.',
     angle: 'MobaXterm bundles an X11 server, Cygwin tools, RDP, VNC, and serial consoles, and caps its free Home edition at 12 saved sessions. Ferry sticks to SSH and SFTP so the app stays fast, clean, and uncapped.',
     stickWithTitle: 'When to stick with MobaXterm',
     stickWithText: 'Stick with MobaXterm if you need a built-in X11 server, RDP, VNC, serial console, or local SSH port-forwarding tunnels.',
     ctaLabel: 'Install Ferry (~23 MB) on Windows',
+    shot: {
+      src: '/media/connections-import.webp',
+      alt: 'Ferry Connections screen grouping Development, Production, and Staging hosts beside Quick Connect',
+      caption: 'Unlimited saved sites grouped by Production, Staging, and Development environments.',
+      width: 1600,
+      height: 1000
+    },
     migrationSteps: [
       'Install Ferry via Microsoft Store or download the standalone installer.',
       'Import saved sessions from PuTTY, WinSCP, or ~/.ssh/config with no 12-session limit.',
@@ -108,12 +138,19 @@ export const comparisons: Record<CompetitorSlug, ComparisonSpec> = {
     competitor: 'FileZilla',
     metaTitle: 'Ferry vs. FileZilla - Clean Windows SFTP & SSH Client',
     metaDescription: 'Clean FileZilla alternative for Linux servers on Windows. No bundled installer offers, built-in SSH terminal, live tail -F logs, file editor, and server monitor.',
-    h1: 'FileZilla alternative for Linux servers: clean SFTP, built-in terminal & live logs',
+    h1: 'Ferry vs. FileZilla: Clean Windows SFTP for Linux servers with built-in terminal & live logs',
     subtitle: 'Built for SSH and SFTP, with an in-app config editor, SSH terminal, and live tail -F log viewer with no bundled adware.',
     angle: 'FileZilla was built first for FTP/FTPS hosting. When managing Linux servers over SSH, Ferry replaces separate FileZilla and PuTTY windows with one clean app that edits configs, restarts services, and watches logs in place.',
     stickWithTitle: 'When to stick with FileZilla',
     stickWithText: 'Stick with FileZilla if you primarily manage plain FTP or FTPS servers rather than Linux hosts over SSH and SFTP.',
     ctaLabel: 'Try Ferry Free via Microsoft Store',
+    shot: {
+      src: '/media/code-editor.webp',
+      alt: 'Ferry remote file editor modifying package.json on a Linux server with syntax highlighting',
+      caption: 'In-place remote file editor with syntax highlighting and clean Microsoft Store or direct installs.',
+      width: 1600,
+      height: 1000
+    },
     migrationSteps: [
       'Install Ferry cleanly from the Microsoft Store or GitHub Releases with zero third-party offers.',
       'Connect with SSH keys, SSH agent, jump hosts, or import ~/.ssh/config, WinSCP, or PuTTY profiles.',

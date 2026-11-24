@@ -26,7 +26,8 @@ const lightSrc = computed(() => props.src.replace('/media/', '/media/light/'))
     :alt="alt"
     :width="width"
     :height="height"
-    loading="lazy"
+    :fetchpriority="eager ? 'high' : undefined"
+    :loading="eager ? undefined : 'lazy'"
     decoding="async"
     class="shot-light block h-auto w-full"
   >

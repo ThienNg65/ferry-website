@@ -9,7 +9,13 @@ useHead({
 </script>
 
 <template>
-  <span class="store-badge-wrap" :style="{ '--badge-h': size === 'small' ? '2.75rem' : '3rem' }">
+  <span
+    class="store-badge-wrap"
+    :style="{
+      '--badge-h': size === 'small' ? '2.75rem' : '3rem',
+      '--badge-w': size === 'small' ? '8.75rem' : '9.75rem'
+    }"
+  >
     <ms-store-badge
       class="hidden dark:inline-flex"
       productid="9pjpwk568p53"
@@ -35,6 +41,8 @@ useHead({
 .store-badge-wrap {
   display: inline-flex;
   align-items: center;
+  min-width: var(--badge-w, 9.75rem);
+  min-height: var(--badge-h, 3rem);
   line-height: 0;
 }
 

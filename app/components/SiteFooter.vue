@@ -8,6 +8,7 @@ const cols = [
     title: 'Product',
     links: [
       { label: 'Features', to: '/#features', external: false },
+      { label: '35s Product Tour', to: '/tour', external: false },
       { label: 'Security', to: '/#security', external: false },
       { label: 'Compare', to: '/#compare', external: false },
       { label: 'Download', to: '/#download', external: false },

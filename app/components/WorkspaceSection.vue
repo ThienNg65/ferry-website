@@ -50,10 +50,12 @@ useSectionReveal(rootRef, '.reveal-pre', { batch: true })
         <div role="tablist" aria-label="Core server workflows" class="reveal-pre space-y-3">
           <button
             v-for="(item, idx) in items"
+            :id="`workspace-tab-${item.id}`"
             :key="item.id"
             type="button"
             role="tab"
             :aria-selected="active === idx"
+            :aria-controls="`workspace-panel-${item.id}`"
             class="card-lift block w-full rounded-[14px] border p-5 text-left"
             :class="active === idx
               ? 'border-primary/50 bg-elevated text-highlighted'
@@ -71,16 +73,23 @@ useSectionReveal(rootRef, '.reveal-pre', { batch: true })
         </div>
 
         <div class="reveal-pre min-w-0">
-          <Transition name="swap" mode="out-in">
-            <figure :key="items[active]!.id" class="window bg-elevated">
-              <AppShot
-                :src="items[active]!.src"
-                :alt="items[active]!.alt"
-                :width="items[active]!.width"
-                :height="items[active]!.height"
-              />
-            </figure>
-          </Transition>
+          <figure
+            v-for="(item, idx) in items"
+            v-show="active === idx"
+            :id="`workspace-panel-${item.id}`"
+            :key="item.id"
+            role="tabpanel"
+            :aria-labelledby="`workspace-tab-${item.id}`"
+            class="window bg-elevated"
+          >
+            <AppShot
+              :src="item.src"
+              :alt="item.alt"
+              :width="item.width"
+              :height="item.height"
+            />
+            <figcaption class="sr-only">{{ item.alt }}</figcaption>
+          </figure>
         </div>
       </div>
     </div>

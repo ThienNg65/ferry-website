@@ -2,8 +2,12 @@ node_modules
 .nuxt
 .output
 .data
+.vercel
+.impeccable/*.cache.json
 dist
 *.log
 .env
 .claude
 .scratch
+.DS_Store
+Thumbs.db

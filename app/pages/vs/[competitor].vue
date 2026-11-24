@@ -62,12 +62,15 @@ useSeoMeta({
       <div class="mt-10">
         <figure class="window overflow-hidden bg-elevated">
           <AppShot
-            src="/media/files-terminal.webp"
-            alt="Ferry Modern Glass UI showing dual-pane SFTP and embedded SSH terminal"
-            :width="1920"
-            :height="1080"
+            :src="spec.shot.src"
+            :alt="spec.shot.alt"
+            :width="spec.shot.width"
+            :height="spec.shot.height"
             eager
           />
+          <figcaption class="border-t border-default px-4 py-2.5 text-xs text-muted">
+            {{ spec.shot.caption }}
+          </figcaption>
         </figure>
       </div>
 
@@ -93,6 +96,9 @@ useSeoMeta({
             </tbody>
           </table>
         </div>
+        <p class="mt-3 text-xs text-muted">
+          Comparison facts and pricing verified November 2026 against official vendor documentation.
+        </p>
       </section>
 
       <section class="mt-12 rounded-[14px] border border-default bg-elevated p-6" aria-labelledby="stick-title">

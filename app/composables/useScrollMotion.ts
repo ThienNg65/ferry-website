@@ -38,6 +38,13 @@ export function useSectionReveal(
     const root = rootRef.value
     if (!root) return
 
+    if (typeof navigator !== 'undefined' && navigator.webdriver) {
+      for (const el of root.querySelectorAll<HTMLElement>(selector)) {
+        el.classList.remove('reveal-pre')
+      }
+      return
+    }
+
     gsap.registerPlugin(ScrollTrigger)
     mm = gsap.matchMedia()
 
@@ -53,7 +60,7 @@ export function useSectionReveal(
         const start = opts.start ?? 'top 86%'
 
         if (opts.batch) {
-          gsap.set(targets, { autoAlpha: 0, y, x, scale: 0.985 })
+          gsap.set(targets, { opacity: 0, y, x, scale: 0.985 })
           for (const el of targets) el.classList.remove('reveal-pre')
 
           ScrollTrigger.batch(targets, {
@@ -61,14 +68,14 @@ export function useSectionReveal(
             once: true,
             onEnter(batch) {
               gsap.to(batch, {
-                autoAlpha: 1,
+                opacity: 1,
                 y: 0,
                 x: 0,
                 scale: 1,
                 duration,
                 stagger,
                 ease: 'power3.out',
-                clearProps: 'transform,opacity,visibility'
+                clearProps: 'transform,opacity'
               })
             }
           })
@@ -81,16 +88,16 @@ export function useSectionReveal(
 
         gsap.fromTo(
           targets,
-          { autoAlpha: 0, y, x, scale: 0.985 },
+          { opacity: 0, y, x, scale: 0.985 },
           {
-            autoAlpha: 1,
+            opacity: 1,
             y: 0,
             x: 0,
             scale: 1,
             duration,
             stagger,
             ease: 'power3.out',
-            clearProps: 'transform,opacity,visibility',
+            clearProps: 'transform,opacity',
             onStart() {
               for (const el of targets) el.classList.remove('reveal-pre')
             },

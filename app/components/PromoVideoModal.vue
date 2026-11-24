@@ -136,8 +136,12 @@ function onDialogPointerUp(e: PointerEvent) {
       </div>
 
       <div class="mt-3 flex flex-wrap items-center justify-between gap-3">
-        <p class="text-small text-muted">
-          Windows 10 and 11 (64-bit) · ~23 MB
+        <p class="flex flex-wrap items-center gap-x-3 gap-y-1 text-small text-muted">
+          <span>Windows 10 and 11 (64-bit) · ~23 MB</span>
+          <span aria-hidden="true">·</span>
+          <NuxtLink to="/tour" class="font-medium text-primary underline hover:text-highlighted" @click="closeDialog">
+            Full tour &amp; chapters
+          </NuxtLink>
         </p>
         <div class="flex flex-wrap items-center gap-2">
           <MsStoreBadge size="small" />

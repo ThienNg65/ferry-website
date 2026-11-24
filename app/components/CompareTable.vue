@@ -80,6 +80,10 @@ useSectionReveal(rootRef, '.reveal-pre', { batch: true })
         </table>
       </div>
 
+      <p class="reveal-pre mx-auto mt-3 max-w-[74rem] text-center text-xs text-muted">
+        Comparison facts and pricing verified November 2026 against official WinSCP 6.7, MobaXterm Home, and Termius documentation.
+      </p>
+
       <div class="reveal-pre mx-auto mt-6 flex flex-wrap items-center justify-center gap-2.5">
         <span class="text-small font-medium text-muted">Detailed comparisons:</span>
         <NuxtLink
