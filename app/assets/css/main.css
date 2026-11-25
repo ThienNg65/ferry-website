@@ -77,7 +77,7 @@ html {
 @media (prefers-reduced-motion: no-preference) {
   html:not(.lenis-smooth) { scroll-behavior: smooth; }
 }
-html.motion-ready .reveal-pre { opacity: 0; }
+html.motion-ready .reveal-pre { opacity: 0; visibility: hidden; }
 html:not(.light) .shot-light { display: none; }
 html.light .shot-dark { display: none; }
 
