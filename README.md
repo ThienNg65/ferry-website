@@ -9,7 +9,7 @@ Nuxt 4, `@nuxt/ui` v4 and Tailwind CSS 4, generated as a static site.
 ```bash
 npm install --registry=https://registry.npmjs.org
 npm run dev        # http://localhost:3000
-npm test           # vitest: the installer-picking logic
+npm test           # vitest: release-picking, SEO schema, and motion tests
 npm run generate   # static site into .output/public
 npx serve .output/public
 ```
@@ -26,9 +26,9 @@ The repository is `runtimeConfig.public.releaseRepo`. To test the fallback:
 NUXT_PUBLIC_RELEASE_REPO=ThienNg65/no-such-repo npm run generate
 ```
 
-## Screenshots
+## Screenshots and Media
 
-`public/screens/` holds 1600x1000 captures of the real app, as JPEG with a WebP twin. They were taken against a local Docker SSH server with made-up files. Keep them free of real hostnames, usernames and paths.
+`public/media/` holds dark-theme WebP captures of the app (`public/media/light/` holds light-theme twins) along with the `ferry-launch-demo-35s.mp4` tour video. Keep all captures free of real hostnames, usernames and paths.
 
 ## Deploy on Vercel
 
@@ -37,12 +37,12 @@ Import the repository. Vercel detects Nuxt. If you set it by hand:
 - Build command: `npm run generate`
 - Output directory: `.output/public`
 
-No environment variables are required. Set `NUXT_PUBLIC_SITE_URL` to the final domain for the social preview image link.
+No environment variables are required (`runtimeConfig.public.siteUrl` defaults to `https://www.ferryssh.com`). Override `NUXT_PUBLIC_SITE_URL` only when deploying to a non-production or preview domain.
 
 ## Notes
 
-The installer is not code-signed yet, and the page says so. Do not describe Ferry as a replacement for another product; the page speaks about what Ferry does.
+The direct NSIS installer is not code-signed yet, and the page says so (recommending the signed Microsoft Store build when a trusted install is preferred). Do not describe Ferry as a replacement for another product; the page speaks about what Ferry does.
 
 ## Design and conventions
 
-See [docs/design-system.md](docs/design-system.md) for tokens, fonts, patterns and the review checklist. Changes are listed in [CHANGELOG.md](CHANGELOG.md).
+See [DESIGN.md](DESIGN.md) and [docs/design-system.md](docs/design-system.md) for tokens, fonts, patterns and the review checklist. Changes are listed in [CHANGELOG.md](CHANGELOG.md).
