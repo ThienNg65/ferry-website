@@ -3,7 +3,7 @@ import { RELEASES_URL } from '~/utils/release'
 
 const site = useRuntimeConfig().public.siteUrl.replace(/\/$/, '')
 const title = 'Privacy Policy - Ferry for Windows'
-const description = 'Ferry Desktop App is local-first with zero telemetry, zero cookies, zero analytics, and zero accounts. The ferryssh.com website uses cookie-free Vercel Web Analytics.'
+const description = 'Ferry Desktop App is local-first with zero telemetry, zero cookies, zero analytics, and zero accounts. The ferryssh.com website uses cookie-free Vercel Web Analytics and Vercel Speed Insights.'
 
 useHead({
   title,
@@ -49,10 +49,10 @@ const localStorageRows = [
 
       <h1>Privacy Policy for Ferry</h1>
       <p class="mt-3 text-small text-muted">
-        Effective Date: 2026-11-23 · Policy Version: 1.1 · Maintainer: ThienNg65
+        Effective Date: 2026-11-25 · Policy Version: 1.2 · Maintainer: ThienNg65
       </p>
       <p class="mt-6 text-lead text-muted">
-        Ferry is a free, local-first Windows desktop SFTP and SSH client. The desktop app operates with zero telemetry, zero accounts, and zero analytics. The <code class="font-mono text-[0.9em]">ferryssh.com</code> website uses cookie-free Vercel Web Analytics to measure aggregate visits and download link clicks.
+        Ferry is a free, local-first Windows desktop SFTP and SSH client. The desktop app operates with zero telemetry, zero accounts, and zero analytics. The <code class="font-mono text-[0.9em]">ferryssh.com</code> website uses cookie-free Vercel Web Analytics and Vercel Speed Insights to measure aggregate visits, download link clicks, and anonymous page performance.
       </p>
 
       <h2 class="mt-12 text-2xl">1. Ferry Desktop App - Data we do not collect</h2>
@@ -96,10 +96,14 @@ const localStorageRows = [
         In <strong>Settings → Privacy &amp; Legal</strong> you can configure history retention (<code class="font-mono text-[0.9em]">30 days</code>, <code class="font-mono text-[0.9em]">90 days</code> default, <code class="font-mono text-[0.9em]">1 year</code>, or <code class="font-mono text-[0.9em]">Unlimited</code>), run <strong>Export My Data</strong> (JSON excluding passwords/passphrases), or run <strong>Delete All Local Data</strong> to erase all saved sites, credentials, history, and known hosts.
       </p>
 
-      <h2 class="mt-12 text-2xl">5. Website analytics (<code class="font-mono text-[0.9em]">ferryssh.com</code>)</h2>
+      <h2 class="mt-12 text-2xl">5. Website analytics &amp; performance (<code class="font-mono text-[0.9em]">ferryssh.com</code>)</h2>
       <p class="mt-3 text-default">
-        Unlike the Ferry desktop app, the <code class="font-mono text-[0.9em]">ferryssh.com</code> marketing website uses privacy-friendly, cookie-free <strong>Vercel Web Analytics</strong> to measure aggregate page views and outbound download/Microsoft Store clicks. It does not set cookies, store personal identifiers, or track visitors across other websites.
+        Unlike the Ferry desktop app, the <code class="font-mono text-[0.9em]">ferryssh.com</code> marketing website configures privacy-friendly, cookie-free measurement integrations:
       </p>
+      <ul class="mt-4 list-disc space-y-2 pl-5 text-default">
+        <li><strong>Vercel Web Analytics:</strong> Measures aggregate page views and outbound download/Microsoft Store clicks without setting cookies, storing personal identifiers, or tracking visitors across other websites.</li>
+        <li><strong>Vercel Speed Insights:</strong> When enabled in Vercel project settings, measures anonymous Web Vitals (including soft-navigation metrics) and page performance using route/URL, network speed, browser, device type, operating system, country, and Web Vitals attribution fields. Vercel documents these data points as anonymous and not associated with an individual visitor or IP address.</li>
+      </ul>
 
       <h2 class="mt-12 text-2xl">6. Contact</h2>
       <p class="mt-3 text-default">
