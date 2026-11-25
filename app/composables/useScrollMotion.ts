@@ -4,6 +4,30 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 let refreshTimer: ReturnType<typeof setTimeout> | undefined
 
+export interface RevealTarget {
+  inert: boolean
+  setAttribute(name: string, value: string): void
+  removeAttribute(name: string): void
+  classList: {
+    remove(token: string): void
+  }
+}
+
+export function hideRevealTargets(targets: readonly RevealTarget[]) {
+  for (const el of targets) {
+    el.setAttribute('inert', '')
+    el.inert = true
+  }
+}
+
+export function showRevealTargets(targets: readonly RevealTarget[]) {
+  for (const el of targets) {
+    el.inert = false
+    el.removeAttribute('inert')
+    el.classList.remove('reveal-pre')
+  }
+}
+
 export function scheduleScrollTriggerRefresh(delayMs = 320) {
   if (!import.meta.client) return
   clearTimeout(refreshTimer)
@@ -24,7 +48,8 @@ export interface SectionRevealOptions {
 
 /**
  * Animates elements marked `.reveal-pre` once as they enter the viewport.
- * Respects `prefers-reduced-motion` and cleans up all GSAP contexts on unmount.
+ * Keeps hidden targets non-focusable (`autoAlpha` + `inert`) until revealed,
+ * respects `prefers-reduced-motion`, and cleans up all GSAP contexts on unmount.
  */
 export function useSectionReveal(
   rootRef: Ref<HTMLElement | undefined>,
@@ -33,15 +58,14 @@ export function useSectionReveal(
 ) {
   let ctx: gsap.Context | undefined
   let mm: gsap.MatchMedia | undefined
+  let activeTargets: HTMLElement[] = []
 
   onMounted(() => {
     const root = rootRef.value
     if (!root) return
 
     if (typeof navigator !== 'undefined' && navigator.webdriver) {
-      for (const el of root.querySelectorAll<HTMLElement>(selector)) {
-        el.classList.remove('reveal-pre')
-      }
+      showRevealTargets(Array.from(root.querySelectorAll<HTMLElement>(selector)))
       return
     }
 
@@ -52,6 +76,7 @@ export function useSectionReveal(
       ctx = gsap.context(() => {
         const targets = Array.from(root.querySelectorAll<HTMLElement>(selector))
         if (!targets.length) return
+        activeTargets = targets
 
         const y = opts.y ?? 22
         const x = opts.x ?? 0
@@ -60,46 +85,49 @@ export function useSectionReveal(
         const start = opts.start ?? 'top 86%'
 
         if (opts.batch) {
-          gsap.set(targets, { opacity: 0, y, x, scale: 0.985 })
+          gsap.set(targets, { autoAlpha: 0, y, x, scale: 0.985 })
+          hideRevealTargets(targets)
           for (const el of targets) el.classList.remove('reveal-pre')
 
           ScrollTrigger.batch(targets, {
             start,
             once: true,
             onEnter(batch) {
+              showRevealTargets(batch as HTMLElement[])
               gsap.to(batch, {
-                opacity: 1,
+                autoAlpha: 1,
                 y: 0,
                 x: 0,
                 scale: 1,
                 duration,
                 stagger,
                 ease: 'power3.out',
-                clearProps: 'transform,opacity'
+                clearProps: 'transform,opacity,visibility'
               })
             }
           })
-          return
+          return () => showRevealTargets(targets)
         }
 
         const triggerEl = typeof opts.trigger === 'string'
           ? opts.trigger
           : opts.trigger?.value ?? root
 
+        hideRevealTargets(targets)
         gsap.fromTo(
           targets,
-          { opacity: 0, y, x, scale: 0.985 },
+          { autoAlpha: 0, y, x, scale: 0.985 },
           {
-            opacity: 1,
+            autoAlpha: 1,
             y: 0,
             x: 0,
             scale: 1,
             duration,
             stagger,
             ease: 'power3.out',
-            clearProps: 'transform,opacity',
+            clearProps: 'transform,opacity,visibility',
             onStart() {
-              for (const el of targets) el.classList.remove('reveal-pre')
+              showRevealTargets(targets)
             },
             scrollTrigger: {
               trigger: triggerEl,
@@ -108,18 +136,21 @@ export function useSectionReveal(
             }
           }
         )
+        return () => showRevealTargets(targets)
       }, root)
     })
 
-    // Ensure elements are visible immediately if reduced motion is enabled.
+    // Ensure elements are visible and focusable immediately if reduced motion is enabled.
     mm.add('(prefers-reduced-motion: reduce)', () => {
       const targets = Array.from(root.querySelectorAll<HTMLElement>(selector))
-      for (const el of targets) el.classList.remove('reveal-pre')
+      showRevealTargets(targets)
     })
   })
 
   onUnmounted(() => {
     ctx?.revert()
     mm?.revert()
+    showRevealTargets(activeTargets)
+    activeTargets = []
   })
 }
