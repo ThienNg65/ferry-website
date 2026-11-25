@@ -1,4 +1,5 @@
 const assetCacheHeaders = { 'Cache-Control': 'public, max-age=604800, stale-while-revalidate=86400' }
+const isPreview = process.env.VERCEL_ENV === 'preview'
 
 export default defineNuxtConfig({
   compatibilityDate: '2026-11-01',
@@ -63,7 +64,12 @@ export default defineNuxtConfig({
       title: 'Ferry - Modern Windows SFTP & SSH Client',
       meta: [
         { name: 'color-scheme', content: 'dark light' },
-        { name: 'robots', content: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' },
+        {
+          name: 'robots',
+          content: isPreview
+            ? 'noindex, nofollow'
+            : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
+        },
         { property: 'og:site_name', content: 'Ferry' },
         { property: 'og:locale', content: 'en_US' },
         { property: 'og:type', content: 'website' },
