@@ -15,6 +15,7 @@ useHead({
       '--badge-h': size === 'small' ? '2.75rem' : '3rem',
       '--badge-w': size === 'small' ? '8.75rem' : '9.75rem'
     }"
+    @click.capture="trackAdsConversion()"
   >
     <ms-store-badge
       class="hidden dark:inline-flex"

@@ -3,7 +3,7 @@ import { RELEASES_URL } from '~/utils/release'
 
 const site = useRuntimeConfig().public.siteUrl.replace(/\/$/, '')
 const title = 'Privacy Policy - Ferry for Windows'
-const description = 'Ferry Desktop App is local-first with zero telemetry, zero cookies, zero analytics, and zero accounts. The ferryssh.com website uses cookie-free Vercel Web Analytics.'
+const description = 'Ferry Desktop App is local-first with zero telemetry, zero cookies, zero analytics, and zero accounts. The ferryssh.com website uses cookie-free Vercel Web Analytics and Google Ads conversion tracking.'
 
 useHead({
   title,
@@ -49,10 +49,10 @@ const localStorageRows = [
 
       <h1>Privacy Policy for Ferry</h1>
       <p class="mt-3 text-small text-muted">
-        Effective Date: 2026-11-23 · Policy Version: 1.1 · Maintainer: ThienNg65
+        Effective Date: 2026-11-26 · Policy Version: 1.2 · Maintainer: ThienNg65
       </p>
       <p class="mt-6 text-lead text-muted">
-        Ferry is a free, local-first Windows desktop SFTP and SSH client. The desktop app operates with zero telemetry, zero accounts, and zero analytics. The <code class="font-mono text-[0.9em]">ferryssh.com</code> website uses cookie-free Vercel Web Analytics to measure aggregate visits and download link clicks.
+        Ferry is a free, local-first Windows desktop SFTP and SSH client. The desktop app operates with zero telemetry, zero accounts, and zero analytics. The <code class="font-mono text-[0.9em]">ferryssh.com</code> website uses cookie-free Vercel Web Analytics and Google Ads conversion tracking to measure aggregate visits and download or Microsoft Store clicks.
       </p>
 
       <h2 class="mt-12 text-2xl">1. Ferry Desktop App - Data we do not collect</h2>
@@ -98,7 +98,7 @@ const localStorageRows = [
 
       <h2 class="mt-12 text-2xl">5. Website analytics (<code class="font-mono text-[0.9em]">ferryssh.com</code>)</h2>
       <p class="mt-3 text-default">
-        Unlike the Ferry desktop app, the <code class="font-mono text-[0.9em]">ferryssh.com</code> marketing website uses privacy-friendly, cookie-free <strong>Vercel Web Analytics</strong> to measure aggregate page views and outbound download/Microsoft Store clicks. It does not set cookies, store personal identifiers, or track visitors across other websites.
+        Unlike the Ferry desktop app, the <code class="font-mono text-[0.9em]">ferryssh.com</code> marketing website uses privacy-friendly, cookie-free <strong>Vercel Web Analytics</strong> to measure aggregate page views and outbound download/Microsoft Store clicks, as well as <strong>Google Ads conversion tracking</strong> (<code class="font-mono text-[0.9em]">gtag.js</code>) to measure whether Google Ads clicks lead to downloads or Microsoft Store visits. Google Ads conversion tracking may set Google conversion cookies (such as <code class="font-mono text-[0.9em]">_gcl_au</code>) in your browser.
       </p>
 
       <h2 class="mt-12 text-2xl">6. Contact</h2>

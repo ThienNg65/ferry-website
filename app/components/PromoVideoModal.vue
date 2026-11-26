@@ -145,7 +145,7 @@ function onDialogPointerUp(e: PointerEvent) {
         </p>
         <div class="flex flex-wrap items-center gap-2">
           <MsStoreBadge size="small" />
-          <UButton v-if="href" :to="href" color="neutral" variant="outline" size="md" class="min-h-11 rounded-[5px] font-medium">
+          <UButton v-if="href" :to="href" color="neutral" variant="outline" size="md" class="min-h-11 rounded-[5px] font-medium" @click="trackAdsConversion()">
             <span>{{ label || 'Direct installer' }}</span>
           </UButton>
         </div>

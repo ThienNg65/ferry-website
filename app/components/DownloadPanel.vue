@@ -26,11 +26,11 @@ useSectionReveal(rootRef, '.reveal-pre', { batch: true })
 
         <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
           <MsStoreBadge />
-          <UButton :to="href" color="neutral" variant="outline" size="xl" class="min-h-12 rounded-[5px] px-5 font-medium">
+          <UButton :to="href" color="neutral" variant="outline" size="xl" class="min-h-12 rounded-[5px] px-5 font-medium" @click="trackAdsConversion()">
             <UIcon name="i-lucide-download" class="size-4 shrink-0 text-primary" aria-hidden="true" />
             <span>{{ installer ? `Ferry-Setup-${installer.version}.exe` : label }}</span>
           </UButton>
-          <UButton v-if="installer?.portableUrl" :to="portableHref" color="neutral" variant="outline" size="xl" class="min-h-12 rounded-[5px] px-5 font-medium">
+          <UButton v-if="installer?.portableUrl" :to="portableHref" color="neutral" variant="outline" size="xl" class="min-h-12 rounded-[5px] px-5 font-medium" @click="trackAdsConversion()">
             <UIcon name="i-lucide-archive" class="size-4 shrink-0 text-primary" aria-hidden="true" />
             <span>Portable .zip</span>
           </UButton>

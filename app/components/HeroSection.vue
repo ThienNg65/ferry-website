@@ -27,7 +27,7 @@ const badges = [
         <div class="rise mt-8 flex flex-col items-center gap-3" style="--d: 110ms">
           <MsStoreBadge />
           <p class="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-small text-muted">
-            <a :href="href" class="-my-3 inline-block py-3 font-medium text-primary underline hover:text-highlighted">
+            <a :href="href" class="-my-3 inline-block py-3 font-medium text-primary underline hover:text-highlighted" @click="trackAdsConversion()">
               {{ installer ? `Download v${installer.version} (.exe)` : label }}
             </a>
             <span aria-hidden="true" class="hidden sm:inline">·</span>

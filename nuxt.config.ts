@@ -58,6 +58,15 @@ export default defineNuxtConfig({
           // Mark motion-ready before first paint only when reduced motion is off, preventing SSR hydration FOUC on below-the-fold reveals.
           innerHTML: "if(!window.matchMedia('(prefers-reduced-motion:reduce)').matches){document.documentElement.classList.add('motion-ready')}",
           tagPosition: 'head'
+        },
+        {
+          src: 'https://www.googletagmanager.com/gtag/js?id=AW-18597036336',
+          async: true,
+          tagPosition: 'head'
+        },
+        {
+          innerHTML: "window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','AW-18597036336');",
+          tagPosition: 'head'
         }
       ],
       title: 'Ferry - Modern Windows SFTP & SSH Client',

@@ -129,11 +129,11 @@ onMounted(() => {
         </div>
         <div class="flex flex-wrap items-center gap-3">
           <MsStoreBadge />
-          <a :href="href" class="inline-flex min-h-12 items-center gap-2 rounded-[5px] border border-default bg-default px-4 text-small font-medium text-highlighted hover:border-primary/50 hover:text-primary">
+          <a :href="href" class="inline-flex min-h-12 items-center gap-2 rounded-[5px] border border-default bg-default px-4 text-small font-medium text-highlighted hover:border-primary/50 hover:text-primary" @click="trackAdsConversion()">
             <UIcon name="i-lucide-download" class="size-4 text-primary" aria-hidden="true" />
             <span>{{ installer ? `v${installer.version} (.exe)` : label }}</span>
           </a>
-          <a v-if="installer?.portableUrl" :href="portableHref" class="inline-flex min-h-12 items-center gap-2 rounded-[5px] border border-default bg-default px-4 text-small font-medium text-highlighted hover:border-primary/50 hover:text-primary">
+          <a v-if="installer?.portableUrl" :href="portableHref" class="inline-flex min-h-12 items-center gap-2 rounded-[5px] border border-default bg-default px-4 text-small font-medium text-highlighted hover:border-primary/50 hover:text-primary" @click="trackAdsConversion()">
             <UIcon name="i-lucide-archive" class="size-4 text-primary" aria-hidden="true" />
             <span>Portable .zip</span>
           </a>

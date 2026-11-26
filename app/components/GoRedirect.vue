@@ -6,11 +6,23 @@ useHead({
   meta: [{ name: 'robots', content: 'noindex, nofollow' }]
 })
 
+let active = true
+let timer: number | undefined
+
+onUnmounted(() => {
+  active = false
+  if (timer !== undefined) window.clearTimeout(timer)
+})
+
 onMounted(() => {
-  // Brief delay so @vercel/analytics records the /go/* pageview before navigating away.
-  window.setTimeout(() => {
-    window.location.replace(props.target)
-  }, 250)
+  // Brief delay so @vercel/analytics and Google Ads conversion beacon fire before navigating away.
+  const analyticsDelay = new Promise<void>((resolve) => {
+    timer = window.setTimeout(resolve, 250)
+  })
+  const adsConversion = new Promise<void>(resolve => trackAdsConversion(resolve))
+  Promise.all([analyticsDelay, adsConversion]).then(() => {
+    if (active) window.location.replace(props.target)
+  })
 })
 </script>
 
