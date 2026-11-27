@@ -14,7 +14,7 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ### Changed
 
-- Rewrote the home, `/vs/*` and `/tour` copy and meta descriptions in plain developer language, shortened the `/vs/*` descriptions to fit search results, and added "Free" and "live log tail" to the home title.
+- Rewrote the home, `/vs/*` and `/tour` copy and meta descriptions in plain developer language, shortened the `/vs/*` descriptions to fit search results, and added "Free" and "live log tail" to the home title. Replaced the social preview image with a branded card (headline, keyword badges, app screenshot).
 
 ### Removed
 

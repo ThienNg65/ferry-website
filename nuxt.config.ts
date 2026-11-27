@@ -77,6 +77,7 @@ export default defineNuxtConfig({
         { property: 'og:locale', content: 'en_US' },
         { property: 'og:type', content: 'website' },
         { property: 'og:image', content: 'https://www.ferryssh.com/og.jpg' },
+        { property: 'og:image:type', content: 'image/jpeg' },
         { property: 'og:image:width', content: '1200' },
         { property: 'og:image:height', content: '630' },
         { property: 'og:image:alt', content: 'Ferry for Windows: dual-pane SFTP, SSH terminal, live logs and server monitor in one window' },
