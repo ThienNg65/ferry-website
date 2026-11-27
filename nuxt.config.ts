@@ -69,7 +69,7 @@ export default defineNuxtConfig({
           tagPosition: 'head'
         }
       ],
-      title: 'Ferry - Modern Windows SFTP & SSH Client',
+      title: 'Ferry - Free Windows SFTP & SSH Client with Live Log Tail',
       meta: [
         { name: 'color-scheme', content: 'dark light' },
         { name: 'robots', content: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' },
@@ -79,7 +79,7 @@ export default defineNuxtConfig({
         { property: 'og:image', content: 'https://www.ferryssh.com/og.jpg' },
         { property: 'og:image:width', content: '1200' },
         { property: 'og:image:height', content: '630' },
-        { property: 'og:image:alt', content: 'Ferry for Windows - dual-pane SFTP, SSH terminal, live logs, and server monitor in one window' },
+        { property: 'og:image:alt', content: 'Ferry for Windows: dual-pane SFTP, SSH terminal, live logs and server monitor in one window' },
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:image', content: 'https://www.ferryssh.com/og.jpg' },
         { name: 'theme-color', content: '#030816', media: '(prefers-color-scheme: dark)' },

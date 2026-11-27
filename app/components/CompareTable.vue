@@ -39,10 +39,10 @@ useSectionReveal(rootRef, '.reveal-pre', { batch: true })
     <div class="page-x">
       <div class="stack-head reveal-pre mx-auto max-w-[44rem] text-center">
         <h2 id="compare-title">
-          <span class="heading-muted">How Ferry</span> compares
+          <span class="heading-muted">How Ferry compares to</span> WinSCP, MobaXterm and Termius
         </h2>
         <p class="text-lead text-muted">
-          Next to the three tools Windows developers most often use for the same job.
+          Feature by feature, including where the other tools do more.
         </p>
       </div>
 

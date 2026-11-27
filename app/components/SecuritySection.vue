@@ -3,7 +3,7 @@ const pillars = [
   {
     icon: 'i-lucide-lock',
     title: 'Encrypted with Windows DPAPI',
-    body: 'Saved passwords and key passphrases stay encrypted on your PC and never leave the local backend unencrypted.'
+    body: 'Saved passwords and key passphrases are decrypted only on your PC, at the moment you connect.'
   },
   {
     icon: 'i-lucide-hard-drive',
@@ -13,7 +13,7 @@ const pillars = [
   {
     icon: 'i-lucide-shield-check',
     title: 'No telemetry, ~23 MB install',
-    body: 'Zero usage tracking or crash reports, built on Windows WebView2 so it installs small and starts fast.'
+    body: 'The app sends no usage data or crash reports. It runs on Windows WebView2, which keeps the install small.'
   }
 ] as const
 
@@ -30,7 +30,7 @@ useSectionReveal(rootRef, '.reveal-pre', { batch: true })
           <span class="heading-muted">Built to stay</span> on your machine
         </h2>
         <p class="text-lead text-muted">
-          Your SSH keys, host list, and server passwords belong on your PC-not behind a paid subscription.
+          Your SSH keys, host list and passwords stay on your PC. No subscription, no vendor cloud.
         </p>
       </div>
 

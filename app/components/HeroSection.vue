@@ -21,7 +21,7 @@ const badges = [
           <span class="heading-muted">Modern Windows</span> SFTP &amp; SSH Client
         </h1>
         <p class="rise mx-auto mt-5 max-w-[54ch] text-lead text-muted" style="--d: 60ms">
-          Stop switching between WinSCP, PuTTY, and tail windows. Move files, run commands, watch logs, and check server health in one app.
+          Files, terminal, live logs and server stats share one SSH connection in one Windows app, so you can stop alt-tabbing between WinSCP, PuTTY and a tail window.
         </p>
 
         <div class="rise mt-8 flex flex-col items-center gap-3" style="--d: 110ms">

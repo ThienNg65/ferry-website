@@ -2,7 +2,7 @@
 const cards = [
   {
     title: 'Import from WinSCP, PuTTY, and ~/.ssh/config',
-    body: 'Bring your saved hosts, ports, and usernames over in one step instead of retyping dozens of servers.',
+    body: 'Import saved hosts, ports and usernames in one step instead of retyping dozens of servers.',
     src: '/media/import-sessions.webp',
     width: 1600,
     height: 1000,
@@ -10,7 +10,7 @@ const cards = [
   },
   {
     title: 'Jump hosts, proxies, and 2FA',
-    body: 'Reach private servers through bastions, SOCKS or HTTP proxies, SSH agents, and interactive 2FA prompts.',
+    body: 'Reach private servers through bastions and SOCKS or HTTP proxies, with SSH agent and interactive 2FA prompt support.',
     src: '/media/site-options.webp',
     width: 1600,
     height: 1169,
@@ -26,7 +26,7 @@ const cards = [
   },
   {
     title: 'Tabs coloured by environment',
-    body: 'Keep Production, Staging, and Development servers visually separate so you never run a command on the wrong box.',
+    body: 'Group Production, Staging and Development servers by colour so you can tell at a glance which box a command will hit.',
     src: '/media/connections-import.webp',
     width: 1600,
     height: 1000,
@@ -43,10 +43,10 @@ useSectionReveal(rootRef, '.reveal-pre', { batch: true })
     <div class="page-x">
       <div class="stack-head reveal-pre mx-auto max-w-[44rem] text-center">
         <h2 id="bento-title">
-          <span class="heading-muted">Switch in seconds,</span> stay connected
+          <span class="heading-muted">Bring your</span> WinSCP and PuTTY sites
         </h2>
         <p class="text-lead text-muted">
-          Keep your saved hosts, jump boxes, and dual-pane habits without starting from scratch.
+          Import your saved hosts and jump boxes and keep the dual-pane layout you already use.
         </p>
       </div>
 

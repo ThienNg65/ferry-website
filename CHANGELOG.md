@@ -12,6 +12,10 @@ All notable changes to this project are documented here. The format follows [Kee
 - Full `v1.3.2+` product and distribution sync: Microsoft Store (`9PJPWK568P53`), Direct `.exe` + Portable `.zip` (`pickInstaller` in `app/utils/release.ts`), in-place remote file editing, Folder Sync & Compare, and File Visibility Filters.
 - Static SEO & legal routes: `/privacy`, `/terms`, `/vs/winscp`, `/vs/termius`, `/vs/mobaxterm`, `/vs/filezilla`, plus `public/robots.txt`, `public/sitemap.xml`, and `SoftwareApplication`, `WebSite`, `FAQPage`, and `BreadcrumbList` JSON-LD schemas.
 
+### Changed
+
+- Rewrote the home, `/vs/*` and `/tour` copy and meta descriptions in plain developer language, shortened the `/vs/*` descriptions to fit search results, and added "Free" and "live log tail" to the home title.
+
 ### Removed
 
 - Retired coded HTML/CSS UI demos (`Demo*`, `HeroDemo`, `useDemoLoop`, `demoData`), decorative `background.css` (`.grid-fade`), `AmbientConnectionBackground.vue`, `MobileSectionNav.vue`, `SpotlightSurface.vue`, `.btn-win` hover label swaps, and `CodeBlock.vue`.

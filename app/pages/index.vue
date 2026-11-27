@@ -2,8 +2,8 @@
 const { installer, href, portableHref, label, releasesUrl, notesUrl } = useLatestRelease()
 const site = useRuntimeConfig().public.siteUrl.replace(/\/$/, '')
 
-const title = 'Ferry - Modern Windows SFTP & SSH Client'
-const description = 'Move files, run SSH commands, follow live tail -F logs, and check server health in one ~23 MB Windows app. Import WinSCP and PuTTY sites in seconds.'
+const title = 'Ferry - Free Windows SFTP & SSH Client with Live Log Tail'
+const description = 'Free Windows SFTP and SSH client: dual-pane transfer, terminal, live tail -F logs and server monitor in one ~23 MB app. Imports WinSCP and PuTTY sites.'
 
 useHead({
   link: [
@@ -22,7 +22,7 @@ useSeoMeta({
   title,
   description,
   ogTitle: title,
-  ogDescription: 'Stop switching between WinSCP, PuTTY, and tail windows. Dual-pane SFTP, SSH terminal, live logs, and server health in one Windows app.',
+  ogDescription: 'Stop alt-tabbing between WinSCP, PuTTY and tail windows. Dual-pane SFTP, SSH terminal, live logs and server health in one free Windows app.',
   ogUrl: `${site}/`,
   ogImage: `${site}/og.jpg`,
   twitterTitle: title,

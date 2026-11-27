@@ -47,7 +47,7 @@ const year = new Date().getFullYear()
           <span>Ferry</span>
         </NuxtLink>
         <p class="mt-4 max-w-[30ch] text-small text-muted">
-          Windows SFTP and SSH client with built-in terminal, live log tail, and server monitor.
+          Free Windows SFTP and SSH client with a built-in terminal, live log tail and server monitor.
         </p>
         <a
           :href="RELEASES_URL"

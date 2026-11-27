@@ -6,7 +6,7 @@ const route = useRoute()
 const site = useRuntimeConfig().public.siteUrl.replace(/\/$/, '')
 
 const title = 'Ferry 35-Second Product Tour - Windows SFTP, SSH & Live Logs'
-const description = 'Watch how Ferry imports WinSCP & PuTTY sites, runs dual-pane SFTP, embeds an SSH terminal, tails logs live, and monitors Linux servers on Windows.'
+const description = 'Watch Ferry import WinSCP and PuTTY sites, move files in dual-pane SFTP, run SSH commands, tail logs live and monitor a Linux server in 35 seconds.'
 
 const videoEl = ref<HTMLVideoElement | null>(null)
 const currentTime = ref(0)
@@ -62,7 +62,7 @@ onMounted(() => {
 
       <h1>Ferry for Windows: 35-Second Launch Tour</h1>
       <p class="mt-4 max-w-[66ch] text-lead text-muted">
-        See how one ~23 MB Windows app replaces juggling separate file-transfer, SSH terminal, log tailing, and server monitoring windows.
+        One ~23 MB Windows app covers file transfer, the SSH terminal, log tailing and server monitoring. Here is what that looks like in 35 seconds.
       </p>
 
       <div class="mt-8 overflow-hidden rounded-[16px] border border-default bg-[#070b14] shadow-2xl">
@@ -96,7 +96,7 @@ onMounted(() => {
       </div>
 
       <section class="mt-12" aria-labelledby="chapters-title">
-        <h2 id="chapters-title" class="text-2xl">What the 35-second walkthrough covers</h2>
+        <h2 id="chapters-title" class="text-2xl">What the 35-second tour covers</h2>
         <div class="mt-6 grid gap-4 sm:grid-cols-2">
           <button
             v-for="c in tourChapters"
@@ -124,7 +124,7 @@ onMounted(() => {
             Try Ferry on Windows 10 &amp; 11 (64-bit)
           </h2>
           <p class="mt-1 text-small text-muted">
-            Free, local-first DPAPI encryption, ~23 MB install with zero accounts or telemetry.
+            Free, ~23 MB install. Credentials are encrypted with Windows DPAPI, and the app needs no account and has no telemetry.
           </p>
         </div>
         <div class="flex flex-wrap items-center gap-3">

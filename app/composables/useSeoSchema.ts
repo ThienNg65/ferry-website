@@ -41,7 +41,7 @@ export const tourChapters: readonly TourChapter[] = [
     name: 'Server CPU, RAM & process monitor',
     startOffset: 23,
     endOffset: 35,
-    summary: 'Inspect real-time CPU load, memory, swap, disk usage, and active processes over your open SSH connection with no server agent.'
+    summary: 'Check CPU load, memory, swap, disk usage and running processes over your open SSH connection, with no agent on the server.'
   }
 ]
 
@@ -55,7 +55,7 @@ export function buildHomeJsonLd(siteUrl: string, version?: string) {
       name: 'Ferry',
       alternateName: ['ferryssh.com', 'Ferry for Windows', 'Ferry App'],
       url: `${base}/`,
-      description: 'Windows SSH and SFTP client combining dual-pane file transfer, built-in SSH terminal, live tail -F logs, and server monitor in one app.'
+      description: 'Free Windows SSH and SFTP client with dual-pane file transfer, a built-in SSH terminal, live tail -F logs and a server monitor in one app.'
     },
     {
       '@context': 'https://schema.org',

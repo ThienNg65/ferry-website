@@ -4,8 +4,8 @@ useSectionReveal(rootRef, '.reveal-pre', { batch: true })
 
 const logBullets = [
   ['i-lucide-radio', 'Stream logs live as lines are written with tail -F'],
-  ['i-lucide-filter', 'Filter straight to Errors or Warnings without grepping manually'],
-  ['i-lucide-align-right', 'Spot error spikes quickly on the right-hand overview rail']
+  ['i-lucide-filter', 'Filter to Errors or Warnings without writing a grep'],
+  ['i-lucide-align-right', 'Spot error spikes on the overview rail beside the log']
 ] as const
 
 const monitorBullets = [
@@ -24,7 +24,7 @@ const monitorBullets = [
             <span class="heading-muted">Find broken</span> deploys faster
           </h2>
           <p class="mt-4 max-w-[46ch] text-lead text-muted">
-            When a service goes down, you should not have to open another SSH window just to read logs.
+            When a service goes down, read its logs in the tab you already have open.
           </p>
           <ul class="mt-6 space-y-3.5">
             <li v-for="[icon, text] in logBullets" :key="text" class="flex items-start gap-3 text-default">
